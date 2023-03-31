@@ -1,0 +1,30 @@
+/* * {
+    color: brown;
+} */
+/* 요소 전체에 적용 */
+
+/* h2{
+    color: brown;
+} */
+/* 특정 태그 적용 */
+
+
+/* h2, p{
+    color: brown;
+} */
+/* 여러 종류 태그에 적용  */
+
+.coding{
+    color: brown;
+}
+/* 특정 클래스에 해당되는 요소에 대해 적용 */
+
+#original{
+    color:brown;
+}
+/* 특정 아이디에 해당되는 요소에 대해 적용 */
+
+/* div p {
+    color: brown;
+} */
+/* 부모 요소 내의 특정 자식 요소 */
