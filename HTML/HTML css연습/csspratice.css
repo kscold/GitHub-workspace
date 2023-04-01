@@ -1,0 +1,25 @@
+div.pink{
+    box-sizing: border-box;
+    padding: 100px; /* 보더라인으로 부터 패딩 5px 설정 */
+    border-width: 2px; /* 보더의 실선 크기 설정*/
+    border-style: solid; 
+    border-color:pink;
+    background-color: pink;/*배경의 색상을 지정*/
+}
+
+div.blue{
+    box-sizing: border-box;
+    padding: 100px; /* 보더라인으로 부터 패딩 5px 설정 */
+    border-width: 2px; /* 보더의 실선 크기 설정*/
+    border-style: solid; 
+    border-color:blue;
+    background-color:blue;/*배경의 색상을 지정*/
+}
+
+
+div.pink, div.blue{
+    width: 50px; /* 넓이 박스 설정*/
+    height: 50px; /* 높이 박스 설정*/
+    float: right; /*오른쪽으로 붙이기*/
+}
+
