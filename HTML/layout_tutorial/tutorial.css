@@ -1,48 +1,63 @@
 * {
     box-sizing: border-box;
 }
-
+/* box-sizing 속성은 html 요소 크기를 계산하는 방식, border-box 값은 요소의 크기를 내부 콘텐츠(content)와 테두리(border) 영역을 포함한 전체 박스의 크기로 계산 */
 
 body{
     margin: 0;
+
     padding: 0;
+
     font-family: 'Noto Sans KR', sans-serif;;
+
 }
+
 
 a:link, a:visited{
     text-decoration: none;
+    /* text-decoration: none;을 설정하였습니다. text-decoration 속성은 텍스트에 대한 장식을 지정하는데, none 값을 설정하여 밑줄(underline)이나 취소선(line-through)을 없앤 것 */
     color: black;
+    /* 컬러는 블랙으로 설정 */
 }
 
 .container{
     width: 960px;
+    /* 통상 960필셀정도 내용이 = 요소들 글씨 위치 */
     margin: 0 auto;
 }
 
+
+
 nav{
-    height:  80px;
+    height: 80px;
     background-color: crimson;
     line-height: 80px;
+    /* 글자들이 너무 위쪽으로 붙음 위쪽 마진이 거의 0이라서 라인 하이트를 80을 줌 */
 }
 
 .nav-logo{
     font-size: 30px;
-    float: 0;
-    margin: 0;
+    float: left;
+    /* float: left; float는 요소를 왼쪽으로 부유시켜 블록 레벨 요소를 인라인 레벨 요소처럼 배치 따라서 잡혀진 div해결 가능 */
+    margin: 0; 
+    /* 여백(가장 외곽)은 0을 설정  */
 }
 
 .nav-menu{
     float: right;
+    /* float를 오른쪽으로 div 위로 부유시켜 오른쪽으로 붙임 */
 }
 
 .nav-btn{
     list-style-type: none;
-    /* 불필요한 점을 없앰 */
+    /* 불필요한 점을 없애기 위해서 list-style-type: none; */
     margin: 0;
+    /* 여백을 0으로 설정 */
 }
 
 ul.nav-btn > li{
     float: left;
+    /* float: left; float는 요소를 왼쪽으로 부유시켜 블록 레벨 요소를 인라인 레벨 요소처럼 배치 따라서 잡혀진 div해결 가능 3개의 li을  */
     margin-left: 25px;
     font-size: 20;
     font-size: bold;
@@ -52,4 +67,13 @@ nav::after{
     counter: "";
     display: block;
     clear: both;
+    /* float 왼쪽 오른쪽이 튀어나가지 않도록 도와줌 */
+}
+
+
+/* header */
+.hd{
+    position: relative;
+    height: 600px;
+    text-align: center;
 }
