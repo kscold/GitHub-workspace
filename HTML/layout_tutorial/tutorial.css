@@ -22,7 +22,7 @@ a:link, a:visited{
 
 .container{
     width: 960px;
-    /* 통상 960필셀정도 내용이 = 요소들 글씨 위치 */
+    /* 통상 960필셀정도 내용이 = 요소들 글씨 위치  300씩 3개 이지미 너비 나머지 30씩 두개 마진*/
     margin: 0 auto;
 }
 
@@ -64,7 +64,7 @@ ul.nav-btn > li{
 }
 
 nav::after{
-    counter: "";
+    content: "";
     display: block;
     clear: both;
     /* float 왼쪽 오른쪽이 튀어나가지 않도록 도와줌 */
@@ -76,4 +76,94 @@ nav::after{
     position: relative;
     height: 600px;
     text-align: center;
+    /* 텍스트 위치를 가운데로 */
+}
+
+.hd-title{
+    font-size: 80px;
+    /* POSSIBILITY TO REALITY!의 폰트 사이즈를 측정 */
+    margin-top: 0;
+    /* POSSIBILITY TO REALITY! 위쪽 마진을 0 */
+    margin-bottom: 30px;
+    /* POSSIBILITY TO REALITY! 아래쪽 마진을 20 */
+    padding-top: 200px;
+    /* 요소를 깨드리지 않기 위해 패딩을 씀 내용과 보더 사이*/
+}
+
+.hd-content{
+    font-size: 25px;
+    /* 여러분을 응원합니다 폰트 사이즈를 25 */
+}
+
+.hd::before{
+    content: "";
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.5; 
+    /* 투명도 설정 1이면 투명도가 없음 */
+    background-image: url("./header-img.jpeg");
+    background-size: cover;
+    background-position: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    /* 백그라운드 이미지의 위치 설정 반복안함 */
+}
+
+.hd .container{
+    /* cotainer가 여러군데 있기 때문에 hd에만 있는 것을 확정짓기 위해서 두 개의 헤더를 씀 */
+    position: relative;
+    color: black;
+}
+
+
+/* section */
+.sec{
+    text-align: center;
+    padding: 100px 0;
+    background-color: #ffe4c4;
+}
+
+.sec article{
+    float: left;
+    width: 300px;
+    margin-right: 30px;
+}
+
+.sec article:last-child{
+    /* 마지막 요소만 선택 */
+    margin-right: 0;
+    /* 마지막 3번째 사진에 대해서는 마진을 안잡은 왜나하면 60을 채워야되기 때문에 */
+}
+
+/* 덮어쓸 내용은 항상 밑에 적어줘야됨 */
+
+.sec article img{
+    width: 100%;
+    height: auto;
+}
+
+.card-img{
+    overflow: hidden;
+    height: 300px;
+    width: 300px;
+    /* 이미지 사이즈를 300 300으로 제한 */
+}
+
+.sec::after{
+    content: "";
+    display: block;
+    clear: both;
+    /* 여기까지는 공식 */
+}
+
+/* footer */
+.ft{
+    padding: 15px;
+    text-align: center;
+    background-color: #eb617c;
+    font-weight: bold;
 }
