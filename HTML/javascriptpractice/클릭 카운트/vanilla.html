@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <span>Total clicks: 0</span>
+    <button id="btn">Click me</button>
+  </body>
+  <script>
+    //자바 스크립트 설정
+    let counter = 0; //상수
+    const button = document.getElementById("btn"); //btn이라는 아이디를 찾도록 함수 사용
+    const span = document.querySelector("span"); //span css 선택자를 사용하여 요소를 찾음
+    function handleClick() {
+      //함수 설정
+      counter = counter + 1;
+      span.innerText = `Total clicks: ${counter}`; //옵션 ₩키 누르면 `나옴 span태그 안에 수정된 내용을 업데이트함
+    }
+    button.addEventListener("click", handleClick); // 클릭을 했을 때 문자열을 반환
+  </script>
+</html>
