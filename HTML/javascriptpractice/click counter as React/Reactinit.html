@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html>
   <body>
     <div id="root"></div>
@@ -10,19 +10,24 @@
     const h3 = React.createElement(
       "h3",
       {
+        id: "title",
         onMouseEnter: () => console.log("mouse enter"), //영역에 마우스가 들어갔을 때 로그을 띄움
       },
       "Hello I'm a span"
     ); //div root에 span을 넣기 위한 작업, 이후 span의 id를 설정 createElement("태그", {id: "이름"},"문자열")
-    //위에 것은 어려운 방식이므로 이번강의에서만 사용
+    //위에 것은 어려운 방식이므로 이번강의에서만 사용 argument 순서를 기어할 필요가 없음
     const btn = React.createElement(
       "button",
       {
         onClick: () => console.log("im clicked"), //addEventListener를 대체 클릭 했을 때 콘솔 로그를 띄움
+        style: {
+          backgroundColor: "tomato",
+        },
       },
       "Click me"
     );
     const container = React.createElement("div", null, [h3, btn]); //h3와 button을 가지는 새로운 div를 만들음
     ReactDOM.render(container, root); //사용자에게 보여준다
+    //이 방식은 너무 어렵기 때문에 html 기본구조랑 비슷한 방식으로 접근하는 방법을 사용
   </script>
 </html>
