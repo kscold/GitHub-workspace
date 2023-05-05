@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<!-- 리액트는 바뀐 부분만 랜더링을 해주기 때문에 최적화가 좋음 -->
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    //babel에게 넘겨줌
+    const root = document.getElementById("root"); //div root를 변수에 저장 최상위 div를 설정
+    let counter = 0;
+    function countUp() {
+      counter = counter + 1;
+      render();
+    }
+
+    function render() {
+      ReactDOM.render(<Container />, root); // <Container /> 컨테이너의 구성요소라는 뜻
+    }
+
+    function Container() {
+      //const Container = (){ } 스펠링 틀리면 안됨 형식을 함수로 바꿈
+      return (
+        <div>
+          <h3>Total clicks: {counter}</h3>
+          <button onClick={countUp}>Click me</button>
+        </div>
+      );
+    }
+    //여기까지는 UI를 새로코침해주고 있지 않음
+    //ReactDOM.render(<Container />, root); //기본적(첫번째로)으로 랜더링(프린트 해줌), 새로고침을 위해 이 코드를 함수에도 넣어줌
+    render(); //위의 기능할 함수로 만듬
+  </script>
+</html>
