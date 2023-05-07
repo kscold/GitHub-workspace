@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <div id="root"></div>
+  </body>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
+  <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script type="text/babel">
+    function App() {
+      const [amount, setAmount] = React.useState(0); //첫번째 요소는 데이터, 두번째 요소는 데이터를 수정하기 위한 함수
+      const [inverted, setInverted] = React.useState(false);
+      const onChange = () => {
+        //console.log(event.target.value); //가짜 이벤트를 발생시키기 때문에 f12를 통해 확인을 함
+        setAmount(event.target.value); //업데이트를 해주기 위한 모디파이어
+      };
+      const reset = () => setAmount(0);
+      const onFlip = () => {
+        setInverted((current) => !current);
+        reset();
+      };
+      return (
+        <div>
+          <h1>Super Converter</h1>
+          <div>
+            <label for="Minutes">Minutes</label>
+            <input
+              value={inverted ? amount * 60 : amount}
+              id="minutes"
+              placeholder="Minutes"
+              type="number"
+              onChange={onChange} //데이터를 업데이트 해주기 위한 함수
+              disabled={inverted}
+            />
+            <h4>You want to convert {amount}</h4>
+            <label for="Hours">Hours</label>
+            <input
+              value={inverted ? amount : Math.round(amount / 60)}
+              id="Hours"
+              placeholder="Hours"
+              type="number"
+              disabled={!inverted}
+              onChange={onChange}
+            />
+          </div>
+          <button onClick={reset}>Reset</button>
+          <button onClick={onFlip}>Flip</button>
+        </div>
+      );
+    }
+    ReactDOM.render(<App />, root);
+  </script>
+</html>

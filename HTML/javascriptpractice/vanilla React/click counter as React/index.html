@@ -14,7 +14,8 @@
       const [counter, setCounter] = React.useState(0); //useState는 두개의 배열을 가지고 있는데 하나는 데이터, 하나는 업데이트를 해주는 변수로 이루어진
       //const로 선언하면 인위적인 수정이 불가능(상수)
       const onClick = () => {
-        setCounter(counter + 1);
+        //setCounter(counter + 1);
+        setCounter((current) => current + 1); //첫번째 아규먼트는 현재값 , 두번째는 식 따라서 위에 코드를 대체 이 코드가 더 안전함
       };
       console.log("rendered");
       console.log(counter);
