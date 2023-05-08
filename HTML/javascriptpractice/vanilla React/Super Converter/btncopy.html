@@ -3,15 +3,16 @@
   <body>
     <div id="root"></div>
   </body>
-  <script src="https://unpkg.com/react@17.0.2/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react@17.0.2/umd/react.production.min.js"></script>
   <script src="https://unpkg.com/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-  <script src="https://unpkg.com/prop-types@15.7.2/prop-types.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
   <script type="text/babel">
-    function Btn({ text, fontSize = 12 }) {
-      //아무 옵션을 안준다면 기본적으로 폰트는 12사이즈
+    function Btn({ text, fontSize }) {
+      //두번째 argument는 없음
+      console.log(text, "was rendered");
       return (
         <button
+          onClick={onClick}
           style={{
             backgroundColor: "tomato",
             color: "white",
@@ -19,22 +20,21 @@
             border: 0,
             borderRadius: 10,
             fontSize,
+            //fontSize: big ? 18 : 16,
           }}
         >
           {text}
         </button>
       );
     }
-    Btn.propTypes = {
-      text: PropTypes.string.isRequired,
-      fontSize: PropTypes.number,
-    };
-    //위의 코드를 통해 자기가 디버깅하고 싶은 코드를 입맛대로 선택할 수 있음
+    const MemorizedBtn = React.memo(Btn);
     function App() {
+      const [value, setValue] = React.useState("Save Changes");
+      const changeValue = () => setValue("Revert Changes");
       return (
         <div>
-          <Btn text="Save Changes" fontSize={18} />
-          <Btn text={"Continue"} />
+          <MemorizedBtn text={value} onClick={changeValue} />
+          <MemorizedBtn text="Continue" />
         </div>
       );
     }
