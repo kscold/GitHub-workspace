@@ -7,7 +7,7 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <App /> {/*이 부분은 App을 랜더링하기 때문에 굳이 수정을 안해도 됨*/}
   </React.StrictMode>
 );
 
