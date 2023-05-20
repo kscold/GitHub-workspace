@@ -1,11 +1,9 @@
-// import Counter from './Counter';
-// import MyComponent from './MyComponent';
-// import Say from './Say';
 import { React } from 'react';
 import Accommodate from './chapter_07/Accommodate';
+import ConfirmButton from './chapter_08/ConfirmButton';
 
 const App = () => {
-  return <Accommodate></Accommodate>;
+  return <ConfirmButton></ConfirmButton>;
 }
 
 export default App;
