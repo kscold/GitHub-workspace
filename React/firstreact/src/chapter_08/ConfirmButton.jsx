@@ -41,7 +41,7 @@ function ConfirmButton(props) {
   const [isConfirmed, setIsConfirmed] = useState(false);
 
   const handleConfirm = () => {
-    setIsConfirmed((prvIsConfirmed) => !prvIsConfirmed);
+    setIsConfirmed((prvIsConfirmed) => !prvIsConfirmed); //false를 true로 설정
   }; //이벤트 함수 정의
 
   return (
