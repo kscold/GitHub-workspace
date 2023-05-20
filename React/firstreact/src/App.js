@@ -2,10 +2,10 @@
 // import MyComponent from './MyComponent';
 // import Say from './Say';
 import { React } from 'react';
-import Say from './likelion/Say';
+import Accommodate from './chapter_07/Accommodate';
 
 const App = () => {
-  return <Say> React</Say>;
+  return <Accommodate></Accommodate>;
 }
 
 export default App;
