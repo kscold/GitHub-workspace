@@ -1,11 +1,9 @@
 import { React } from 'react';
-import Accommodate from './chapter_07/Accommodate';
-import ConfirmButton from './chapter_08/ConfirmButton';
-import LandingPage from './chapter_09/LandingPage';
-import AttendanceBook from './chapter_10/AttendanceBook';
+
+import Calculator from './chapter_12/Calculator';
 
 const App = () => {
-  return <AttendanceBook></AttendanceBook>;
+  return <Calculator></Calculator>;
 }
 
 export default App;
