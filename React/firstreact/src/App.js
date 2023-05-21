@@ -1,9 +1,10 @@
 import { React } from 'react';
 
-import Calculator from './chapter_12/Calculator';
+import ProfileCard from './chapter_13/ProfileCard';
+import DarkOrLight from './chapter_14/DarkOrLight';
 
 const App = () => {
-  return <Calculator></Calculator>;
+  return <DarkOrLight></DarkOrLight>;
 }
 
 export default App;
