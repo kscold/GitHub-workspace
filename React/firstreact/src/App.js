@@ -1,10 +1,9 @@
 import { React } from 'react';
+import Blocks from './chapter_15/Blocks';
 
-import ProfileCard from './chapter_13/ProfileCard';
-import DarkOrLight from './chapter_14/DarkOrLight';
 
 const App = () => {
-  return <DarkOrLight></DarkOrLight>;
+  return <Blocks></Blocks>;
 }
 
 export default App;
