@@ -1,9 +1,10 @@
 import { React } from 'react';
-import Blocks from './chapter_15/Blocks';
+import Say from './likelion/Say';
+import Mycomponent from './likelion/MyComponent';
 
 
 const App = () => {
-  return <Blocks></Blocks>;
+  return <Mycomponent></Mycomponent>;
 }
 
 export default App;
