@@ -1,30 +1,33 @@
 const express = require('express')
-
 const app = express()
-const port = 4000
+const port = 5000
 const bodyParser = require('body-parser');
 
-
 const config = require('./config/key')
+const { User } = require('./models/User');
 
-const { User } = require("./models/User");
 
 //application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //application/json 
 app.use(bodyParser.json());
-
+app.use(cookieParser());
 
 const mongoose = require('mongoose')
 mongoose.connect(config.mongoURI, {
     useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true, useFindAndModify: false
-}).then(() => console.log('MongoDB Connected...'))
-    .catch(err => console.log(err))
+}).then(() => {
+    console.log('MongoDB Connected...');
+}).catch(err => {
+    console.log(err);
+})
 
 
 
-app.get('/', (req, res) => res.send('안녕하세요~ 새해복 많이 받으세요!'))
+app.get('/', (req, res) => {
+    res.send('안녕하세요~ 새해복 많이 받으세요!');
+})
 
 
 app.post('/register', (req, res) => {
@@ -33,13 +36,16 @@ app.post('/register', (req, res) => {
 
     const user = new User(req.body)
 
-    user.save((err, userInfor) => {
-
-        if (err) return res.json({ sucess: false, err })
+    user.save((err, userInfo) => {
+        if (err) return res.json({
+            success: false, err
+        });
         return res.status(200).json({
-            sucess: true
-        })
-    })
-})
+            success: true
+        });
+    });
+});
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+app.listen(port, () => {
+    console.log(`Example app listening on port ${port}!`)
+})
