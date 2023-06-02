@@ -7,9 +7,9 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App /> {/*이 부분은 App을 랜더링하기 때문에 굳이 수정을 안해도 됨*/}
+    <App />
   </React.StrictMode>
-);//생명주기 함수 로그를 한번만 보고 싶으면 StrictMode를 한번만 호출
+);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
