@@ -7,9 +7,9 @@ int main(void)
     // NULL 문자는 개행 문자, 공백 문자, 탭 문자 직전까지 하나의 문자열로 인식하므로 Hello world 입력 시 Hello만 출력
     char str01[] = "This is a string"; // 크기를 지정하지 않은 문자열 변수 선언 17번째가 NULL
     char str02[7] = "string";          // 크기를 지정한 문자열 변수 선언
-    char str03[] = "Hello";            // 이 문자열과 밑에 문자들과 \0는 같다
+    //char str03[] = "Hello";            // 이 문자열과 밑에 문자들과 \0는 같다
     // 따라서 이 문자열을 저장하기 위해서는 Hello 문자열의 길이 5보다 1개 \0가 더 많은 6개가 필요
-    char str04[] = {'H', 'e', 'l', 'l', 'o', '\0'};
+    //char str04[] = {'H', 'e', 'l', 'l', 'o', '\0'};
     printf("%c\n", str02[2]); // 문자 출력(배열 원소 전달) 0 1 2 r이 전달
     printf("%s\n", str02);    // 문자열 전달
 
