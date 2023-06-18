@@ -8,7 +8,7 @@ void *print_helloworld(void *arg) // 함수 선언의 void *는 함수가 모든
     return 0;
 }
 
-int main()
+int main(void)
 {
     int i = 0;
     pthread_t thread_arr[NUM_THREADS];
