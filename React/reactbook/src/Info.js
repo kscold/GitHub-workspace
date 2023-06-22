@@ -13,14 +13,21 @@ const Info = () => {
   //   console.log('마운트될 때만 실행됩니다.')
   // }, [])
 
+  // useEffect(() => {
+  //   console.log('effect');
+  //   console.log(name);
+  //   return () => {
+  //     console.log('cleanup');
+  //     console.log(name)
+  //   }
+  // }, [name])
+
   useEffect(() => {
     console.log('effect');
-    console.log(name);
     return () => {
-      console.log('cleanup');
-      console.log(name)
+      console.log('umount')
     }
-  }, [name])
+  })
 
   const onChangeName = e => {
     setName(e.target.value);
