@@ -1,5 +1,16 @@
 import React, { useState } from 'react'
 
+function reducer(state, action) {
+    switch (action.type) {
+        case 'INCREMENT':
+            return { value: state.value + 1 };
+        case 'DECREMENT':
+            return { value: state.value + 1 };
+        default:
+            return state;
+    }
+}
+
 const Counter = () => {
     const [value, setValue] = useState(0);
 
