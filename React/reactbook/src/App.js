@@ -22,10 +22,12 @@
 import React from 'react'
 import Counter from './Counter'
 import Infoclass from './Infoclass'
+import Average from './Average'
+import StyledComponent from './StyledComponent'
 
 const App = () => {
   return (
-    <Infoclass />
+    <StyledComponent />
   )
 }
 
