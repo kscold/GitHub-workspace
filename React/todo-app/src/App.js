@@ -22,11 +22,11 @@ const App = () => {
     }
   ]);
 
-  const onToggle = useCallback(
+  const onToggle = useCallback( //useCallbackd 훅은 onToggle함수를 메모하기 위해 사용, 컴포넌트가 다시 렌더링될 때 함수의 불필요한 재작성 방지
     id => {
       setTodos(
         todos.map(todo =>
-          todo.id === id ? { ...todo, checked: !todo.checked } : todo,
+          todo.id === id ? { ...todo, checked: !todo.checked } : todo, //todos를 todo로 객체를 받아와 ...todo로 복사 후 checked를 반대로 설정
         ),
       );
     },
@@ -37,6 +37,7 @@ const App = () => {
   const onRemove = useCallback(
     id => {
       setTodos(todos.filter(todo => todo.id !== id));
+      //.filter(callback(element[, index[, array]])[,thisAtg]) callbac은 배열의 각 요소에서 실행되는 함수(element 배열에서 처리 중인 현재 요소)
     },
     [todos],
   )

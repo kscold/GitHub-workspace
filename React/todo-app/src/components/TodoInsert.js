@@ -8,7 +8,8 @@ const TodoInsert = ({ onInsert }) => {
 
     const onChange = useCallback(e => {
         setValue(e.target.value);
-    }, []);//실시간으로 콜백을 하여 렌더링을 확인 []를 사용했으므로 처음 랜더 때만 등장
+    }, []);//useCallback은 특정함수를 새로 만들지 않고 재사용하고 싶을 때 사용하는 함수, 첫번째 인자로 넘어온 함수를 
+    //두 번째 인자로 넘어온 배열 형태의 함수 실행조건의 값이 변경 될 때까지 저장
 
     const onSubmit = useCallback(
         e => {
