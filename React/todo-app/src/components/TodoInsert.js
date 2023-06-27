@@ -13,9 +13,10 @@ const TodoInsert = ({ onInsert }) => {
 
     const onSubmit = useCallback(
         e => {
-            onInsert(value);
+            onInsert(value); //부모 구성요소에 전달하여 해당 값으로 새 작업 항목을 삽입해야 함을 나타냄
             setValue('');
 
+            //submit 이벤트는 브라우저의 새로고침을 발생시키기 떄문에 이를 방지하기 위해 밑에 함수를 호출함
             e.preventDefault();
         },
         [onInsert, value],
