@@ -15,7 +15,7 @@ const App = () => {
       const { name, value } = e.target;
       // setForm({
       //   ...form,
-      //   [name]: value
+      //   [name]: value //아마 책에 [value] 라고 나와있는 것은 오류 인 듯
       // })
       setForm(
         produce(draft => {
