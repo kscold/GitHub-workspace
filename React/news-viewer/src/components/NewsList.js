@@ -23,7 +23,7 @@ const NewsListBlock = styled.div`
 //     urlToImage: 'https: //via.placeholder.com/160',
 // }
 
-const NewsList = () => {
+const NewsList = ({ category }) => {  //NewsList.category를 한번에 입력하기 위해 {}를 사용
     const [articles, setArticles] = useState(null);
     const [loading, setLoading] = useState(false);
 
@@ -32,8 +32,9 @@ const NewsList = () => {
         const fetchData = async () => { //async를 사용하는 함수 따로 선언
             setLoading(true);
             try {
+                const query = category === 'all' ? '' : `&category=${category}`
                 const response = await axios.get(
-                    'https://newsapi.org/v2/top-headlines?country=kr&apiKey=c77f5337872a4688a1ebd82fca07dc98',
+                    `https://newsapi.org/v2/top-headlines?country=kr${query}&apiKey=c77f5337872a4688a1ebd82fca07dc98`,
                 )
                 setArticles(response.data.articles);
             } catch (e) {
@@ -42,7 +43,7 @@ const NewsList = () => {
             setLoading(false);
         };//여기까지 함수를 정의해주고
         fetchData(); //바로 함수를 파라미터로 사용하기 위해 호출
-    }, []); //[] 이므로 컴포넌트가 생설될 때에만 console.log
+    }, [category]); //category 값이 바뀔 때마다 뉴스를 새로 불러와야 하기 때문에 useEffect의 의존 배열을 넣어 주어야함
 
     // 대기 중일 때 Promise로 따지면 대기중 비동기 처리 로직이 아직 완료되지 않은 상태
     if (loading) {
