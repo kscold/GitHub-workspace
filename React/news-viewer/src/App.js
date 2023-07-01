@@ -1,7 +1,10 @@
 // import React, { useState } from 'react';
 // import axios from 'axios';
-import NewsList from './components/NewsList';
-import Categories from './components/Categories';
+
+
+// import { useState, useCallback } from 'react';
+// import NewsList from './components/NewsList';
+// import Categories from './components/Categories';
 
 // const App = () => {
 //   const [data, setData] = useState(null);
@@ -26,14 +29,30 @@ import Categories from './components/Categories';
 //   )
 // }
 
-const App = () => {
+// const App = () => {
+//   const [category, setCategoey] = useState('all'); //기본 선택은 전체보기로 설정
+//   const onSelect = useCallback(category => setCategoey(category), []); //onSelect로 카테고리를 선택 시 그 카테고리로 category를 업데이트
+
+//   return (
+//     <>
+//       <Categories category={category} onSelect={onSelect} />
+//       <NewsList category={category} />
+//     </>
+//   );
+// };
+
+// export default App
+
+import { Route, Routes } from "react-router-dom";
+import NewsPage from "./pages/NewsPage";
+
+const App = () => { //경로에 category URL 파라미터가 없어도 NewPage 컴포넌트를 보여줘야 하고, category가 있어도 NewsPage를 보여줘야 하기 때문에
   return (
-    <>
-      <Categories />
-      <NewsList />
-    </>
-  );
-};
+    <Routes>
+      <Route path="/" element={<NewsPage />} />
+      <Route path="/:category" element={<NewsPage />} />
+    </Routes>
+  )
+}
 
-export default App
-
+export default App;
