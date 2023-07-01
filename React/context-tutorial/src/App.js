@@ -1,4 +1,4 @@
-import ColorBox from "./contexts/ColorBox"
+import ColorBox from "./components/ColorBox"
 import { ColorProvider } from "./contexts/color"
 import SelectColors from "./components/SelectColors"
 
