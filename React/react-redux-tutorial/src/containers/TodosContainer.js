@@ -13,5 +13,24 @@ const TodosContainer = ({
     return (
         <Todos
             input={input}
-    )
-}
+            todos={todos}
+            onChangeInput={changeInput}
+            onInsert={insert}
+            onToggle={toggle}
+            onRemove={remove}
+        />
+    );
+};
+
+export default connect(
+    ({ todos }) => ({ //비구조화 할당을 통해 todos를 분리하여 state.todos.input 대신 todos.input을 사용 connect의  mapStateToPropsdstate(첫번째 인수)
+        input: todos.input,
+        todos: todos.todos,
+    }),
+    {
+        changeInput,
+        insert,
+        toggle,
+        remove,
+    }
+)(TodosContainer); //TodosContainer 를 객체로 받아온다는 뜻
