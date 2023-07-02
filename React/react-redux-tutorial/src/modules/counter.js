@@ -11,15 +11,16 @@ const DECREASE = 'counter/DECREASE'
 export const increase = createAction(INCREASE);
 export const decrease = createAction(DECREASE);
 
-// const initialState = {
-//     number: 0,
-// }// 초기값 설정
+const initialState = {
+    number: 0,
+}// 초기값 설정
 
 const counter = handleActions(
     {
         [INCREASE]: (state, action) => ({ number: state.number + 1 }),
         [DECREASE]: (state, action) => ({ number: state.number - 1 }),
-    }
+    },
+    initialState,
 )
 
 // function counter(state = initialState, action) {  //초기 모델의 리듀서 함수를 만들어줌
