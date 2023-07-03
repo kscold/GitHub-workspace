@@ -1,10 +1,10 @@
 import { connect } from "react-redux"
-import { increase, decrease } from "../modules/counter" //counter.js에서 incresase, decrease
+import { increaseAsync, decreaseAsync } from "../modules/counter" //counter.js에서 incresase, decrease
 import Counter from "../components/Counter"
 
-const CounterContianer = ({ number, increase, decrease }) => {
+const CounterContianer = ({ number, increaseAsync, decreaseAsync }) => {
     return (
-        <Counter number={number} onIncrease={increase} onDecrease={decrease} />
+        <Counter number={number} onIncrease={increaseAsync} onDecrease={decreaseAsync} />
     );
 };
 
@@ -13,7 +13,7 @@ export default connect(
         number: state.counter
     }),
     { //dispatch 설정
-        increase, //현재 이벤트가 counter.js에 설정되어 있음
-        decrease
+        increaseAsync, //현재 이벤트가 counter.js에 설정되어 있음
+        decreaseAsync
     }
 )(CounterContianer);
