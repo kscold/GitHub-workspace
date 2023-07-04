@@ -29,4 +29,4 @@ const Sample = ({ loadingPost, loadingUsers, post, users }) => {
     );
 };
 
-export default Sample
+export default Sample;
