@@ -5,7 +5,7 @@ import { useState } from "react"
 import { myset } from './BoardWrite.queries' //export는 골라서 가져오기 기능
 
 export default function BoardWrite() {
-    //cotainer는 로직만 담고 UI는 쓰지말자
+    const [isActive, setIsActive] = useState(false)
 
     const [나의함수] = useMutation(myset) //axios.get("https://koreanjson.com/posts/1")와 똑같은 코드
 
@@ -26,24 +26,38 @@ export default function BoardWrite() {
 
     const onChangeWriter = (event) => {
         setWriter(event.target.value)
+
+        if (event.target.value && title && contents) {// writer로 하면 버퍼에 들어가기 때문에 실시간 값인 event.target.value를 사용
+            setIsActive(true)
+        }
     }
 
     const onChangeTitle = (event) => {
         setTitle(event.target.value)
+
+        // if (writer && title && contents) {
+        if (writer && event.target.value && contents) {
+            setIsActive(true)
+        }
     }
 
     const onChangeContents = (event) => {
         setContents(event.target.value)
+
+        if (writer && title && event.target.value) {
+            setIsActive(true)
+        }
     }
 
     return (
         <div>
             <div>$$$$$$$$$$$ 여기는 컨테이너입니다 $$$$$$$$$$$</div>
             <BoardWriteUI
-                aaa={onClickSubmit}
-                bbb={onChangeWriter}
-                ccc={onChangeTitle}
-                ddd={onChangeContents}
+                onClickSubmit={onClickSubmit} //보통 key:value를 동일한 이름으로 설정하면 편함
+                onChangeWriter={onChangeWriter}
+                onChangeTitle={onChangeTitle}
+                onChangeContents={onChangeContents}
+                isActive={isActive}
             />
             <div>$$$$$$$$$$$ 여기는 컨테이너입니다 $$$$$$$$$$$</div>
         </div>
