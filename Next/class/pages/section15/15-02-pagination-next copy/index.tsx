@@ -1,6 +1,6 @@
 import { useQuery, gql } from "@apollo/client"
 import type { IQuery, IQueryFetchBoardsArgs } from "../../../src/commons/types/generated/types"
-import type { MouseEvent } from "react"
+import { useState, type MouseEvent } from "react"
 
 
 const FETCH_BOARDS = gql`
@@ -15,21 +15,26 @@ const FETCH_BOARDS = gql`
 `
 
 export default function StaticRoutingMovedPage(): JSX.Element {
+    const [startPage, setStartPage] = useState(1);
+
     const { data, refetch } = useQuery<Pick<IQuery, "fetchBoards">, IQueryFetchBoardsArgs>(FETCH_BOARDS) // refetchQuerires는 mutation을 하고 값을 가져오는 것이고
     // 그냥 refetch는 언제든지 값을 가져올 수 있는 정의되어져 있는 함수
     console.log(data?.fetchBoards)
 
     const onClickPage = (event: MouseEvent<HTMLSpanElement>): void => {
-        void refetch({ page: Number(event.currentTarget.id) })
+        void refetch({ page: Number(event.currentTarget.id) });
+    };
+
+    const onClickPrevPage = (): void => {
+        setStartPage(startPage - 10);
+        void refetch({ page: startPage - 10 });
     }
 
-    // const onClickPage2 = (): void => {
-    //     void refetch({ page: 2 })
-    // }
+    const onClickNextPage = (): void => {
+        setStartPage(startPage + 10);
+        void refetch({ page: startPage + 10 });
+    }
 
-    // const onClickPage3 = (): void => {
-    //     void refetch({ page: 3 })
-    // }
 
     return (
         <div>
@@ -40,21 +45,14 @@ export default function StaticRoutingMovedPage(): JSX.Element {
                 </div>
             ))}
 
+            <span onClick={onClickPrevPage}>이전페이지</span>
             {new Array(10).fill("철수").map((_, index) => ( // 1이든 철수이던 중요하지 않음 index를 사용하고 있기 때문에
-                <span key={index + 1} id={String(index + 1)} onClick={onClickPage}>
-                    {index + 1}
+                <span key={index + startPage} id={String(index + startPage)} onClick={onClickPage}>
+                    {index + startPage}
                 </span>
             ))}
+            <span onClick={onClickNextPage}>다음페이지</span>
 
-            {/* {
-                [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((el, index) => ( 
-                    <span key={el} id={String(el)} onClick={onClickPage}>
-                        {el}
-                    </span>
-                ))
-            } */}
-
-            {/* <span id="1" onClick={onClickPage}>1</span> */}
         </div>
     )
 }
