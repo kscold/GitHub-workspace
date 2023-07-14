@@ -1,11 +1,12 @@
 {
-    "compileroptions": {
+    "compilerOptions": {
         "target": "ES2015",
         "module": "commonjs",
         "strict": true,
         "esModuleInterop": true,
-        "skipLibcheck": true,
-        "forceConsistentCasingInFileNames": true
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "experimentalDecorators": true
     },
     "$schema": "https://json.schemastore.org/tsconfig",
     "display": "Recommended"
