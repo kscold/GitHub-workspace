@@ -3,7 +3,7 @@ import { firebaseApp } from '../../../src/commons/libraries/firebase'
 
 export default function FirebasePage(): JSX.Element {
     const onClickSubmit = (): void => {
-        const board = collection(getFirestore(firebaseApp), "baard");
+        const board = collection(getFirestore(firebaseApp), "board");
         void addDoc(board, {
             writer: "철수",
             title: "안녕하세요",
