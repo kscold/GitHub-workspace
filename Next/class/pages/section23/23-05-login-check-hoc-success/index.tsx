@@ -1,7 +1,6 @@
 import { useQuery, gql } from "@apollo/client";
 import type { IQuery } from "../../../src/commons/types/generated/types";
-import { useEffect } from "react";
-import { useRouter } from "next/router";
+import { 로그인체크 } from "../../../src/components/commons/hocs/로그인체크";
 
 const FETCH_USER_LOGGED_IN = gql`
   query {
@@ -12,17 +11,12 @@ const FETCH_USER_LOGGED_IN = gql`
   }
 `;
 
-export default function LoginPage(): JSX.Element {
-  const router = useRouter();
-
+function 마이페이지(): JSX.Element {
   const { data } =
     useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
 
-  useEffect(() => {
-    if (localStorage.getItem("accessToken") === null) {
-      alert("로그인 후 이용 가능합니다!!!");
-      void router.push("/section23/23-03-login-check");
-    }
-  }, []);
   return <>{data?.fetchUserLoggedIn.name}님 환영합니다!</>;
 }
+
+export default 로그인체크(마이페이지); // 이렇게 하면 로그인체크를 먼저하고 마이페이지를 실행시킴
+// 현재 로그인체크에서 마이페이지는 컴포넌트로 들어가고 프롭스는 없는 상태
