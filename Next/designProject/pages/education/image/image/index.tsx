@@ -3,8 +3,8 @@ import { useRef, useState, type ChangeEvent } from "react";
 import type {
   IMutation,
   IMutationUploadFileArgs,
-} from "../../../src/commons/types/generated/types";
-import { checkValidationFile } from "../../../src/commons/libraries/validationFile";
+} from "../../../../src/commons/types/generated/types";
+import { checkValidationFile } from "../../../../src/commons/libraries/validationFile";
 
 const 나의그래프큐엘셋팅 = gql`
   mutation createBoard($createBoardInput: CreateBoardInput!) {
