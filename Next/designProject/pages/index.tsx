@@ -35,19 +35,19 @@ const FloatingImage = styled.img`
 const buttonData = [
   {
     label: "196600",
-    imagePath: "/책1.jpeg", // Replace with the actual image path
+    imagePath: "/책1.jpeg",
   },
   {
     label: "199600",
-    imagePath: "/책 2.jpeg", // Replace with the actual image path
+    imagePath: "/책 2.jpeg",
   },
   {
     label: "200601",
-    imagePath: "", // Replace with the actual image path
+    imagePath: "",
   },
   {
     label: "200801",
-    imagePath: "", // Replace with the actual image path
+    imagePath: "",
   },
 ];
 
