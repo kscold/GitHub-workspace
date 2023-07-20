@@ -11,20 +11,32 @@ const HIDDEN_HEADERS = [
   // "/queryroom",
 ];
 
-const HIDDEN_BANNER = ["/", "/queryroom", "/login"];
+const HIDDEN_BANNER = ["/", "/queryroom", "/login", "/register"];
 
-const HIDDEN_NAV = ["/", "/queryroom", "/login"];
+const HIDDEN_NAV = ["/", "/queryroom", "/login", "/register"];
 
 const HIDDEN_FOOTER = [];
 
 const Wrapper = styled.div`
-  display: flex;
-  flex-direction: column;
+  width: 100%;
   height: 100vh;
+  position: relative;
+  overflow: hidden;
 `;
 
 const ContentWrapper = styled.div`
-  flex: 1;
+  min-height: calc(100vh - 60px); /* Account for the header height */
+  padding-top: 60px; /* Set to the same height as the header */
+  padding-bottom: 30px; /* Set to the height of the footer */
+  overflow-y: auto; /* Enable vertical scrolling for the content */
+`;
+
+const FootWrapper = styled.div`
+  width: 100%;
+  height: 30px;
+  position: fixed;
+  bottom: 0;
+  z-index: 9;
 `;
 
 interface ILayoutProps {
@@ -44,16 +56,15 @@ export default function Layout(props: ILayoutProps): JSX.Element {
 
   return (
     <Wrapper>
+      {!isHiddenHeader && <LayoutHeader />}
       <ContentWrapper>
-        {!isHiddenHeader && <LayoutHeader />}
         {!isHiddenBanner && <LayoutBanner />}
         {!isHiddenNavigation && <LayoutNavigation />}
-        {/* <LayoutNavigation /> */}
         <div>
           <div>{props.children}</div>
         </div>
-        {!isHiddenFooter && <LayoutFooter />}
       </ContentWrapper>
+      <FootWrapper>{!isHiddenFooter && <LayoutFooter />}</FootWrapper>
     </Wrapper>
   );
 }
