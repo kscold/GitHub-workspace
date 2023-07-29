@@ -1,0 +1,69 @@
+/* App.css */
+.app {
+  background-color: #f7f7f7;
+  padding: 20px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chat-window {
+  flex: 1;
+  max-width: 600px;
+  border: 1px solid #e0e0e0;
+  overflow-y: auto;
+}
+
+.chat-list {
+  width: 200px;
+  border: 1px solid #e0e0e0;
+  margin-right: 20px;
+  overflow-y: auto;
+}
+
+.chat-room {
+  padding: 12px;
+  cursor: pointer;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.chat-room:last-child {
+  border-bottom: none;
+}
+
+.active {
+  background-color: #f0f0f0;
+}
+
+.chat-room:hover {
+  background-color: #f0f0f0;
+}
+
+.chat-bubble-container {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+}
+
+.chat-bubble {
+  max-width: 70%;
+  padding: 8px 12px;
+  border-radius: 16px;
+  margin-bottom: 8px;
+}
+
+.me .chat-bubble {
+  background-color: #409eff;
+  color: white;
+  align-self: flex-end;
+}
+
+.other .chat-bubble {
+  background-color: #e0e0e0;
+}
+
+.chat-bubble p {
+  margin: 0;
+  font-size: 14px;
+}
