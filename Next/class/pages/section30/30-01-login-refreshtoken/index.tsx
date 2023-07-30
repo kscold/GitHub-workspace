@@ -62,7 +62,7 @@ export default function LoginPage(): JSX.Element {
     <>
       이메일: <input type="text" onChange={onChangeEmail} />
       비밀번호: <input type="password" onChange={onChangePassword} />
-      <button onClick={wrapAsync(onClickLogin)}>로그인</button>
+      <button onClick={onClickLogin}>로그인</button>
     </>
   );
 }
