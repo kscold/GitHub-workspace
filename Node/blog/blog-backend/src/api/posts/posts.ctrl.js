@@ -176,9 +176,33 @@ export const write = async (ctx) => {
 
 // GET /api/posts
 export const list = async (ctx) => {
+  // query는 문자열이기 때문에 숫자로 변환해 주어야 합니다.
+  // 값이 주어지지 않았다면 1을 기본으로 사용합니다.
+  const page = parseInt(ctx.query.page || '1', 10); // posts?숫자 이므로
+
+  if (page < 1) {
+    ctx.status = 400;
+    return;
+  }
+
   try {
-    const posts = await Post.find().exec(); // 데이터를 조회할 때 find()함수를 사용 이후에는 .exec()를 붙여야 쿼리를 요청
-    ctx.body = posts;
+    const posts = await Post.find()
+      .sort({ _id: -1 }) // 내림차순으로 정렬
+      .limit(10) // 한번에 보이는 갯수를 제한
+      .skip((page - 1) * 10) // 처음 10개 페이지를 제외하고 그 다음 데이터를 불러와햐 하므로
+      .lean() // 이 함수를 사용하면 데이터를 처음부터 JSON 형태로 조회할 수 있음
+      .exec(); // 데이터를 조회할 때 find()함수를 사용 이후에는 .exec()를 붙여야 쿼리를 요청
+    const postCount = await Post.countDocuments().exec();
+    ctx.set('Last-Page', Math.ceil(postCount / 10)); // 10으로 나눠서 반올림
+    ctx.body = posts
+      // .map((post) => post.toJSON()) // find()를 통해 조회한 데이터는 mongoose 문서 인스턴스의 형태이므로 데이터를 바로 변형불가능
+      // 따라서 toJSON() 함수를 실행하려 JSON 형태로 변환한 뒤 필요한 변형을 일으킴
+      .map((post) => ({
+        ...post,
+        body:
+          post.body.length < 200 ? post.body : `${post.body.slice(0, 200)}...`,
+        // body의 길이가 200자 이상이면 뒤에 ...를 붙임
+      }));
   } catch (e) {
     ctx.throw(500, e);
   }
@@ -214,30 +238,37 @@ export const remove = async (ctx) => {
 export const update = async (ctx) => {
   const { id } = ctx.params;
 
-  // const schema = Joi.object().keys({
-  //   title: Joi.string(),
-  //   body: Joi.string(),
-  //   tags: Joi.array().items(Joi.string()),
-  // });
+  console.log('Update request received for ID:', id);
 
-  // const result = schema.validate(ctx.request.body);
-  // if (result.error) {
-  //   ctx.status = 400;
-  //   ctx.body = result.error;
-  //   return;
-  // }
+  const schema = Joi.object().keys({
+    title: Joi.string(),
+    body: Joi.string(),
+    tags: Joi.array().items(Joi.string()),
+  });
+
+  const result = schema.validate(ctx.request.body);
+  if (result.error) {
+    console.log('Validation error:', result.error.details);
+    ctx.status = 400;
+    ctx.body = result.error;
+    return;
+  }
 
   try {
     const post = await Post.findByIdAndUpdate(id, ctx.request.body, {
-      new: true, // 이 값을 설정하면 업데이트된 데이터를 반환
-      // false일 때는 업데이트도기 전의 데이터를 반환
+      new: true,
     }).exec();
+
     if (!post) {
+      console.log('Post not found for ID:', id);
       ctx.status = 404;
       return;
     }
+
+    console.log('Post updated:', post);
     ctx.body = post;
   } catch (e) {
+    console.error('Error while updating post:', e);
     ctx.throw(500, e);
   }
 };
