@@ -1,14 +1,8 @@
 // register
-import React from "react";
-import AuthTemplate from "../../src/components/units/login/AuthTemplate";
-import AuthForm from "../../src/components/units/login/AuthForm";
+import { registerForm } from "../../src/components/units/register/registerfunc";
 
 const RegisterPage = (): JSX.Element => {
-  return (
-    <AuthTemplate>
-      <AuthForm type="register" />
-    </AuthTemplate>
-  );
+  return registerForm(); // Call the registerForm function to render the JSX content
 };
 
 export default RegisterPage;
