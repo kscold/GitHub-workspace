@@ -4,6 +4,8 @@ import Router from 'koa-router';
 import bodyParser from 'koa-bodyparser';
 import mongoose from 'mongoose';
 
+import cors from 'koa2-cors'; // Import the koa2-cors middleware
+
 import api from './api';
 // import createFakeData from './createFakeData';
 import jwtMiddleware from './lib/jwtMiddleware';
@@ -23,6 +25,8 @@ mongoose
 
 const app = new Koa(); // new 영역에 객체를 할당 객체를 초기화함
 const router = new Router();
+
+app.use(cors()); // CORS
 
 // 라우터 설정
 router.use('/api', api.routes()); // api 라우트 적용
