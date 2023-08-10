@@ -70,47 +70,49 @@ const LayoutHeader = (): JSX.Element => {
       // 사용자 이름을 null로 저장하는 RecoilState 설정
       setIsLogin(false);
       // 사용자 로그아웃을 false로 저장하는 RecoilState 설정
-      await recordLogoutActivity();
+
+      // await recordLogoutActivity();
 
       router.push("/");
+
       const response = await axios.post(
-        "http://localhost:4000/api/auth/logout",
-        {
-          userId: isLoginUserName, // 로그아웃한 사용자의 ID를 전송
-          logoutTime: new Date().toISOString(), // 현재 시간을 로그아웃 시간으로 전송
-        }
+        "http://localhost:4000/api/auth/logout"
       );
       // 로그아웃 버튼을 누르면 로그아웃 백엔드로 보내서 로그아웃을 했다고 알림
+      if (response.data) {
+        // 로그아웃 했다고 제대로 post 보내면 로그를 띄움
+        console.log("로그아웃 성공(POST)");
+      }
     } catch (error) {
       console.error("로그아웃 오류:", error);
     }
   };
 
-  const recordLogoutActivity = async () => {
-    // async 추가
-    try {
-      // 서버 시간 가져오기 (worldtimeapi.org 사용)
-      const serverTimeResponse = await fetchServerTime();
-      const serverTimeData = await serverTimeResponse.json();
+  // const recordLogoutActivity = async () => {
+  //   // async 추가
+  //   try {
+  //     // 서버 시간 가져오기 (worldtimeapi.org 사용)
+  //     const serverTimeResponse = await fetchServerTime();
+  //     const serverTimeData = await serverTimeResponse.json();
 
-      // 서버 시간을 사용하여 로그아웃 활동 기록 생성
-      const logoutLog = {
-        timestamp: serverTimeData.utc_datetime, // 서버 시간 사용
-        action: "logout",
-      };
-      console.log("로그아웃 활동 기록:", logoutLog);
-    } catch (error) {
-      console.error("로그아웃 활동 기록 중 오류:", error);
-    }
-  };
+  //     // 서버 시간을 사용하여 로그아웃 활동 기록 생성
+  //     const logoutLog = {
+  //       timestamp: serverTimeData.utc_datetime, // 서버 시간 사용
+  //       action: "logout",
+  //     };
+  //     console.log("로그아웃 활동 기록:", logoutLog);
+  //   } catch (error) {
+  //     console.error("로그아웃 활동 기록 중 오류:", error);
+  //   }
+  // };
 
-  // 서버 시간 가져오는 API 호출 (worldtimeapi.org 사용)
-  const fetchServerTime = async () => {
-    const response = await fetch(
-      "https://worldtimeapi.org/api/timezone/Asia/Seoul"
-    );
-    return response;
-  };
+  // // 서버 시간 가져오는 API 호출 (worldtimeapi.org 사용)
+  // const fetchServerTime = async () => {
+  //   const response = await fetch(
+  //     "https://worldtimeapi.org/api/timezone/Asia/Seoul"
+  //   );
+  //   return response;
+  // };
 
   // 헤더 드롭다운에 마우스 진입시 실행되는 함수
   const onMouseHeaderDropDown = () => {
