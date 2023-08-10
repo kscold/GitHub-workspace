@@ -1,3 +1,4 @@
+// src/api/auth/auth.ctrl.js
 import Joi from 'joi';
 import User from '../../models/user';
 
@@ -22,26 +23,27 @@ export const register = async (ctx) => {
   }
 
   const { username, password } = ctx.request.body;
+
   try {
-    // username이 이미 존재하는지 확인
-    const exists = await User.findByUsername(username); // 같은 User 이름으로 요청을 보냈을 때 위와 같이 에러가 발생
+    // check if username already exists
+    const exists = await User.findByUsername(username);
     if (exists) {
       ctx.status = 409; // Conflict
       return;
     }
 
-    const user = new User({
-      username,
-    });
-    await user.setPassword(password); // 비밀번호 설정
-    await user.save(); // 데이터베이스에 저장
+    await user.setPassword(password);
+    await user.save();
+
+    const loginTime = new Date();
+    user.loginTime = loginTime;
+    await user.save();
 
     ctx.body = user.serialize();
 
     const token = user.generateToken();
     ctx.cookies.set('access_token', token, {
-      // 쿠키 설정을 함
-      maxAge: 1000 * 60 * 60 * 24 * 7, // 7일
+      maxAge: 1000 * 60 * 60 * 24 * 7,
       httpOnly: true,
     });
   } catch (e) {

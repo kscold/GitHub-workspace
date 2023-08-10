@@ -33,9 +33,11 @@ const LayoutHeader = (): JSX.Element => {
   const [dropdownVisibility, setDropdownVisibility] = useState(false);
 
   useEffect(() => {
-    const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
+    // 전부 랜더링 된 다음 가장 마지막에 랜더링
+    const storedIsLoggedIn = localStorage.getItem("isLoggedIn"); // localStorage의 값을 가져오고
     const storedUsername = localStorage.getItem("username");
     if (storedIsLoggedIn === "true" && storedUsername) {
+      // 로그인이 되었고 username이 있으면
       setIsLogin(true);
       setIsLoginUserName(storedUsername);
     }

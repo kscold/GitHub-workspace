@@ -28,7 +28,7 @@
 
 // src/components/recoilState.ts
 
-import { atom, selector } from "recoil";
+import { atom } from "recoil";
 
 export const isLoginVisibleState = atom<boolean>({
   key: "isLoginVisibleState",
@@ -45,11 +45,11 @@ export const userNameState = atom<string | null>({
   default: null,
 });
 
-export const loginSelector = selector({
-  key: "loginSelector",
-  get: ({ get }) => {
-    const isLogin = get(isLoginState);
-    const userName = get(userNameState);
-    return isLogin && userName !== null;
-  },
-});
+// export const loginSelector = selector({
+//   key: "loginSelector",
+//   get: ({ get }) => {
+//     const isLogin = get(isLoginState);
+//     const userName = get(userNameState);
+//     return isLogin && userName !== null;
+//   },
+// });

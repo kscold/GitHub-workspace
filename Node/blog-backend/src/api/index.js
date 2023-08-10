@@ -1,3 +1,4 @@
+// src/api/index.js
 import Router from 'koa-router';
 import posts from './posts'; // Import the router defined in the ./posts.ctrl.js file
 import auth from './auth';

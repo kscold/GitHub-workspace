@@ -60,10 +60,8 @@ const Login = (): JSX.Element => {
         console.log(isLogin);
         console.log(user.username);
 
-        await router.push("/");
-
-        // Reload the page after login
-        // window.location.reload();
+        // 페이지를 리로드 -> 애니매이션 버그를 해결하기 위해(먼저 localStorage가 선행되어야함)
+        window.location.reload();
       } else {
         // 로그인에 실패하면
         console.log("Login failed");
