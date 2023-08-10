@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import LayoutHeader from "./../../commons/layout/header/index";
 import { useRecoilState } from "recoil";
-import { userNameState } from "../../commons/layout/header/recoilState";
+import { userNameState } from "../../commons/recoilState";
 
 const fakeFetchUserProfile = () => {
   return "김승찬";
