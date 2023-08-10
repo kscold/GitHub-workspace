@@ -35,6 +35,11 @@ export const isLoginVisibleState = atom<boolean>({
   default: false,
 });
 
+export const isLoginTime = atom<string | null>({
+  key: "isLoginTime",
+  default: null,
+});
+
 export const isLoginState = atom<boolean>({
   key: "isLoginState",
   default: false,

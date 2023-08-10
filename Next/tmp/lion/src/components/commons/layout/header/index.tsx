@@ -17,6 +17,7 @@ import {
   DropdownItem,
   DynamicNavBarWrapper,
 } from "./headercss";
+import axios from "axios";
 
 const LayoutHeader = (): JSX.Element => {
   const router = useRouter();
@@ -59,19 +60,30 @@ const LayoutHeader = (): JSX.Element => {
 
   // 사용자 로그아웃 처리하는 함수
   const onClickLogout = async (): Promise<void> => {
-    // Remove login state from local storage
-    localStorage.removeItem("username");
-    // 사용자 이름을 저장하는 localStoreage 제거
-    localStorage.removeItem("isLoggedIn");
-    // 로그인 상태 저장하는 localStoreage 제거
+    try {
+      localStorage.removeItem("username");
+      // 사용자 이름을 저장하는 localStoreage 제거
+      localStorage.removeItem("isLoggedIn");
+      // 로그인 상태 저장하는 localStoreage 제거
 
-    setIsLoginUserName(null);
-    // 사용자 이름을 null로 저장하는 RecoilState 설정
-    setIsLogin(false);
-    // 사용자 로그아웃을 false로 저장하는 RecoilState 설정
-    await recordLogoutActivity();
+      setIsLoginUserName(null);
+      // 사용자 이름을 null로 저장하는 RecoilState 설정
+      setIsLogin(false);
+      // 사용자 로그아웃을 false로 저장하는 RecoilState 설정
+      await recordLogoutActivity();
 
-    router.push("/");
+      router.push("/");
+      const response = await axios.post(
+        "http://localhost:4000/api/auth/logout",
+        {
+          userId: isLoginUserName, // 로그아웃한 사용자의 ID를 전송
+          logoutTime: new Date().toISOString(), // 현재 시간을 로그아웃 시간으로 전송
+        }
+      );
+      // 로그아웃 버튼을 누르면 로그아웃 백엔드로 보내서 로그아웃을 했다고 알림
+    } catch (error) {
+      console.error("로그아웃 오류:", error);
+    }
   };
 
   const recordLogoutActivity = async () => {
