@@ -72,6 +72,20 @@ const Login = (): JSX.Element => {
     }
   };
 
+  const googleLogin = async (): Promise<void> => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8080/oauth2/authorization/google"
+      );
+
+      if (response.data) {
+        // Google 로그인 페이지로 리다이렉트
+        window.location.href = response.data;
+      }
+    } catch (error) {
+      console.error("Error during Google login:", error);
+    }
+  };
   return (
     <div style={{ display: "flex", justifyContent: "flex-end" }}>
       <LoginWrapper>
@@ -99,6 +113,7 @@ const Login = (): JSX.Element => {
           </form>
           <Footer>
             <Link href="/Register">회원가입</Link>
+            <button onClick={googleLogin}>구글</button>
           </Footer>
         </LoginFormWrapper>
       </LoginWrapper>

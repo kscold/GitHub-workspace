@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import { userNameState } from "../src/components/commons/recoilState";
 import { useRecoilValue } from "recoil";
+import axios from "axios";
 
 const images = ["/main1.png", "/main2.png", "/main3.png"];
 
@@ -217,6 +218,7 @@ const SliderComponent = () => {
 
 export default function Home(): JSX.Element {
   const router = useRouter(); // useRouter 훅을 밖에서 가져옵니다.
+  const [fetchedData, setFetchedData] = useState(null);
 
   const userName = useRecoilValue(userNameState); // 카카오 로그인 때문에
 
@@ -241,6 +243,7 @@ export default function Home(): JSX.Element {
   const toggleHiddenContent4 = () => {
     setShowHiddenContent4(!showHiddenContent4);
   };
+
   return (
     <>
       <SliderComponent />
@@ -457,13 +460,28 @@ export default function Home(): JSX.Element {
           </ListItem>
         </ListContainer>
       </SectionContainer>
-      <div>
-        {userName ? (
-          <p>Hello, {userName}! Welcome.</p>
-        ) : (
-          <p>Welcome after logging in.</p>
-        )}
-      </div>
+
+      <button
+        onClick={async () => {
+          try {
+            const response = await axios.get(
+              "http://localhost:8080/api/v1/posts/1"
+            );
+            setFetchedData(response.data); // 가져온 데이터를 상태에 저장
+          } catch (error) {
+            console.error("Error fetching data:", error);
+          }
+        }}
+      >
+        데이터 가져오기
+      </button>
+
+      {fetchedData && (
+        <div>
+          <p>Fetched Data:</p>
+          <pre>{JSON.stringify(fetchedData, null, 2)}</pre>
+        </div>
+      )}
     </>
   );
 }

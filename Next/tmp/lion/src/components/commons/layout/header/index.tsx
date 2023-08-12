@@ -11,11 +11,13 @@ import {
 } from "../../recoilState";
 import LoginButton from "../../../units/login";
 import {
-  Logo,
   StyledLink,
   StyledDropdown,
   DropdownItem,
   DynamicNavBarWrapper,
+  DropdownItemStyledLink,
+  LogoContainer,
+  LogoImage,
 } from "./headercss";
 import axios from "axios";
 
@@ -133,18 +135,22 @@ const LayoutHeader = (): JSX.Element => {
       <div>
         {/* 사용자의 "마이페이지"로 이동하는 링크 */}
         <DropdownItem>
-          <StyledLink
-            onClick={() => {
-              onClickHeader("/MyPage");
-            }}
-            className={router.pathname === "/MyPage" ? "selected" : ""}
-          >
-            마이페이지
-          </StyledLink>
+          <div>
+            <DropdownItemStyledLink
+              onClick={() => {
+                onClickHeader("/MyPage");
+              }}
+              className={router.pathname === "/MyPage" ? "selected" : ""}
+            >
+              마이페이지
+            </DropdownItemStyledLink>
+          </div>
         </DropdownItem>
         {/* 로그아웃 링크 */}
         <DropdownItem>
-          <StyledLink onClick={onClickLogout}>로그아웃</StyledLink>
+          <DropdownItemStyledLink onClick={onClickLogout}>
+            로그아웃
+          </DropdownItemStyledLink>
         </DropdownItem>
       </div>
     );
@@ -157,27 +163,32 @@ const LayoutHeader = (): JSX.Element => {
       <div>
         {/* "질문방"으로 입장하는 링크 */}
         <DropdownItem>
-          <StyledLink
+          <DropdownItemStyledLink
             onClick={() => onClickHeader("/QuestionRoom")}
             className={router.pathname === "/QuestionRoom" ? "selected" : ""}
           >
             질문방 입장
-          </StyledLink>
+          </DropdownItemStyledLink>
         </DropdownItem>
         {/* 질문 작성 링크 */}
         <DropdownItem>
-          <StyledLink onClick={() => onClickHeader("/Write")}>
+          <DropdownItemStyledLink onClick={() => onClickHeader("/Write")}>
             질문 작성
-          </StyledLink>
+          </DropdownItemStyledLink>
         </DropdownItem>
         {/* 질문 수정 링크 */}
         <DropdownItem>
-          <StyledLink onClick={() => onClickHeader("/EditPost")}>
+          <DropdownItemStyledLink onClick={() => onClickHeader("/EditPost")}>
             질문 수정
-          </StyledLink>
+          </DropdownItemStyledLink>
         </DropdownItem>
       </div>
     );
+  };
+
+  // 로고에 대한 설정
+  const onClickLogo = () => {
+    router.push("/");
   };
 
   return (
@@ -189,21 +200,24 @@ const LayoutHeader = (): JSX.Element => {
         isHovered={isSelected || dropdownVisibility} // 호버 상태를 넘김(isSelected == true || dropdownVisibility == true)
       >
         {/* 로고 */}
-        <Logo
-          onClick={() => {
-            onClickHeader("/");
+        <LogoContainer onClick={onClickLogo}>
+          <LogoImage src="/logo.png" alt="로고" />
+        </LogoContainer>
+
+        <div
+          style={{
+            // position: "fixed",
+
+            display: "flex",
+            justifyContent: "space-around",
+            // paddingLeft: "55%",
+            paddingRight: "2%",
+            paddingTop: "1%",
           }}
         >
-          <img
-            src="/logo.png"
-            alt="로고"
-            style={{ width: "130px", height: "80px" }}
-          />
-        </Logo>
-
-        <div style={{ display: "flex" }}>
           {/* "질문방"으로 이동하는 링크 */}
-          <div>
+          <div style={{ margin: "1%" }}>
+            {/* 헤더가 확장됨에 따라 요소는 같이 확장시키지 않기 위한 div */}
             <StyledLink
               onClick={() => {
                 isLoginUserName === null
@@ -216,20 +230,22 @@ const LayoutHeader = (): JSX.Element => {
               // disabled={isLogin === true && isSelected === true}
               // 조건에 따라 선택된 스타일 적용
               className={router.pathname === "/QuestionRoom" ? "selected" : ""} // 라우팅 된 페이지가 /QuestionRoom이면 selected
-              style={{ width: "150px" }}
+              // style={{ width: "4%" }}
             >
-              질문방
-              {/* 사용자가 로그인한 경우 질문 드롭다운 렌더링 */}
-              {isLoginUserName && ( // 로그인이 된 경우는 드롭바를 내림
-                <StyledDropdown isVisible={dropdownVisibility}>
-                  {renderDropdownQuestion()}
-                </StyledDropdown>
-              )}
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                질문방
+                {/* 사용자가 로그인한 경우 질문 드롭다운 렌더링 */}
+                {isLoginUserName && ( // 로그인이 된 경우는 드롭바를 내림
+                  <StyledDropdown isVisible={dropdownVisibility}>
+                    {renderDropdownQuestion()}
+                  </StyledDropdown>
+                )}
+              </div>
             </StyledLink>
           </div>
 
           {/* "지식 공유방"으로 이동하는 링크 */}
-          <div>
+          <div style={{ margin: "1%" }}>
             <StyledLink
               onClick={() => {
                 onClickHeader("/Study");
@@ -241,7 +257,7 @@ const LayoutHeader = (): JSX.Element => {
           </div>
 
           {/* 로그인 버튼 또는 사용자 이름 버튼 */}
-          <div>
+          <div style={{ margin: "1%" }}>
             <StyledLink
               onClick={() => {
                 if (!isLoginUserName) {
@@ -261,15 +277,17 @@ const LayoutHeader = (): JSX.Element => {
                   : ""
               }
             >
-              <UserOutlined />
-              {/* 사용자 이름 환영 메시지 또는 "로그인" 표시 */}
-              {isLogin ? `Welcome ${isLoginUserName}!` : "로그인"}
-              {/* 사용자가 로그인한 경우 사용자 드롭다운 렌더링 */}
-              {isLoginUserName && (
-                <StyledDropdown isVisible={dropdownVisibility}>
-                  {renderDropdownContent()}
-                </StyledDropdown>
-              )}
+              <div style={{ display: "flex", justifyContent: "center" }}>
+                <UserOutlined />
+                {/* 사용자 이름 환영 메시지 또는 "로그인" 표시 */}
+                {isLogin ? `Welcome ${isLoginUserName}!` : "로그인"}
+                {/* 사용자가 로그인한 경우 사용자 드롭다운 렌더링 */}
+                {isLoginUserName && (
+                  <StyledDropdown isVisible={dropdownVisibility}>
+                    {renderDropdownContent()}
+                  </StyledDropdown>
+                )}
+              </div>
             </StyledLink>
           </div>
         </div>
