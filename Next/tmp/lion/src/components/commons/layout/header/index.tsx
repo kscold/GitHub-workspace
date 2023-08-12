@@ -192,109 +192,107 @@ const LayoutHeader = (): JSX.Element => {
   };
 
   return (
-    <>
-      {/* 헤더 래퍼: 동적 확장 및 드롭다운 가시성 */}
-      <DynamicNavBarWrapper
-        isLogin={isLoginUserName !== null && isLoginVisible === false} // 로그인 상태를 넘김 (기본이 로그인됨)
-        isDropdownVisible={dropdownVisibility} // 드롭다운 상태를 넘김 (dropdownVisibility == true)
-        isHovered={isSelected || dropdownVisibility} // 호버 상태를 넘김(isSelected == true || dropdownVisibility == true)
+    <DynamicNavBarWrapper
+      // 헤더 래퍼: 동적 확장 및 드롭다운 가시성
+      isLogin={isLoginUserName !== null && isLoginVisible === false} // 로그인 상태를 넘김 (기본이 로그인됨)
+      isDropdownVisible={dropdownVisibility} // 드롭다운 상태를 넘김 (dropdownVisibility == true)
+      isHovered={isSelected || dropdownVisibility} // 호버 상태를 넘김(isSelected == true || dropdownVisibility == true)
+    >
+      {/* 로고 */}
+      <LogoContainer onClick={onClickLogo}>
+        <LogoImage src="/logo.png" alt="로고" />
+      </LogoContainer>
+
+      <div
+        style={{
+          // position: "fixed",
+          width: "100%",
+          display: "flex",
+          justifyContent: "flex-end",
+          paddingLeft: "20%",
+          paddingRight: "2%",
+          paddingTop: "1%",
+        }}
       >
-        {/* 로고 */}
-        <LogoContainer onClick={onClickLogo}>
-          <LogoImage src="/logo.png" alt="로고" />
-        </LogoContainer>
-
-        <div
-          style={{
-            // position: "fixed",
-
-            display: "flex",
-            justifyContent: "space-around",
-            // paddingLeft: "55%",
-            paddingRight: "2%",
-            paddingTop: "1%",
-          }}
-        >
-          {/* "질문방"으로 이동하는 링크 */}
-          <div style={{ margin: "1%" }}>
-            {/* 헤더가 확장됨에 따라 요소는 같이 확장시키지 않기 위한 div */}
-            <StyledLink
-              onClick={() => {
-                isLoginUserName === null
-                  ? alert("로그인 후 시도해주십시오")
-                  : onClickHeader("/QuestionRoom");
-              }}
-              onMouseEnter={onMouseHeaderDropDown} // 마우스가 영역에 들어 갔을 때 드롭인
-              onMouseLeave={onMouseHeaderDropIn} // 마우스가 영역에 들어 갔을 때 드롭다운
-              // 사용자가 로그인한 경우와 버튼이 선택되지 않은 경우에 비활성화
-              // disabled={isLogin === true && isSelected === true}
-              // 조건에 따라 선택된 스타일 적용
-              className={router.pathname === "/QuestionRoom" ? "selected" : ""} // 라우팅 된 페이지가 /QuestionRoom이면 selected
-              // style={{ width: "4%" }}
-            >
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                질문방
-                {/* 사용자가 로그인한 경우 질문 드롭다운 렌더링 */}
-                {isLoginUserName && ( // 로그인이 된 경우는 드롭바를 내림
-                  <StyledDropdown isVisible={dropdownVisibility}>
-                    {renderDropdownQuestion()}
-                  </StyledDropdown>
-                )}
-              </div>
-            </StyledLink>
-          </div>
-
-          {/* "지식 공유방"으로 이동하는 링크 */}
-          <div style={{ margin: "1%" }}>
-            <StyledLink
-              onClick={() => {
-                onClickHeader("/Study");
-              }}
-              className={router.pathname === "/Study" ? "selected" : ""}
-            >
-              지식 공유방
-            </StyledLink>
-          </div>
-
-          {/* 로그인 버튼 또는 사용자 이름 버튼 */}
-          <div style={{ margin: "1%" }}>
-            <StyledLink
-              onClick={() => {
-                if (!isLoginUserName) {
-                  setIsSelected((prev) => !prev);
-                  onClickLogin();
-                }
-              }}
-              onMouseEnter={onMouseHeaderDropDown}
-              onMouseLeave={onMouseHeaderDropIn}
-              // 사용자가 로그인한 경우와 버튼이 선택되지 않은 경우에 비활성화
-              // disabled={!!isLoginUserName && !isSelected}
-              // 조건에 따라 선택된 스타일 적용
-              className={
-                (isLoginVisible || (isLoginUserName && isSelected)) &&
-                !isLoginUserName
-                  ? "selected"
-                  : ""
-              }
-            >
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <UserOutlined />
-                {/* 사용자 이름 환영 메시지 또는 "로그인" 표시 */}
-                {isLogin ? `Welcome ${isLoginUserName}!` : "로그인"}
-                {/* 사용자가 로그인한 경우 사용자 드롭다운 렌더링 */}
-                {isLoginUserName && (
-                  <StyledDropdown isVisible={dropdownVisibility}>
-                    {renderDropdownContent()}
-                  </StyledDropdown>
-                )}
-              </div>
-            </StyledLink>
-          </div>
+        {/* "질문방"으로 이동하는 링크 */}
+        <div style={{ margin: "1%" }}>
+          {/* 헤더가 확장됨에 따라 요소는 같이 확장시키지 않기 위한 div */}
+          <StyledLink
+            onClick={() => {
+              isLoginUserName === null
+                ? alert("로그인 후 시도해주십시오")
+                : onClickHeader("/QuestionRoom");
+            }}
+            onMouseEnter={onMouseHeaderDropDown} // 마우스가 영역에 들어 갔을 때 드롭인
+            onMouseLeave={onMouseHeaderDropIn} // 마우스가 영역에 들어 갔을 때 드롭다운
+            // 사용자가 로그인한 경우와 버튼이 선택되지 않은 경우에 비활성화
+            // disabled={isLogin === true && isSelected === true}
+            // 조건에 따라 선택된 스타일 적용
+            className={router.pathname === "/QuestionRoom" ? "selected" : ""} // 라우팅 된 페이지가 /QuestionRoom이면 selected
+            // style={{ width: "4%" }}
+          >
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              질문방
+              {/* 사용자가 로그인한 경우 질문 드롭다운 렌더링 */}
+              {isLoginUserName && ( // 로그인이 된 경우는 드롭바를 내림
+                <StyledDropdown isVisible={dropdownVisibility}>
+                  {renderDropdownQuestion()}
+                </StyledDropdown>
+              )}
+            </div>
+          </StyledLink>
         </div>
-      </DynamicNavBarWrapper>
+
+        {/* "지식 공유방"으로 이동하는 링크 */}
+        <div style={{ margin: "1%" }}>
+          <StyledLink
+            onClick={() => {
+              onClickHeader("/Study");
+            }}
+            className={router.pathname === "/Study" ? "selected" : ""}
+          >
+            지식 공유방
+          </StyledLink>
+        </div>
+
+        {/* 로그인 버튼 또는 사용자 이름 버튼 */}
+        <div style={{ margin: "1%" }}>
+          <StyledLink
+            onClick={() => {
+              if (!isLoginUserName) {
+                setIsSelected((prev) => !prev);
+                onClickLogin();
+              }
+            }}
+            onMouseEnter={onMouseHeaderDropDown}
+            onMouseLeave={onMouseHeaderDropIn}
+            // 사용자가 로그인한 경우와 버튼이 선택되지 않은 경우에 비활성화
+            // disabled={!!isLoginUserName && !isSelected}
+            // 조건에 따라 선택된 스타일 적용
+            className={
+              (isLoginVisible || (isLoginUserName && isSelected)) &&
+              !isLoginUserName
+                ? "selected"
+                : ""
+            }
+          >
+            <div style={{ display: "flex", justifyContent: "center" }}>
+              <UserOutlined />
+              {/* 사용자 이름 환영 메시지 또는 "로그인" 표시 */}
+              {isLogin ? `Welcome ${isLoginUserName}!` : "로그인"}
+              {/* 사용자가 로그인한 경우 사용자 드롭다운 렌더링 */}
+              {isLoginUserName && (
+                <StyledDropdown isVisible={dropdownVisibility}>
+                  {renderDropdownContent()}
+                </StyledDropdown>
+              )}
+            </div>
+          </StyledLink>
+        </div>
+      </div>
       {/* 로그인 패널 표시 및 사용자가 로그인하지 않은 경우 로그인 버튼 표시 */}
       {isLoginVisible && !isLoginUserName && <LoginButton />}
-    </>
+    </DynamicNavBarWrapper>
   );
 };
 
