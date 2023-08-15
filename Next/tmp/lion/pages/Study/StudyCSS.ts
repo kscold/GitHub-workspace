@@ -25,8 +25,8 @@ export const FilterTags = styled.div`
 `;
 
 export const TagButton = styled.button<{ active: boolean }>`
-  background-color: ${(props) => (props.active ? "#007bff" : "#f0f0f0")};
-  color: ${(props) => (props.active ? "#fff" : "#000")};
+  background-color: ${(props) => (props.active ? "#000" : "#f0f0f0")};
+  color: ${(props) => (props.active ? "#e0e0e0" : "#000")};
   border: none;
   border-radius: 5px;
   padding: 5px 10px;

@@ -17,11 +17,28 @@ const StudyRoom = (): JSX.Element => {
   const [selectedTag, setSelectedTag] = useState<string | null>(null);
   const [renderStudy, setRenderStudy] = useState<Useditem[]>([]);
   const [page, setPage] = useState<number>(1);
-  const itemsPerPage = 100;
   const [selectedItem, setSelectedItem] = useState<Useditem | null>(null);
   const router = useRouter();
 
+  const [loadedStudyGroups, setLoadedStudyGroups] = useState<Useditem[]>([]);
   const [hasMore, setHasMore] = useState(true);
+
+  const CACHE_DURATION = 3600000; // 1 hour in milliseconds
+  const TAGS_CACHE_KEY = "studyTags";
+
+  useEffect(() => {
+    // Load tags from cache if available
+    const cachedTags = localStorage.getItem(TAGS_CACHE_KEY);
+    if (cachedTags) {
+      setRenderStudy(JSON.parse(cachedTags));
+    }
+    fetchStudyGroups();
+  }, [selectedTag]);
+
+  useEffect(() => {
+    // Store tags in cache
+    localStorage.setItem(TAGS_CACHE_KEY, JSON.stringify(renderStudy));
+  }, [renderStudy]);
 
   // 백엔드에 관리자 게시글 삭제 로직이 있다면 이런식으로 작성
   // const [isAdmin, setIsAdmin] = useState<boolean>(false); // 관리자 여부를 boolean 값으로 변경
@@ -180,11 +197,6 @@ const StudyRoom = (): JSX.Element => {
     }
   };
 
-  useEffect(() => {
-    // 초기화 시에 스터디 그룹 정보를 받아오는 함수 호출
-    fetchStudyGroups();
-  }, []);
-
   const fetchStudyGroups = async () => {
     try {
       const response = await axios.post(
@@ -195,7 +207,7 @@ const StudyRoom = (): JSX.Element => {
             fetchUseditems(
               isSoldout: false
               search: ""
-              page: 1
+              page: ${page}
             ) {
               _id
               name
@@ -215,8 +227,10 @@ const StudyRoom = (): JSX.Element => {
         }
       );
       if (response.data.data) {
-        const studyGroups = response.data.data.fetchUseditems; // 수정: fetchUseditems에서 데이터를 가져옴
-        setRenderStudy(studyGroups); // 수정: 받아온 스터디 그룹 정보를 상태 변수에 저장
+        const studyGroups = response.data.data.fetchUseditems;
+        setLoadedStudyGroups((prevStudy) => [...prevStudy, ...studyGroups]);
+        // 페이지 증가
+        setPage(page + 1);
       }
     } catch (error) {
       console.error("Error fetching study groups:", error);
@@ -234,50 +248,69 @@ const StudyRoom = (): JSX.Element => {
 
   const uniqueTags = Array.from(new Set(renderStudy.flatMap((q) => q.tags)));
 
-  const handleTagClick = (tag: string) => {
+  const onClickTag = (tag: string) => {
     setSelectedTag((prevTag) => (prevTag === tag ? null : tag));
-    setRenderStudy([]);
+    setPage(1); // 태그를 변경하면 페이지를 1로 초기화하여 첫 페이지부터 불러옵니다.
+    setRenderStudy([]); // 선택한 태그에 따라 renderStudy 초기화
   };
 
-  const filteredQuestions = selectedTag
-    ? renderStudy.filter((q) => q.tags.includes(selectedTag))
+  const filteredStudyGroups = selectedTag
+    ? renderStudy.filter((group) => group.tags.includes(selectedTag))
     : renderStudy;
 
-  const loadMoreStudy = () => {
-    if (!hasMore) return; // 이미 더 이상 데이터를 가져올 필요가 없을 경우 종료
-    setHasMore(false); // 데이터 가져오는 중에 재진입을 막기 위해 false로 설정
+  const loadMoreStudy = async () => {
+    if (!hasMore) return;
 
-    const nextPage = page + 1;
-    setPage(nextPage);
-  };
+    try {
+      const nextPage = page + 1;
+      const response = await axios.post(
+        "http://backend-practice.codebootcamp.co.kr/graphql",
+        {
+          query: `
+              query {
+                fetchUseditems(
+                  isSoldout: false
+                  search: ""
+                  page: ${nextPage}
+                ) {
+                  _id
+                  name
+                  remarks
+                  contents
+                  price
+                  tags
+                }
+              }
+            `,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
-  useEffect(() => {
-    if (page > 1) {
-      const startIndex = (page - 1) * itemsPerPage;
-      const endIndex = Math.min(startIndex + itemsPerPage, renderStudy.length);
-      const newQuestions = renderStudy.slice(startIndex, endIndex);
+      if (response.data.data) {
+        const studyGroups = response.data.data.fetchUseditems;
 
-      setTimeout(() => {
-        setRenderStudy((prevQuestions) => [...prevQuestions, ...newQuestions]);
-        setHasMore(true); // 데이터가 추가되면 다시 true로 설정
-      }, 500);
+        if (studyGroups.length > 0) {
+          setLoadedStudyGroups((prevStudy) => [...prevStudy, ...studyGroups]); // loadedStudyGroups에 추가
+          setRenderStudy((prevStudy) => [...prevStudy, ...studyGroups]); // renderStudy에 추가
+
+          setPage(nextPage); // 페이지 증가
+          setHasMore(true);
+        } else {
+          setHasMore(false); // 데이터가 없으면 더 이상 무한 스크롤하지 않도록 설정
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching more study groups:", error);
     }
-  }, [page, renderStudy]);
+  };
 
   return (
     <PageContainer>
       <StudyWrapper>
-        <FilterTags>
-          {uniqueTags.map((tag) => (
-            <TagButton
-              key={tag}
-              active={selectedTag === tag}
-              onClick={() => handleTagClick(tag)}
-            >
-              #{tag}
-            </TagButton>
-          ))}
-        </FilterTags>
         <div style={{ display: "flex", justifyContent: "flex-end" }}>
           <GroupButton
             onClick={onClickCreateStudyGroup}
@@ -287,47 +320,67 @@ const StudyRoom = (): JSX.Element => {
           </GroupButton>
           <GroupButton
             onClick={() => {
-              router.push("/Study/CreateGroup"); // 버튼을 클릭하면 CreateGroup 페이지로 이동
+              router.push("/Study/CreateGroup");
             }}
             style={{ margin: "10px" }}
           >
             스터디 그룹 등록하기
           </GroupButton>
         </div>
-        <InfiniteScroll
-          pageStart={0}
-          loadMore={loadMoreStudy}
-          hasMore={hasMore} // 추가
-          useWindow={false}
-        >
-          {renderStudy.map((studyGroup) => (
-            <QuestionCard
-              key={studyGroup._id}
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "flex-start",
-              }}
-            >
-              <div>
-                {/* 스터디 그룹 정보를 화면에 출력 */}
-                <h2>{studyGroup.remarks}</h2>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: studyGroup.contents, // Quill 에디터 내용을 그대로 렌더링
-                  }}
-                />
-                <p style={{ paddingLeft: "90%" }}>
-                  스터디 회장: {studyGroup.name}
-                </p>
+        <FilterTags>
+          {/* 
+            uniqueTags의 길이가 0일 경우에는 태그를 렌더링하지 않습니다.
+            uniqueTags가 존재할 때만 태그를 렌더링하도록 수정합니다.
+          */}
+          {uniqueTags.length > 0 &&
+            uniqueTags.map((tag) => (
+              <TagButton
+                key={tag}
+                active={selectedTag === tag}
+                onClick={() => onClickTag(tag)}
+              >
+                #{tag}
+              </TagButton>
+            ))}
+        </FilterTags>
 
-                <button onClick={() => deleteStudyGroup(studyGroup._id)}>
-                  게시글 삭제
-                </button>
-              </div>
-            </QuestionCard>
-          ))}
-        </InfiniteScroll>
+        {filteredStudyGroups.length > 0 ? (
+          <InfiniteScroll
+            pageStart={0}
+            loadMore={loadMoreStudy}
+            hasMore={hasMore}
+            useWindow={false}
+          >
+            {filteredStudyGroups.map((studyGroup) => (
+              <QuestionCard
+                key={studyGroup._id}
+                style={{
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "flex-start",
+                }}
+              >
+                <div>
+                  <h2>{studyGroup.remarks}</h2>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: studyGroup.contents,
+                    }}
+                  />
+                  <p style={{ paddingLeft: "90%" }}>
+                    스터디 회장: {studyGroup.name}
+                  </p>
+                  <p>태그: {studyGroup.tags.join(", ")}</p>
+                  <button onClick={() => deleteStudyGroup(studyGroup._id)}>
+                    게시글 삭제
+                  </button>
+                </div>
+              </QuestionCard>
+            ))}
+          </InfiniteScroll>
+        ) : (
+          <p>해당 태그에 관련된 게시물이 없습니다.</p>
+        )}
       </StudyWrapper>
     </PageContainer>
   );

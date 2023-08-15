@@ -11,12 +11,12 @@ import {
   StudyTitleContainer,
 } from "./CreateGroup";
 import QuillEditor from "../../../src/components/commons/QuillEditor";
-// import ReactQuill from "react-quill";
-import ReactHtmlParser from "react-html-parser";
 
-const CreateGroup: React.FC = () => {
+const CreateGroup = (): JSX.Element => {
   const [title, setTitle] = useState<string>("");
   const [content, setContent] = useState<string>("");
+  const [tags, setTags] = useState<string[]>([]); //태그를 여러개 설정할 수 있으므로 배열로 선언
+  const [tagInput, setTagInput] = useState<string>(""); // 태그하나를 설정하는데 들어가는 인풋 값
 
   const router = useRouter();
 
@@ -24,8 +24,31 @@ const CreateGroup: React.FC = () => {
     setTitle(event.target.value);
   };
 
-  const onChangeContent = (event) => {
+  const onChangeContent = (event: any) => {
     setContent(event);
+  };
+
+  const onTagInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    // 태그를 설정하는 인풋 이벤트
+    setTagInput(event.target.value);
+  };
+
+  const addTag = () => {
+    // 태그 추가
+    if (tagInput.trim() !== "" && tags.length < 3) {
+      // 길이?
+      // 최대 태그를 3개싸지 설정, .trim은 좌우 공백을 제거하는 함수
+      setTags([...tags, tagInput]);
+      setTagInput("");
+    } else {
+      alert("태그는 최대 3개까지 등록가능합니다.");
+    }
+  };
+
+  const removeTag = (index: number) => {
+    // 태그를 제거하는 함수
+    const newTags = tags.filter((_, currentIndex) => currentIndex !== index); // 같으면 false를 반환하게 만들어서 원하는 값을 찾음, true 값만 유지
+    setTags(newTags);
   };
 
   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -71,7 +94,7 @@ const CreateGroup: React.FC = () => {
                   remarks: "${title}",
                   contents: ${JSON.stringify(content)},
                   price: 0,
-                  tags: ["예시", "스터디", "그룹"],
+                  tags: ${JSON.stringify(tags)},
                   images: ["none"]
                 }) {
                   _id
@@ -104,6 +127,34 @@ const CreateGroup: React.FC = () => {
     <ContentWrapper>
       <StudyTitleContainer>
         <h2>글쓰기</h2>
+        <form
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+          onSubmit={(event) => {
+            event.preventDefault();
+            addTag();
+          }}
+        >
+          <label>tag</label>
+          <input onChange={onTagInputChange} value={tagInput} />
+          <button type="submit">태그 추가</button>
+        </form>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+          }}
+        >
+          {tags.map((tag, index) => (
+            <div key={index}>
+              {tag}
+              <button onClick={() => removeTag(index)}>삭제</button>
+            </div>
+          ))}
+        </div>
       </StudyTitleContainer>
       <StudyFormWrapper onSubmit={onSubmit}>
         <StudyTitleInput
