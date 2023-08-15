@@ -116,7 +116,9 @@ const CreateGroup = (): JSX.Element => {
           }
         );
 
-        router.push("/Study");
+        alert("스터디 등록에 성공했습니다!");
+        router.push("/Study", undefined, { shallow: true }); // 목록 페이지로 돌아갈 때 데이터 유지
+        // fetchStudyGroups(); // 스터디 그룹 등록 후 목록 업데이트
       }
     } catch (error) {
       console.error("스터디 등록 에러 발생:", error);
