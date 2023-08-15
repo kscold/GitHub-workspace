@@ -1,7 +1,7 @@
 // src/components/units/study/fetchStudyGroups.tsx
 import axios from "axios";
 
-const fetchStudyGroups = async (page: number) => {
+const fetchStudyGroups = async (page: number, searchQuery?: string) => {
   try {
     const response = await axios.post(
       "http://backend-practice.codebootcamp.co.kr/graphql",
@@ -10,7 +10,7 @@ const fetchStudyGroups = async (page: number) => {
               query {
                 fetchUseditems(
                   isSoldout: false
-                  search: ""
+                  search: "${searchQuery || ""}"
                   page: ${page}
                 ) {
                   _id
