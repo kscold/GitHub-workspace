@@ -4,13 +4,15 @@ import { useRouter } from "next/router";
 import "react-quill/dist/quill.snow.css"; // 리액트 퀼의 스타일 파일
 import axios from "axios"; // axios 임포트
 import {
-  Cen,
-  FormWrapper,
-  MovieContainer,
+  ContentWrapper,
   SubmitButton,
-  TitleInput,
+  StudyFormWrapper,
+  StudyTitleInput,
+  StudyTitleContainer,
 } from "./CreateGroup";
 import QuillEditor from "../../../src/components/commons/QuillEditor";
+// import ReactQuill from "react-quill";
+import ReactHtmlParser from "react-html-parser";
 
 const CreateGroup: React.FC = () => {
   const [title, setTitle] = useState<string>("");
@@ -18,15 +20,17 @@ const CreateGroup: React.FC = () => {
 
   const router = useRouter();
 
-  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.target.value);
+  const onChangeTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
   };
 
-  const handleContentChange = (newContent) => {
-    setContent(newContent);
+  const onChangeContent = (event) => {
+    setContent(event);
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
     try {
       // 사용자 정보 조회
       const UserDataResponse = await axios.post(
@@ -65,7 +69,7 @@ const CreateGroup: React.FC = () => {
                 createUseditem(createUseditemInput: {
                   name: "${userName}",
                   remarks: "${title}",
-                  contents: "${content}",
+                  contents: ${JSON.stringify(content)},
                   price: 0,
                   tags: ["예시", "스터디", "그룹"],
                   images: ["none"]
@@ -88,31 +92,30 @@ const CreateGroup: React.FC = () => {
             },
           }
         );
+
+        router.push("/Study");
       }
-      // 예시: 저장이 완료되면 글 목록 페이지로 이동
-      router.push("/Study");
     } catch (error) {
-      console.error("에러 발생:", error);
+      console.error("스터디 등록 에러 발생:", error);
     }
   };
 
   return (
-    <div>
-      <Cen>
-        <MovieContainer>
-          <h2>글쓰기</h2>
-        </MovieContainer>
-        <FormWrapper onSubmit={handleSubmit}>
-          <TitleInput
-            placeholder="제목"
-            onChange={handleTitleChange}
-            value={title}
-          />
-          <QuillEditor value={content} onChange={handleContentChange} />
-          <SubmitButton type="submit">입력</SubmitButton>
-        </FormWrapper>
-      </Cen>
-    </div>
+    <ContentWrapper>
+      <StudyTitleContainer>
+        <h2>글쓰기</h2>
+      </StudyTitleContainer>
+      <StudyFormWrapper onSubmit={onSubmit}>
+        <StudyTitleInput
+          placeholder="스터디 이름"
+          onChange={onChangeTitle}
+          value={title}
+        />
+        <QuillEditor value={content} onChange={onChangeContent} />
+
+        <SubmitButton type="submit">스터디 등록</SubmitButton>
+      </StudyFormWrapper>
+    </ContentWrapper>
   );
 };
 
