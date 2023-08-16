@@ -17,6 +17,7 @@ const CreateGroup = (): JSX.Element => {
   const [content, setContent] = useState<string>("");
   const [tags, setTags] = useState<string[]>([]); //태그를 여러개 설정할 수 있으므로 배열로 선언
   const [tagInput, setTagInput] = useState<string>(""); // 태그하나를 설정하는데 들어가는 인풋 값
+  const [maxParticipants, setMaxParticipants] = useState<number>(0); // 스터디 최대인원 수
 
   const router = useRouter();
 
@@ -84,7 +85,7 @@ const CreateGroup = (): JSX.Element => {
         const userName = UserData.name;
 
         // 여기에서 작성한 글을 서버에 저장하는 로직을 구현
-        const saveDataResponse = await axios.post(
+        await axios.post(
           "http://backend-practice.codebootcamp.co.kr/graphql",
           {
             query: `
@@ -93,8 +94,11 @@ const CreateGroup = (): JSX.Element => {
                   name: "${userName}",
                   remarks: "${title}",
                   contents: ${JSON.stringify(content)},
-                  price: 0,
-                  tags: ${JSON.stringify(tags)},
+                  price: 1,
+                  tags: ${JSON.stringify([
+                    ...tags,
+                    maxParticipants.toString(),
+                  ])},
                   images: ["none"]
                 }) {
                   _id
@@ -157,6 +161,14 @@ const CreateGroup = (): JSX.Element => {
             </div>
           ))}
         </div>
+
+        <label>최대 인원</label>
+        <input
+          type="number"
+          min="1"
+          onChange={(event) => setMaxParticipants(parseInt(event.target.value))}
+          value={maxParticipants}
+        />
       </StudyTitleContainer>
       <StudyFormWrapper onSubmit={onSubmit}>
         <StudyTitleInput

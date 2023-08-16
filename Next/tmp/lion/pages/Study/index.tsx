@@ -12,14 +12,18 @@ import {
   StudySerach,
 } from "./StudyCSS";
 import { useRouter } from "next/router";
-import { Useditem } from "./DataInterface";
+import { IUseditem } from "../../src/commons/types/generated/types";
 import fetchStudyGroups from "../../src/components/units/study/fetchStudyGroups";
 
 const StudyRoom = (): JSX.Element => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [renderStudy, setRenderStudy] = useState<Useditem[]>([]);
+  const [renderStudy, setRenderStudy] = useState<IUseditem[]>([]);
   const [page, setPage] = useState<number>(1);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [expandedItems, setExpandedItems] = useState<string[]>([]); // 추가된 부분
+  const [maxCounts, setMaxCounts] = useState<Record<string, number>>({});
+  const [joinedGroups, setJoinedGroups] = useState<Record<string, boolean>>({});
+
   const router = useRouter();
 
   const [hasMore, setHasMore] = useState(true);
@@ -32,10 +36,34 @@ const StudyRoom = (): JSX.Element => {
     fetchData(1);
   }, [selectedTags, searchQuery]);
 
+  const fetchMaxCount = (useditemId: string): number => {
+    const targetGroup = renderStudy.find((group) => group._id === useditemId);
+    return parseInt(targetGroup?.tags[targetGroup?.tags.length - 1]);
+  };
+
+  useEffect(() => {
+    const newMaxCounts: Record<string, number> = {};
+
+    renderStudy.forEach((group) => {
+      newMaxCounts[group._id] = fetchMaxCount(group._id);
+    });
+
+    setMaxCounts(newMaxCounts);
+  }, [renderStudy]);
+
   const onSearch = (query: string) => {
     setSearchQuery(query);
     setPage(1);
     setRenderStudy([]);
+  };
+
+  // StudyComponent 컴포넌트 클릭 시 확장 상태를 토글하는 함수
+  const toggleExpansion = (itemId: string) => {
+    setExpandedItems((prevExpanded) =>
+      prevExpanded.includes(itemId)
+        ? prevExpanded.filter((id) => id !== itemId)
+        : [...prevExpanded, itemId]
+    );
   };
 
   const fetchData = async (currentPage: number) => {
@@ -87,11 +115,9 @@ const StudyRoom = (): JSX.Element => {
     }
   };
 
-  const uniqueTags = Array.from(new Set(renderStudy.flatMap((q) => q.tags)));
-
-  // useEffect(() => {
-  //   uniqueTags;
-  // }, []);
+  const uniqueTags = Array.from(
+    new Set(renderStudy.flatMap((q) => q.tags))
+  ).filter((_, index) => index !== 3);
 
   const onClickTag = (tag: string) => {
     if (selectedTags.includes(tag)) {
@@ -109,7 +135,7 @@ const StudyRoom = (): JSX.Element => {
   const filteredStudyGroups =
     selectedTags.length > 0
       ? renderStudy.filter(
-          (group) => selectedTags.some((tag) => group.tags.includes(tag)) // .some을 통해 or 검색을 함
+          (group) => selectedTags.some((tag) => group.tags?.includes(tag)) // .some을 통해 or 검색을 함
         )
       : renderStudy;
 
@@ -135,6 +161,116 @@ const StudyRoom = (): JSX.Element => {
     }
   };
 
+  const updateStudyCount = async (useditemId: string, increment: boolean) => {
+    const targetGroup = renderStudy.find((group) => group._id === useditemId);
+    const updatedCount = increment
+      ? targetGroup.price + 1
+      : targetGroup.price - 1;
+    try {
+      const updatedStudyGroups = renderStudy.map((studyGroup) => {
+        if (studyGroup._id === useditemId) {
+          return {
+            ...studyGroup,
+            price: studyGroup.price + 1,
+          };
+        }
+        return studyGroup;
+      });
+
+      const response = await axios.post(
+        "http://backend-practice.codebootcamp.co.kr/graphql",
+        {
+          query: `
+            mutation UpdateUseditem($useditemId: ID!, $price: Int!) {
+              updateUseditem(
+                useditemId: $useditemId,
+                updateUseditemInput: {
+                  price: $price
+                }
+              ) {
+                _id
+                price
+              }
+            }
+          `,
+          variables: {
+            useditemId: useditemId,
+            price: updatedCount,
+          },
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+
+      const updatedStudy = response.data.data.updateUseditem;
+      if (updatedStudy && updatedStudy._id) {
+        const updatedRenderStudy = renderStudy.map((study) =>
+          study._id === useditemId
+            ? {
+                ...study,
+                price: updatedStudy.price,
+              }
+            : study
+        );
+        setRenderStudy(updatedRenderStudy);
+      } else {
+        console.error("스터디 참여 업데이트 실패");
+      }
+    } catch (error) {
+      console.error("스터디 참가 에러 발생:", error);
+    }
+  };
+
+  const toggleJoined = async (useditemId: string) => {
+    const prevJoined = joinedGroups[useditemId] || false;
+
+    // 이 부분을 수정합니다.
+    const maxCount = maxCounts[useditemId]; // 이전 코드: maxCounts[useditemId]
+    const currentCount = renderStudy.find(
+      (group) => group._id === useditemId
+    )?.price;
+
+    if (!prevJoined && currentCount >= maxCount) {
+      alert("인원이 가득 찼습니다.");
+      return;
+    }
+
+    setJoinedGroups({
+      ...joinedGroups,
+      [useditemId]: !prevJoined,
+    });
+
+    try {
+      // 함수 이름 변경 확인: updateUseditem → updateStudyCount
+      await updateStudyCount(useditemId, !prevJoined);
+      if (!prevJoined) {
+        alert("스터디에 참가하였습니다!");
+      } else {
+        alert("스터디에서 퇴장하였습니다!");
+      }
+    } catch (error) {
+      console.error("스터디 참가 에러 발생:", error);
+      alert("스터디 참가 중 오류가 발생했습니다. 다시 시도해주세요.");
+    }
+  };
+
+  const processTags = (group: IUseditem) => {
+    // 최대 4개의 태그를 갖도록 하며, 필요한 경우 빈 태그를 추가한다.
+    let tags = group.tags ? [...group.tags] : [];
+    while (tags.length < 4) {
+      tags.splice(tags.length - 1, 0, "");
+    }
+    return tags;
+  };
+  // 각각의 스터디 그룹 태그를 처리한다.
+  const processedStudyGroups = renderStudy.map((group) => {
+    return { ...group, tags: processTags(group) };
+  });
+
   return (
     <PageContainer>
       <StudyWrapper>
@@ -158,16 +294,19 @@ const StudyRoom = (): JSX.Element => {
         </div>
 
         <FilterTags>
-          {uniqueTags.length > 0 &&
-            uniqueTags.map((tag) => (
-              <TagButton
-                key={tag}
-                active={selectedTags.includes(tag)}
-                onClick={() => onClickTag(tag)}
-              >
-                #{tag}
-              </TagButton>
-            ))}
+          {uniqueTags && uniqueTags.length > 0 && (
+            <FilterTags>
+              {uniqueTags.map((tag: any) => (
+                <TagButton
+                  key={tag}
+                  active={selectedTags.includes(tag)}
+                  onClick={() => onClickTag(tag)}
+                >
+                  #{tag}
+                </TagButton>
+              ))}
+            </FilterTags>
+          )}
         </FilterTags>
 
         <InfiniteScroll
@@ -175,11 +314,13 @@ const StudyRoom = (): JSX.Element => {
           loadMore={loadMoreStudy}
           hasMore={hasMore && !loadingMore}
           useWindow={false}
-          loader={<div key={0}>Loading...</div>} // 로딩 표시 추가
+          loader={<div key={0}>Loading...</div>}
         >
-          {filteredStudyGroups.map((studyGroup) => (
+          {processedStudyGroups.map((studyGroup) => (
             <StudyComponent
               key={studyGroup._id}
+              active={expandedItems.includes(studyGroup._id)}
+              onClick={() => toggleExpansion(studyGroup._id)}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -188,32 +329,58 @@ const StudyRoom = (): JSX.Element => {
             >
               <div>
                 <h2>{studyGroup.remarks}</h2>
+
                 <div
-                  dangerouslySetInnerHTML={{
-                    __html: studyGroup.contents,
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
                   }}
-                />
-                <p style={{ paddingLeft: "90%" }}>
-                  스터디 회장: {studyGroup.name}
-                </p>
-                <div>
-                  {studyGroup.tags.map((tag) => (
-                    <TagButton
-                      key={tag}
-                      active={selectedTags.includes(tag)}
-                      onClick={() => onClickTag(tag)}
-                      style={{ margin: "2px" }}
-                    >
-                      #{tag}
-                    </TagButton>
-                  ))}
-                </div>
-                <div style={{ paddingLeft: "91%" }}>
-                  <button onClick={() => deleteStudyGroup(studyGroup._id)}>
-                    게시글 삭제
-                  </button>
+                >
+                  <div>
+                    {studyGroup.tags
+                      ? studyGroup.tags.slice(0, 3).map((tag: any) =>
+                          tag ? (
+                            <TagButton
+                              key={tag}
+                              active={selectedTags.includes(tag)}
+                              onClick={() => onClickTag(tag)}
+                              style={{ margin: "2px" }}
+                            >
+                              #{tag}
+                            </TagButton>
+                          ) : null
+                        )
+                      : null}
+                  </div>
+
+                  <p>스터디 회장: {studyGroup.name}</p>
                 </div>
               </div>
+              {expandedItems.includes(studyGroup._id) && (
+                <div>
+                  <div
+                    dangerouslySetInnerHTML={{
+                      __html: studyGroup.contents,
+                    }}
+                  />
+
+                  <button onClick={() => toggleJoined(studyGroup._id)}>
+                    {joinedGroups[studyGroup._id]
+                      ? "스터디 퇴장"
+                      : "스터디 참가"}
+                  </button>
+                  <span style={{ marginLeft: "10px" }}>
+                    스터디참가: {studyGroup.price}/{studyGroup.tags[3]}
+                    {/* 수정된 부분 */}
+                  </span>
+                  <div style={{ paddingLeft: "91%" }}>
+                    <button onClick={() => deleteStudyGroup(studyGroup._id)}>
+                      게시글 삭제
+                    </button>
+                  </div>
+                </div>
+              )}
             </StudyComponent>
           ))}
         </InfiniteScroll>

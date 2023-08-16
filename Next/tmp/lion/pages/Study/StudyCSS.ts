@@ -1,5 +1,6 @@
 // StudyCSS.tsx
 import styled from "@emotion/styled";
+import { keyframes, css } from "@emotion/react";
 
 export const PageContainer = styled.div`
   height: calc(100vh - 90px);
@@ -42,12 +43,43 @@ export const GroupButton = styled.button`
   cursor: pointer;
 `;
 
-export const StudyComponent = styled.div`
+const expandAnimation = keyframes` // 추가
+  0% {
+    height: 100px;
+  }
+  100% {
+    height: auto;
+  }
+`;
+
+const collapseAnimation = keyframes` // 추가
+  0% {
+    height: auto;
+  }
+  100% {
+    height: 100px;
+  }
+`;
+
+export const StudyComponent = styled.div<{ active: boolean }>`
   background-color: #fff;
   border: 1px solid #e0e0e0;
   border-radius: 10px;
   padding: 20px;
   margin-bottom: 20px;
+  position: relative; /* 추가 */
+  cursor: pointer; /* 추가 */
+  /* transition: height 1s ease-in-out;  */
+  height: ${({ active }) => (active ? "auto" : "100px")}; /* 초기 크기 설정 */
+
+  /* ${({ active }) =>
+    active
+      ? css`
+          animation: ${expandAnimation} 1s 1 ease-in-out forwards;
+        `
+      : css`
+          animation: ${collapseAnimation} 1s 1 ease-in-out forwards;
+        `} */
 `;
 
 export const StudySerach = styled.input`
