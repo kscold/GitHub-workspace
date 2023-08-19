@@ -7,7 +7,7 @@ import type {
 import { useRecoilState } from "recoil";
 import { accessTokenState } from "../../../src/commons/stores";
 import { useRouter } from "next/router";
-import { wrapAsync } from "../../../../lion/src/commons/libraries/asyncFunc";
+import { wrapAsync } from "../../../src/commons/libraries/asyncFunc";
 
 const LOGIN_USER = gql`
   mutation loginUserExample($email: String!, $password: String!) {
@@ -62,7 +62,7 @@ export default function LoginPage(): JSX.Element {
     <>
       이메일: <input type="text" onChange={onChangeEmail} />
       비밀번호: <input type="password" onChange={onChangePassword} />
-      <button onClick={onClickLogin}>로그인</button>
+      <button onClick={wrapAsync(onClickLogin)}>로그인</button>
     </>
   );
 }

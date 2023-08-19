@@ -1,5 +1,5 @@
 import { gql, useApolloClient } from "@apollo/client";
-import { wrapAsync } from "../../../../lion/src/commons/libraries/asyncFunc";
+import { wrapAsync } from "../../../src/commons/libraries/asyncFunc";
 
 const FETCH_USER_LOGGED_IN = gql`
   query {
@@ -16,7 +16,7 @@ export default function LoginPage(): JSX.Element {
   //   useQuery<Pick<IQuery, "fetchUserLoggedIn">>(FETCH_USER_LOGGED_IN);
 
   // 2. 버튼 클릭시 data에 받아지고(data는 글로버스테이트 저장), 리렌더링됨
-  // const [나의함수, { data }] = useQuery(FETCH_USER_LOGGED_IN);
+  // const [나의함수, { data }] = useLazyQuery(FETCH_USER_LOGGED_IN);
 
   // 3. axios처럼 사용하는 방법(data는 글로벌스테이트 저장)
   // const client = useApolloClient()
@@ -31,5 +31,5 @@ export default function LoginPage(): JSX.Element {
     console.log(result);
   };
 
-  return <button onClick={onClickButton}>클릭하세요</button>;
+  return <button onClick={wrapAsync(onClickButton)}>클릭하세요</button>;
 }
