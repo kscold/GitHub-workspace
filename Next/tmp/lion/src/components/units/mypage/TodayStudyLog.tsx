@@ -98,82 +98,52 @@
 // export default TodayStudyLog;
 
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 
-const TodayStudyLog = () => {
-  const [lastLogoutTime, setLastLogoutTime] = useState(null);
-  const [studyLogs, setStudyLogs] = useState([]);
+const TodayStudyLog = (props) => {
+  const LastLoginTime = localStorage.getItem("lastSignInAt");
+  const loginTimeString = props.lastSignInAt;
 
-  const calculateAndSaveActivityTime = async (logoutTime) => {
+  const [activityTime, setActivityTime] = useState(0);
+
+  const convertToLocalTime = (time) => {
+    const localTime = new Date(time);
+    localTime.setHours(localTime.getHours() + 9); // To adapt to Korean Standard Time, add 9 hours
+    return localTime;
+  };
+
+  const loginTime = convertToLocalTime(loginTimeString);
+
+  const calculateActivityTime = () => {
     const currentTime = new Date();
-    const timeDifference = currentTime - logoutTime;
-    const hours = Math.floor(timeDifference / 3600000);
-    const minutes = Math.floor((timeDifference % 3600000) / 60000);
-    const seconds = Math.floor((timeDifference % 60000) / 1000);
+    currentTime.setHours(currentTime.getHours() + 9); // To adapt to Korean Standard Time, add 9 hours
+    const timeDifference = currentTime - loginTime;
 
-    const newStudyLog = {
-      id: studyLogs.length + 1,
-      enter: logoutTime.toLocaleString(),
-      exit: currentTime.toLocaleString(),
-      hour: hours.toString(),
-      min: minutes.toString(),
-      sec: seconds.toString(),
-    };
-
-    try {
-      // Send log data to the backend
-      const userId = 1; // Replace with the logged-in user's ID
-      await axios.post("/api/activity-log", {
-        userId,
-        loginTime: logoutTime,
-        logoutTime: currentTime,
-      });
-
-      // Save the new study log to local storage
-      localStorage.setItem(
-        "studyLogs",
-        JSON.stringify([...studyLogs, newStudyLog])
-      );
-
-      // Update the studyLogs state with the new log
-      setStudyLogs((prevLogs) => [...prevLogs, newStudyLog]);
-    } catch (error) {
-      console.error("Error recording activity log:", error);
+    if (timeDifference >= 86400000) {
+      // 만약 24시간이 넘어가면 0분으로 표시
+      return 0;
     }
+
+    const minutes = Math.floor(timeDifference / 60000); // Convert to minutes
+    return minutes;
   };
 
   useEffect(() => {
-    const storedLastLogoutTime = localStorage.getItem("lastLogoutTime");
-    if (storedLastLogoutTime) {
-      setLastLogoutTime(new Date(storedLastLogoutTime));
-    }
+    const updateActivityTime = () => {
+      setActivityTime(calculateActivityTime());
+    };
 
-    const storedStudyLogs = localStorage.getItem("studyLogs");
-    if (storedStudyLogs) {
-      setStudyLogs(JSON.parse(storedStudyLogs));
-    }
+    // 주기적으로 페이지 업데이트
+    const interval = setInterval(updateActivityTime, 60000); // 1분마다 업데이트
 
     return () => {
-      if (lastLogoutTime) {
-        calculateAndSaveActivityTime(lastLogoutTime);
-
-        // Update the last logout time in local storage
-        localStorage.setItem("lastLogoutTime", new Date().toISOString());
-      }
+      clearInterval(interval); // 컴포넌트 unmount 시 인터벌 정리
     };
-  }, [lastLogoutTime]);
+  }, []);
 
   return (
     <>
       <h3>오늘 활동 시간</h3>
-      <ul>
-        {studyLogs.map((studyLog) => (
-          <li key={studyLog.id}>
-            {studyLog.enter} - {studyLog.exit}: {studyLog.hour} hours{" "}
-            {studyLog.min} minutes {studyLog.sec} seconds
-          </li>
-        ))}
-      </ul>
+      <p>활동 시간: {activityTime} 분</p>
     </>
   );
 };

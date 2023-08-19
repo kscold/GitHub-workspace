@@ -50,11 +50,7 @@ export const userNameState = atom<string | null>({
   default: null,
 });
 
-// export const loginSelector = selector({
-//   key: "loginSelector",
-//   get: ({ get }) => {
-//     const isLogin = get(isLoginState);
-//     const userName = get(userNameState);
-//     return isLogin && userName !== null;
-//   },
-// });
+export const boardIdState = atom<string>({
+  key: "boardIdState",
+  default: "",
+});

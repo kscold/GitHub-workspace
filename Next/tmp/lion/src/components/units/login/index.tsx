@@ -1,129 +1,3 @@
-// // src/components/units/login/index.tsx
-// import React, { useState } from "react";
-// import Link from "next/link";
-// import { useRecoilState } from "recoil";
-// import { userNameState, isLoginState } from "../../commons/recoilState";
-// import axios from "axios";
-// import {
-//   ButtonWithMarginTop,
-//   Footer,
-//   StyledInput,
-//   LoginWrapper,
-//   LoginFormWrapper,
-// } from "./logincss";
-// import { useRouter } from "next/router";
-
-// const Login = (): JSX.Element => {
-//   const [userName, setUserName] = useRecoilState(userNameState);
-//   const [isLogin, setIsLogin] = useRecoilState(isLoginState);
-//   const router = useRouter();
-
-//   const [formData, setFormData] = useState({
-//     username: "",
-//     password: "",
-//   });
-
-//   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
-//     const { name, value } = event.target;
-//     setFormData((prevData) => ({ ...prevData, [name]: value }));
-//   };
-
-//   const onSubmitLogin = async (
-//     event: React.FormEvent<HTMLFormElement>
-//   ): Promise<void> => {
-//     event.preventDefault();
-
-//     try {
-//       // 로그인 통신에 성공하면
-//       const response = await axios.post(
-//         "http://localhost:4000/api/auth/login",
-//         {
-//           username: formData.username,
-//           password: formData.password,
-//         }
-//       );
-
-//       if (response.data) {
-//         // 로그인에 성공하면
-//         const user = response.data;
-//         console.log("로그인 성공");
-//         localStorage.setItem("isLoggedIn", "true");
-//         // 로그인 상태를 로컬 스토리지에 저장
-//         localStorage.setItem("username", user.username);
-//         // 사용자 이름을 로컬 스토리지에 저장
-
-//         setUserName(user.username);
-//         // 사용자 이름을 Recoil 상태에 저장
-//         setIsLogin(true);
-//         // 로그인 상태를 Recoil 상태에 저장
-
-//         console.log(isLogin);
-//         console.log(user.username);
-
-//         // 페이지를 리로드 -> 애니매이션 버그를 해결하기 위해(먼저 localStorage가 선행되어야함)
-//         window.location.reload();
-//       } else {
-//         // 로그인에 실패하면
-//         console.log("Login failed");
-//       }
-//     } catch (error) {
-//       // 로그인 통신에 실패하면
-//       console.error("Error logging in:", error);
-//     }
-//   };
-
-//   const googleLogin = async (): Promise<void> => {
-//     try {
-//       const response = await axios.get(
-//         "http://localhost:8080/oauth2/authorization/google"
-//       );
-
-//       if (response.data) {
-//         // Google 로그인 페이지로 리다이렉트
-//         window.location.href = response.data;
-//       }
-//     } catch (error) {
-//       console.error("Error during Google login:", error);
-//     }
-//   };
-//   return (
-//     <div style={{ display: "flex", justifyContent: "flex-end" }}>
-//       <LoginWrapper>
-//         <LoginFormWrapper>
-//           <h3 style={{ marginBottom: "4px" }}>로그인</h3>
-//           <form onSubmit={onSubmitLogin}>
-//             <StyledInput
-//               autoComplete="username"
-//               name="username"
-//               placeholder="id"
-//               value={formData.username}
-//               onChange={onChangeInput}
-//             />
-//             <StyledInput
-//               autoComplete="current-password"
-//               name="password"
-//               placeholder="password"
-//               type="password"
-//               value={formData.password}
-//               onChange={onChangeInput}
-//             />
-//             <ButtonWithMarginTop fullWidth type="submit">
-//               로그인
-//             </ButtonWithMarginTop>
-//           </form>
-//           <Footer>
-//             <Link href="/Register">회원가입</Link>
-//             <button onClick={googleLogin}>구글</button>
-//           </Footer>
-//         </LoginFormWrapper>
-//       </LoginWrapper>
-//     </div>
-//   );
-// };
-
-// export default Login;
-
-// 코드캠프 백엔드 연결
 // import React, { useState, useEffect } from "react";
 // import Link from "next/link";
 // import { useRecoilState } from "recoil";
@@ -143,33 +17,45 @@
 //   const [isLogin, setIsLogin] = useRecoilState(isLoginState);
 //   const router = useRouter();
 
+//   const [isInputFilled, setIsInputFilled] = useState(false);
+
 //   const [formData, setFormData] = useState({
 //     username: "",
 //     password: "",
 //   });
 
 //   useEffect(() => {
+//     setIsInputFilled(
+//       formData.username.trim() !== "" || formData.password.trim() !== ""
+//     );
+//   }, [formData.username, formData.password]);
+
+//   useEffect(() => {
 //     const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
 //     const storedUsername = localStorage.getItem("username");
+//     const storedAccessToken = localStorage.getItem("accessToken");
 
 //     if (storedIsLoggedIn === "true" && storedUsername) {
 //       setUserName(storedUsername);
 //       setIsLogin(true);
+
+//       if (storedAccessToken) {
+//         const refreshTokenInterval = setInterval(() => {
+//           refreshToken();
+//         }, 50 * 60 * 1000);
+
+//         return () => clearInterval(refreshTokenInterval);
+//       }
 //     }
-//   }, []); // 최초 로드 시에만 실행될 useEffect
+//   }, []);
 
 //   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
 //     const { name, value } = event.target;
 //     setFormData((prevData) => ({ ...prevData, [name]: value }));
 //   };
 
-//   const onSubmitLogin = async (
-//     event: React.FormEvent<HTMLFormElement>
-//   ): Promise<void> => {
-//     event.preventDefault();
-
+//   const loginUser = async () => {
 //     try {
-//       // 로그인 통신에 성공하면
 //       const response = await axios.post(
 //         "http://backend-practice.codebootcamp.co.kr/graphql",
 //         {
@@ -191,39 +77,8 @@
 //       if (response.data.data.loginUser.accessToken) {
 //         const accessToken = response.data.data.loginUser.accessToken;
 
-//         const userResponse = await axios.post(
-//           "http://backend-practice.codebootcamp.co.kr/graphql",
-//           {
-//             query: `
-//               query {
-//                 fetchUserLoggedIn {
-//                   email
-//                   name
-//                 }
-//               }
-//             `,
-//           },
-//           {
-//             headers: {
-//               "Content-Type": "application/json",
-//               Authorization: `Bearer ${accessToken}`,
-//             },
-//           }
-//         );
-
-//         if (userResponse.data.data.fetchUserLoggedIn) {
-//           const userName = userResponse.data.data.fetchUserLoggedIn.name;
-
-//           localStorage.setItem("isLoggedIn", "true");
-//           localStorage.setItem("username", userName);
-//           setUserName(userName);
-//           setIsLogin(true);
-
-//           // 페이지를 리로드 -> 애니메이션 버그를 해결하기 위해(먼저 localStorage가 선행되어야함)
-//           window.location.reload();
-//         } else {
-//           console.log("User data fetch failed");
-//         }
+//         localStorage.setItem("accessToken", accessToken);
+//         getUserData(accessToken);
 //       } else {
 //         console.log("Login failed");
 //       }
@@ -232,6 +87,116 @@
 //       alert("로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요.");
 //     }
 //   };
+
+//   const refreshToken = async () => {
+//     try {
+//       const response = await axios.post(
+//         "http://backend-practice.codebootcamp.co.kr/graphql",
+//         {
+//           query: `
+//             mutation {
+//               refreshToken {
+//                 accessToken
+//               }
+//             }
+//           `,
+//         },
+//         {
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//         }
+//       );
+
+//       if (response.data.data.refreshToken.accessToken) {
+//         const accessToken = response.data.data.refreshToken.accessToken;
+//         localStorage.setItem("accessToken", accessToken);
+//       } else {
+//         console.log("Token refresh failed");
+//       }
+//     } catch (error) {
+//       console.error("Error refreshing token:", error);
+//     }
+//   };
+
+//   const getUserData = async (accessToken: any) => {
+//     try {
+//       const userResponse = await axios.post(
+//         "http://backend-practice.codebootcamp.co.kr/graphql",
+//         {
+//           query: `
+//             query {
+//               fetchUserLoggedIn {
+//                 email
+//                 name
+//               }
+//             }
+//           `,
+//         },
+//         {
+//           headers: {
+//             "Content-Type": "application/json",
+//             Authorization: `Bearer ${accessToken}`,
+//           },
+//         }
+//       );
+
+//       if (userResponse.data.data.fetchUserLoggedIn) {
+//         const userName = userResponse.data.data.fetchUserLoggedIn.name;
+
+//         localStorage.setItem("isLoggedIn", "true");
+//         localStorage.setItem("username", userName);
+//         setUserName(userName);
+//         setIsLogin(true);
+
+//         window.location.reload();
+//       } else {
+//         console.log("User data fetch failed");
+//       }
+//     } catch (error) {
+//       console.error("Error fetching user data:", error);
+//     }
+//   };
+
+//   const onSubmitLogin = async (
+//     event: React.FormEvent<HTMLFormElement>
+//   ): Promise<void> => {
+//     event.preventDefault();
+//     if (isInputFilled) {
+//       loginUser();
+//     }
+//   };
+
+//   const onClickGoogle = async () => {
+//     try {
+//       await router.push("http://localhost:8080/oauth2/authorization/google");
+//     } catch (error) {
+//       console.error("Error redirecting to Google login:", error);
+//     }
+//   };
+
+//   const saveUserNameToLocalStorage = (userName: string): void => {
+//     localStorage.setItem("username", decodeURIComponent(userName));
+//     localStorage.setItem("isLoggedIn", "true");
+//     setUserName(decodeURIComponent(userName));
+//     setIsLogin(true);
+//   };
+
+//   useEffect(() => {
+//     const processUserNameFromURL = () => {
+//       if (!router.isReady || isLogin) {
+//         return;
+//       }
+
+//       const userNameFromURL = router.query.userName;
+
+//       if (userNameFromURL) {
+//         saveUserNameToLocalStorage(userNameFromURL);
+//       }
+//     };
+
+//     processUserNameFromURL();
+//   }, [router.isReady, isLogin]);
 
 //   return (
 //     <div style={{ display: "flex", justifyContent: "flex-end" }}>
@@ -254,13 +219,18 @@
 //               value={formData.password}
 //               onChange={onChangeInput}
 //             />
-//             <ButtonWithMarginTop fullWidth type="submit">
+//             <ButtonWithMarginTop
+//               fullWidth
+//               type="submit"
+//               disabled={!isInputFilled}
+//             >
 //               로그인
 //             </ButtonWithMarginTop>
 //           </form>
 //           <Footer>
 //             <Link href="/Register">회원가입</Link>
 //           </Footer>
+//           <button onClick={onClickGoogle}>구글 로그인</button>
 //         </LoginFormWrapper>
 //       </LoginWrapper>
 //     </div>
@@ -269,7 +239,7 @@
 
 // export default Login;
 
-// 코드캠프 백엔드 연결
+// 슈퍼베이스 백엔드 연결
 // src/components/units/login/index.tsx
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
@@ -284,21 +254,59 @@ import {
   LoginFormWrapper,
 } from "./logincss";
 import { useRouter } from "next/router";
+import jwtDecode from "jwt-decode";
 
 const Login = (): JSX.Element => {
   const [userName, setUserName] = useRecoilState(userNameState);
   const [isLogin, setIsLogin] = useRecoilState(isLoginState);
+  const [lastSignInAt, setLastSignInAt] = useState("");
   const router = useRouter();
 
-  const [isInputFilled, setIsInputFilled] = useState(false); // 입력값이 있는지 여부를 감지할 상태 추가
+  const [isInputFilled, setIsInputFilled] = useState(false);
 
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
 
+  const [storedAccessToken, setStoredAccessToken] = useState("");
+
+  const refreshToken = async () => {
+    try {
+      const currentExpireTime = jwtDecode(storedAccessToken).expires_at;
+      const now = new Date().getTime();
+      const expiresIn = currentExpireTime - now;
+      if (expiresIn > 0) {
+        return;
+      }
+
+      const response = await axios.post(
+        "https://wjjjsbifausxxiafieii.supabase.co/auth/v1/token?grant_type=refresh_token",
+        {
+          refresh_token: data.refresh_token,
+          grant_type: "refresh_token",
+        },
+        {
+          headers: {
+            apikey:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndqampzYmlmYXVzeHhpYWZpZWlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTIyODI2MzUsImV4cCI6MjAwNzg1ODYzNX0.EaTFiRYVtAjf0M1AtwBGtYNneNpcMsR9T-f1zEYCZKY",
+          },
+        }
+      );
+      if (response.data && response.data.access_token) {
+        const { access_token, expires_in } = response.data;
+
+        localStorage.setItem("accessToken", access_token);
+        setStoredAccessToken(access_token);
+      } else {
+        console.log("Token refresh failed");
+      }
+    } catch (error) {
+      console.error("Error refreshing token:", error);
+    }
+  };
+
   useEffect(() => {
-    // 입력값이 있는지 여부를 감지하고 상태 업데이트
     setIsInputFilled(
       formData.username.trim() !== "" || formData.password.trim() !== ""
     );
@@ -307,19 +315,21 @@ const Login = (): JSX.Element => {
   useEffect(() => {
     const storedIsLoggedIn = localStorage.getItem("isLoggedIn");
     const storedUsername = localStorage.getItem("username");
-    const storedAccessToken = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem("accessToken");
 
     if (storedIsLoggedIn === "true" && storedUsername) {
       setUserName(storedUsername);
       setIsLogin(true);
 
-      // 엑세스 토큰이 존재하면 50분마다 갱신
-      if (storedAccessToken) {
+      if (accessToken) {
+        setStoredAccessToken(accessToken);
+        // access token 갱신
+        // 50분마다 access token 자동 갱신
         const refreshTokenInterval = setInterval(() => {
           refreshToken();
-        }, 50 * 60 * 1000); // 50분마다 실행 (단위: 밀리초)
+        }, 50 * 60 * 1000);
 
-        return () => clearInterval(refreshTokenInterval); // 컴포넌트 언마운트 시 인터벌 제거
+        return () => clearInterval(refreshTokenInterval);
       }
     }
   }, []);
@@ -332,28 +342,37 @@ const Login = (): JSX.Element => {
   const loginUser = async () => {
     try {
       const response = await axios.post(
-        "http://backend-practice.codebootcamp.co.kr/graphql",
+        "https://wjjjsbifausxxiafieii.supabase.co/auth/v1/token?grant_type=password",
         {
-          query: `
-            mutation {
-              loginUser(email: "${formData.username}", password: "${formData.password}") {
-                accessToken
-              }
-            }
-          `,
+          email: formData.username, // Supabase에서 username 대신 email로 인증 처리하기 때문입니다.
+          password: formData.password,
+          grant_type: "password",
         },
         {
           headers: {
-            "Content-Type": "application/json",
+            apikey:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndqampzYmlmYXVzeHhpYWZpZWlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTIyODI2MzUsImV4cCI6MjAwNzg1ODYzNX0.EaTFiRYVtAjf0M1AtwBGtYNneNpcMsR9T-f1zEYCZKY",
+            // Authorization: `Bearer ${storedAccessToken}`,
           },
         }
       );
 
-      if (response.data.data.loginUser.accessToken) {
-        const accessToken = response.data.data.loginUser.accessToken;
+      const { data } = response;
+      if (data && data.access_token) {
+        const { access_token } = data;
+        const decodedToken = jwtDecode(access_token);
+        const userName = data.user?.email;
 
-        localStorage.setItem("accessToken", accessToken);
-        getUserData(accessToken);
+        localStorage.setItem("accessToken", access_token);
+        localStorage.setItem("isLoggedIn", "true");
+        localStorage.setItem("username", userName || "");
+        // Login time
+        const loginTime = data.user?.last_sign_in_at;
+        localStorage.setItem("lastSignInAt", loginTime || "");
+        setLastSignInAt(loginTime || ""); // 새로 대입
+        setUserName(userName || "");
+        setIsLogin(true);
+        router.push("/");
       } else {
         console.log("Login failed");
       }
@@ -363,83 +382,11 @@ const Login = (): JSX.Element => {
     }
   };
 
-  const refreshToken = async () => {
-    try {
-      const response = await axios.post(
-        "http://backend-practice.codebootcamp.co.kr/graphql",
-        {
-          query: `
-            mutation {
-              refreshToken {
-                accessToken
-              }
-            }
-          `,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-
-      if (response.data.data.refreshToken.accessToken) {
-        const accessToken = response.data.data.refreshToken.accessToken;
-        localStorage.setItem("accessToken", accessToken);
-      } else {
-        console.log("Token refresh failed");
-      }
-    } catch (error) {
-      console.error("Error refreshing token:", error);
-    }
-  };
-
-  const getUserData = async (accessToken: any) => {
-    try {
-      const userResponse = await axios.post(
-        "http://backend-practice.codebootcamp.co.kr/graphql",
-        {
-          query: `
-            query {
-              fetchUserLoggedIn {
-                email
-                name
-              }
-            }
-          `,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
-
-      if (userResponse.data.data.fetchUserLoggedIn) {
-        const userName = userResponse.data.data.fetchUserLoggedIn.name;
-
-        localStorage.setItem("isLoggedIn", "true");
-        localStorage.setItem("username", userName);
-        setUserName(userName);
-        setIsLogin(true);
-
-        // 페이지를 리로드 -> 애니메이션 버그를 해결하기 위해(먼저 localStorage가 선행되어야함)
-        window.location.reload();
-      } else {
-        console.log("User data fetch failed");
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
-
   const onSubmitLogin = async (
     event: React.FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
     if (isInputFilled) {
-      // isInputFilled 값이 true인 경우에만 로그인 시도
       loginUser();
     }
   };
@@ -468,7 +415,7 @@ const Login = (): JSX.Element => {
             <ButtonWithMarginTop
               fullWidth
               type="submit"
-              disabled={!isInputFilled} // isInputFilled 값에 따라 버튼 활성/비활성 설정
+              disabled={!isInputFilled}
             >
               로그인
             </ButtonWithMarginTop>

@@ -158,7 +158,125 @@
 //   );
 // };
 
-// 코드캠프 백엔드 회원가입
+// // 코드캠프 백엔드 회원가입
+// import React, { useState } from "react";
+// import axios from "axios";
+// import {
+//   AuthFormBlock,
+//   AuthTemplateBlock,
+//   ButtonWithMarinTop,
+//   StyledInput,
+//   WhiteBox,
+// } from "./registercss";
+// import { useRouter } from "next/router"; // Import the useRouter hook
+
+// const RegisterForm = (): JSX.Element => {
+//   const router = useRouter(); // Initialize the router
+//   const [formData, setFormData] = useState({
+//     username: "",
+//     password: "",
+//     passwordConfirm: "",
+//     nickname: "",
+//   });
+
+//   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>): void => {
+//     const { name, value } = event.target;
+//     setFormData((prevData) => ({ ...prevData, [name]: value }));
+//   };
+
+//   const onSignUp = async (
+//     event: React.FormEvent<HTMLFormElement>
+//   ): Promise<void> => {
+//     event.preventDefault();
+
+//     try {
+//       const response = await axios.post(
+//         "http://backend-practice.codebootcamp.co.kr/graphql",
+//         {
+//           query: `
+//             mutation {
+//               createUser(createUserInput: {
+//                 email: "${formData.username}",
+//                 password: "${formData.password}",
+//                 name: "${formData.nickname}"
+//               }) {
+//                 _id
+//                 email
+//                 name
+//               }
+//             }
+//           `,
+//         },
+//         {
+//           headers: {
+//             "Content-Type": "application/json",
+//           },
+//         }
+//       );
+
+//       if (response.data.data.createUser) {
+//         console.log("Registration successful");
+//         // Display an alert
+//         alert(`${formData.nickname}님 회원가입을 축하합니다.`);
+//         // Redirect to the index page
+//         router.push("/");
+//       } else {
+//         console.log("회원가입 실패");
+//       }
+//     } catch (error) {
+//       console.error("Error registering:", error);
+//     }
+//   };
+
+//   return (
+//     <AuthTemplateBlock>
+//       <WhiteBox>
+//         <AuthFormBlock>
+//           <h3>회원가입</h3>
+//           <form onSubmit={onSignUp}>
+//             {/* 인풋 필드들 */}
+//             <StyledInput
+//               autoComplete="username"
+//               name="username"
+//               placeholder="아이디"
+//               value={formData.username}
+//               onChange={onChangeInput}
+//             />
+//             <StyledInput
+//               autoComplete="new-password"
+//               name="password"
+//               placeholder="비밀번호"
+//               type="password"
+//               value={formData.password}
+//               onChange={onChangeInput}
+//             />
+//             <StyledInput
+//               autoComplete="new-password"
+//               name="passwordConfirm"
+//               placeholder="비밀번호 확인"
+//               type="password"
+//               value={formData.passwordConfirm}
+//               onChange={onChangeInput}
+//             />
+//             <StyledInput
+//               autoComplete="nickname"
+//               name="nickname"
+//               placeholder="닉네임"
+//               value={formData.nickname}
+//               onChange={onChangeInput}
+//             />
+//             <ButtonWithMarinTop type="submit">회원가입</ButtonWithMarinTop>
+//           </form>
+//         </AuthFormBlock>
+//       </WhiteBox>
+//     </AuthTemplateBlock>
+//   );
+// };
+
+// export default RegisterForm;
+
+// 슈퍼베이스 백엔드 회원가입
+// Supabase 백엔드 회원가입
 import React, { useState } from "react";
 import axios from "axios";
 import {
@@ -190,34 +308,26 @@ const RegisterForm = (): JSX.Element => {
     event.preventDefault();
 
     try {
-      const response = await axios.post(
-        "http://backend-practice.codebootcamp.co.kr/graphql",
+      const { data } = await axios.post(
+        "https://wjjjsbifausxxiafieii.supabase.co/auth/v1/signup",
         {
-          query: `
-            mutation {
-              createUser(createUserInput: {
-                email: "${formData.username}",
-                password: "${formData.password}",
-                name: "${formData.nickname}"
-              }) {
-                _id
-                email
-                name
-              }
-            }
-          `,
+          email: formData.username, // Supabase에서 username 대신 email로 인증 처리하기 때문입니다.
+          password: formData.password,
         },
         {
           headers: {
             "Content-Type": "application/json",
+            apikey:
+              "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6IndqampzYmlmYXVzeHhpYWZpZWlpIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTIyODI2MzUsImV4cCI6MjAwNzg1ODYzNX0.EaTFiRYVtAjf0M1AtwBGtYNneNpcMsR9T-f1zEYCZKY",
           },
         }
       );
 
-      if (response.data.data.createUser) {
+      if (data.user) {
+        // Supabase에서는 성공 시 user 객체가 반환됩니다.
         console.log("Registration successful");
         // Display an alert
-        alert(`${formData.nickname}님 회원가입을 축하합니다.`);
+        alert(`${data.user.email} 회원가입을 축하합니다.`);
         // Redirect to the index page
         router.push("/");
       } else {
@@ -258,13 +368,13 @@ const RegisterForm = (): JSX.Element => {
               value={formData.passwordConfirm}
               onChange={onChangeInput}
             />
-            <StyledInput
+            {/* <StyledInput
               autoComplete="nickname"
               name="nickname"
               placeholder="닉네임"
               value={formData.nickname}
               onChange={onChangeInput}
-            />
+            /> */}
             <ButtonWithMarinTop type="submit">회원가입</ButtonWithMarinTop>
           </form>
         </AuthFormBlock>
