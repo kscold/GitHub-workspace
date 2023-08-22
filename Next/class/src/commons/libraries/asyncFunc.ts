@@ -1,8 +1,21 @@
-import type { FormEvent } from "react";
+import type {
+  // ChangeEvent,
+  FormEvent,
+} from "react";
 
-export const wrapAsync = (asyncFunc: () => Promise<void>) => () => {
-  void asyncFunc();
-};
+export const wrapAsync =
+  <E>(
+    asyncFunc: (event: E) => Promise<void> // 이렇게 재네릭 형식을 써서 만듬 두개 event 형식이 똑같음
+  ) =>
+  (event: E) => {
+    void asyncFunc(event);
+  };
+
+// export const wrapAsync =
+//   (asyncFunc: (event: ChangeEvent<HTMLInputElement>) => Promise<void>) =>
+//   (event: ChangeEvent<HTMLInputElement>) => {
+//     void asyncFunc(event);
+//   };
 
 export const wrapFormAsync = // 기본적으로 백엔드로 보낼려고 하기 때문에 리프레쉬를 함
   (asyncFunc: () => Promise<void>) => (event: FormEvent<HTMLFormElement>) => {
