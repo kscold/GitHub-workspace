@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <title>Promis.all 연습!!</title>
+    <script>
+      const startPromise = async () => {
+        console.time("=== 개별 Promise 각각 ==="); // 내장된 time함수로 시간 측정 로그를 띄움 timeEnd와 같아야됨
+
+        // for (let i = 0; i < 3; i++) {
+        //     const result1 = await new Promise((reslove, reject) => {
+        //         setTimeout(() => {
+        //           reslove("성공1");
+        //         }, 2000);
+        //       });
+        // } // for 문 안에 await를 쓰는 것은 i 하나마다 2초를 기다리게 만드므로 우리가 원하는 최적화 방식이랑 조금 다름
+
+        const result1 = await new Promise((reslove, reject) => {
+          setTimeout(() => {
+            reslove("성공1");
+          }, 2000);
+        });
+        const result2 = await new Promise((reslove, reject) => {
+          setTimeout(() => {
+            reslove("성공2");
+          }, 3000);
+        });
+        const result3 = await new Promise((reslove, reject) => {
+          setTimeout(() => {
+            reslove("성공3");
+          }, 1000);
+        });
+
+        const results = [result1, result2, result3];
+        console.log(results);
+        console.timeEnd("=== 개별 Promise 각각 ===");
+      };
+
+      const startPromiseAll = async () => {
+        // await Promise.all([promise, promise, promise])
+
+        console.time("=== 한방 Promise.all ===");
+        const results = await Promise.all([
+          // await을 따로따로 안붙여도 됨 이 영역만큼 잡혀있기 때문에 결과값을 배열로 안모으로 한번에 변수로 집어넣어도 됨
+          // 이 영역안에서는 동기로 요청을 보내고 끝나고 기다리므로 최대 긴 3초 안에 거의 끝남 최적화됨
+          new Promise((reslove, reject) => {
+            setTimeout(() => {
+              reslove("성공1");
+            }, 2000);
+          }),
+          new Promise((reslove, reject) => {
+            setTimeout(() => {
+              reslove("성공2");
+            }, 3000);
+          }),
+          new Promise((reslove, reject) => {
+            setTimeout(() => {
+              reslove("성공3");
+            }, 1000);
+          }),
+        ]);
+        console.log(results);
+        console.timeEnd("=== 한방 Promise.all ===");
+      };
+    </script>
+  </head>
+  <body>
+    <button onclick="startPromise()">Promise 연습하기!!</button>
+    <button onclick="startPromiseAll()">Promise.all 연습하기!!</button>
+  </body>
+</html>
