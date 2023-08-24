@@ -3,11 +3,10 @@ import type {
   FormEvent,
 } from "react";
 
+// prettier-ignore
 export const wrapAsync =
-  <E>(
-    asyncFunc: (event: E) => Promise<void> // 이렇게 재네릭 형식을 써서 만듬 두개 event 형식이 똑같음
-  ) =>
-  (event: E) => {
+  <E>(asyncFunc: (event: E) => Promise<void>) => (event: E) => {
+    // 이렇게 재네릭 형식을 써서 만듬 두개 event 형식이 똑같음 타입이 추론됨
     void asyncFunc(event);
   };
 
