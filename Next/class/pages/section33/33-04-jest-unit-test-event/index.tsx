@@ -5,7 +5,7 @@ export default function JestUnitTestPage(): JSX.Element {
 
   const onClickCountUp = (): void => {
     setCount((prev) => prev + 1);
-  };
+  }; // 페이지 주석
 
   return (
     <>
