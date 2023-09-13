@@ -36,7 +36,7 @@ public class HelloController {
     }
 
     static class Hello {
-        private String name;
+        private String name; // private는 클래스 안에서만 사용 가능
 
         public String getName() {
             return name;
