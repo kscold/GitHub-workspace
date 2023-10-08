@@ -1,8 +1,6 @@
 INDEX VERSION 1.131+/Users/chan6502/Desktop/GitHub-workspace/Spring/Meven/workspace-sts-3.9.18.RELEASE/.metadata/.plugins/org.eclipse.jdt.core
 3871296121.index
-1740812095.index
 4006898304.index
-1105045292.index
 3983294209.index
 324109019.index
 892353251.index
@@ -20,15 +18,11 @@ INDEX VERSION 1.131+/Users/chan6502/Desktop/GitHub-workspace/Spring/Meven/worksp
 1458372977.index
 1865797976.index
 4249295204.index
+903362802.index
 3482493533.index
 3507704007.index
-3643387801.index
 2814483398.index
 2623896417.index
 3143057169.index
-364355689.index
-3444748479.index
-592623000.index
 2263380471.index
-3855947006.index
 1058877931.index

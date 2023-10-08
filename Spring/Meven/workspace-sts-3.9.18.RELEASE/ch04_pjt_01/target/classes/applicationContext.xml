@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="cAdd" class="ch04_pjt_01.ems.member.DBConnectionInfo" />
+	<bean id="cSub" class="ch04_pjt_01.ems.member.service.EMSInformationService" />
+	<bean id="cMul" class="ch04_pjt_01.ems.member.CalMul" />
+	<bean id="cDiv" class="ch04_pjt_01.ems.member.CalDiv" />
+
+	<bean id="myCalculator" class="ch04_pjt_01.ems.member.dao.StudentDao" />
+
+	<bean id="calAssembler" class="ch04_pjt_01.ems.member.Student">
+		<constructor-arg ref="myCalculator" />
+		<constructor-arg ref="cAdd" />
+		<constructor-arg ref="cSub" />
+		<constructor-arg ref="cMul" />
+		<constructor-arg ref="cDiv" />
+	</bean>
+</beans>
