@@ -1,0 +1,10 @@
+package ch03_pjt_02;
+
+import org.springframework.context.support.GenericXmlApplicationContext;
+
+public class MainClass {
+	public static void main(String[] args) {
+		TransportationWalk transportationWalk = new TransportationWalk();
+		transportationWalk.move();
+	}
+}
