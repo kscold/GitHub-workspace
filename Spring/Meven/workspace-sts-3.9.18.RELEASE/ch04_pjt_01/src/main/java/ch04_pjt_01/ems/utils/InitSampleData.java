@@ -1,11 +1,64 @@
 package ch04_pjt_01.ems.utils;
 
-import ch04_pjt_01.ems.member.service.PringStudemtInformationService;
+import ch04_pjt_01.ems.member.service.PrintStudentInformationService;
 
 public class InitSampleData {
-	public void calculate(int fNum, int sNum, PringStudemtInformationService calculator) {
-		// ICalculator 객체 주입
-		int value = calculator.doOperation(fNum, sNum); // 연산 실행
-		System.out.println("result : " + value);
+	private String[] sNums = { "hbs001", "hbs002", "hbs003", "hbs004", "hbs005" };
+	private String[] sIds = { "rabbit", "hippo", "raccoon", "elephant", "lion" };
+	private String[] sPws = { "96539", "64875", "15284", "48765", "28661" };
+	private String[] sNames = { "agatha", "barbara", "chris", "doris", "elva" };
+	private int[] sAges = { 19, 22, 20, 27, 19 };
+	private char[] sGenders = { 'M', 'W', 'W', 'M', 'M' };
+	private String[] sMajors = { "English Literature", "Korean Language and Literature",
+			"French Language and Literature", "Philosophy", "History", };
+	
+	public String[] getsNums() {
+		return sNums;
 	}
+	public void setsNums(String[] sNums) {
+		this.sNums = sNums;
+	}
+	
+	public String[] getsIds() {
+		return sIds;
+	}
+	public void setsIds(String[] sIds) {
+		this.sIds = sIds;
+	}
+	
+	public String[] getsPws() {
+		return sPws;
+	}
+	public void setsPws(String[] sPws) {
+		this.sPws = sPws;
+	}
+	
+	public String[] getsNames() {
+		return sNames;
+	}
+	public void setsNames(String[] sNames) {
+		this.sNames = sNames;
+	}
+	
+	public int[] getsAges() {
+		return sAges;
+	}
+	public void setsAges(int[] sAges) {
+		this.sAges = sAges;
+	}
+	
+	public char[] getsGenders() {
+		return sGenders;
+	}
+	public void setsGenders(char[] sGenders) {
+		this.sGenders = sGenders;
+	}
+	
+	public String[] getsMajors() {
+		return sMajors;
+	}
+	public void setsMajors(String[] sMajors) {
+		this.sMajors = sMajors;
+	}
+	
 }

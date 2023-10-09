@@ -1,9 +1,19 @@
 package ch04_pjt_01.ems.member.service;
 
+import java.util.Map;
+
+import ch04_pjt_01.ems.member.Student;
+import ch04_pjt_01.ems.member.dao.StudentDao;
+
 public class StudentAllSelectService {
-	public void calculate(int fNum, int sNum, PringStudemtInformationService calculator) {
-		// ICalculator 객체 주입
-		int value = calculator.doOperation(fNum, sNum); // 연산 실행
-		System.out.println("result : " + value);
+	
+	private StudentDao studentDao;
+	
+	public StudentAllSelectService(StudentDao studentDao) {
+		this.studentDao = studentDao;
+	}
+	
+	public Map<String, Student> allSelect() {
+		return studentDao.getStudentDB();
 	}
 }
