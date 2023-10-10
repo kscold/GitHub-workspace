@@ -54,6 +54,7 @@ public class EMSInformationService {
 	public void setInfo(String info) {
 		this.info = info;
 	}
+
 	public String getCopyRight() {
 		return copyRight;
 	}
@@ -142,5 +143,4 @@ public class EMSInformationService {
 		this.dbInfos = dbInfos;
 	}
 
-	
 }
