@@ -1,6 +1,7 @@
 package ch04_pjt_01.ems.member;
 
 public class Student {
+
 	private String sNum;
 	private String sId;
 	private String sPw;
@@ -74,5 +75,4 @@ public class Student {
 	public void setsMajor(String sMajor) {
 		this.sMajor = sMajor;
 	}
-
 }

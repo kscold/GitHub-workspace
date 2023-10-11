@@ -5,81 +5,83 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<bean id="initSampleData"
-		class="ch04_pjt_01.ems.utils.InitSampleData" />
-	<property name="sNums">
-		<array>
-			<value>hbs001</value>
-			<value>hbs002</value>
-			<value>hbs003</value>
-			<value>hbs004</value>
-			<value>hbs005</value>
-		</array>
-	</property>
+		class="ch04_pjt_01.ems.utils.InitSampleData">
+		<property name="sNums">
+			<array>
+				<value>hbs001</value>
+				<value>hbs002</value>
+				<value>hbs003</value>
+				<value>hbs004</value>
+				<value>hbs005</value>
+			</array>
+		</property>
 
-	<property name="sIds">
-		<array>
-			<value>rabbit</value>
-			<value>hippo</value>
-			<value>raccoon</value>
-			<value>elephant</value>
-			<value>lion</value>
-		</array>
-	</property>
+		<property name="sIds">
+			<array>
+				<value>rabbit</value>
+				<value>hippo</value>
+				<value>raccoon</value>
+				<value>elephant</value>
+				<value>lion</value>
+			</array>
+		</property>
 
-	<property name="sPws">
-		<array>
-			<value>p0001</value>
-			<value>p0002</value>
-			<value>p0003</value>
-			<value>p0004</value>
-			<value>p0005</value>
-		</array>
-	</property>
+		<property name="sPws">
+			<array>
+				<value>p0001</value>
+				<value>p0002</value>
+				<value>p0003</value>
+				<value>p0004</value>
+				<value>p0005</value>
+			</array>
+		</property>
 
-	<property name="sNames">
-		<array>
-			<value>agatha</value>
-			<value>barbara</value>
-			<value>chris</value>
-			<value>doris</value>
-			<value>elva</value>
-		</array>
-	</property>
+		<property name="sNames">
+			<array>
+				<value>agatha</value>
+				<value>barbara</value>
+				<value>chris</value>
+				<value>doris</value>
+				<value>elva</value>
+			</array>
+		</property>
 
-	<property name="sAges">
-		<array>
-			<value>19</value>
-			<value>22</value>
-			<value>20</value>
-			<value>27</value>
-			<value>19</value>
-		</array>
-	</property>
+		<property name="sAges">
+			<array>
+				<value>19</value>
+				<value>22</value>
+				<value>20</value>
+				<value>27</value>
+				<value>19</value>
+			</array>
+		</property>
 
-	<property name="sGenders">
-		<array>
-			<value>M</value>
-			<value>W</value>
-			<value>W</value>
-			<value>M</value>
-			<value>M</value>
-		</array>
-	</property>
+		<property name="sGenders">
+			<array>
+				<value>M</value>
+				<value>W</value>
+				<value>W</value>
+				<value>M</value>
+				<value>M</value>
+			</array>
+		</property>
 
-	<property name="sMajors">
-		<array>
-			<value>English</value>
-			<value>Korean</value>
-			<value>French</value>
-			<value>Philosophy</value>
-			<value>History</value>
-		</array>
-	</property>
+		<property name="sMajors">
+			<array>
+				<value>English</value>
+				<value>Korean</value>
+				<value>French</value>
+				<value>Philosophy</value>
+				<value>History</value>
+			</array>
+		</property>
+	</bean>
 
 
 
 	<bean id="studentDao"
 		class="ch04_pjt_01.ems.member.dao.StudentDao" />
+
 	<bean id="studentRegisterService"
 		class="ch04_pjt_01.ems.member.service.StudentRegisterService">
 		<constructor-arg ref="studentDao" />
@@ -90,7 +92,7 @@
 		<constructor-arg ref="studentDao" />
 	</bean>
 
-	<bean id="studenDeleteService"
+	<bean id="studentDeleteService"
 		class="ch04_pjt_01.ems.member.service.StudentDeleteService">
 		<constructor-arg ref="studentDao" />
 	</bean>
@@ -124,12 +126,12 @@
 		<property name="userPw" value="1111" />
 	</bean>
 
-	<bean id="eMSInformationService"
+	<bean id="emsInformationService"
 		class="ch04_pjt_01.ems.member.service.EMSInformationService">
-
-		<property name="info"
-			value="Education Management System program was developed in 2022." />
-
+		<property name="info">
+			<value>Education Management System program was developed in 2022.
+			</value>
+		</property>
 
 		<property name="copyRight">
 			<value>COPYRIGHT(C) 2022 EMS CO., LTD. ALL RIGHT RESERVED. CONTACT
@@ -137,11 +139,9 @@
 			</value>
 		</property>
 
-
 		<property name="ver">
 			<value>The version is 1.0</value>
 		</property>
-
 
 		<property name="sYear">
 			<value>2022</value>
@@ -166,7 +166,6 @@
 		<property name="eDay">
 			<value>30</value>
 		</property>
-
 
 		<property name="developers">
 			<list>
@@ -201,17 +200,17 @@
 					<key>
 						<value>dev</value>
 					</key>
-					<ref bean="dev_DBConnectionInfoDev" />
+					<ref bean="real_DBConnectionInfoDev" />
 				</entry>
 				<entry>
 					<key>
 						<value>real</value>
 					</key>
-					<ref bean="dev_DBConnectionInfo" />
+					<ref bean="real_DBConnectionInfo" />
 				</entry>
 			</map>
 		</property>
-
 	</bean>
+
 
 </beans>

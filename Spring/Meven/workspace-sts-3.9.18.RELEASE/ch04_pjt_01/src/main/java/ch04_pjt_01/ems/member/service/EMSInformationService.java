@@ -26,10 +26,11 @@ public class EMSInformationService {
 		String devPeriod = sYear + "/" + sMonth + "/" + sDay + " ~ " + eYear + "/" + eMonth + "/" + eDay;
 		System.out.println(info + "(" + devPeriod + ")");
 		System.out.println(copyRight);
-
 		System.out.println(ver);
 		System.out.println("Developers: " + developers);
 		System.out.println("Administrator: " + administrators);
+		printDBInfo();
+		System.out.println("END-----------------");
 	}
 
 	private void printDBInfo() {

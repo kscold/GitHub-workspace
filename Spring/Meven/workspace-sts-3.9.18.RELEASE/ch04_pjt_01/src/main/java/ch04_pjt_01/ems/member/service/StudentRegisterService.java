@@ -12,7 +12,7 @@ public class StudentRegisterService {
 	}
 
 	public void register(Student student) {
-		if (verify(student.getsName())) {
+		if (verify(student.getsNum())) {
 			studentDao.insert(student);
 		} else {
 			System.out.println("The student has already registered.");

@@ -13,7 +13,7 @@ public class StudentSelectService {
 
 	public Student select(String sNum) {
 		if(verify(sNum)) {
-			studentDao.select(sNum);
+			return studentDao.select(sNum);
 		}else {
 			System.out.println("Student informaation is available.");
 		}

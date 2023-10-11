@@ -1,0 +1,29 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean id="articleCreateService"
+		class="article.service.ArticleCreateService">
+		<constructor-arg ref="articleDao" />
+	</bean>
+
+	<bean id="articleReadService"
+		class="article.service.ArticleReadService">
+		<constructor-arg ref="articleDao" />
+	</bean>
+
+	<bean id="articleUpdateService"
+		class="article.service.ArticleUpdateService">
+		<constructor-arg ref="articleDao" />
+	</bean>
+
+	<bean id="articleDeleteService"
+		class="article.service.ArticleDeleteService">
+		<constructor-arg ref="articleDao" />
+	</bean>
+
+	<bean id="articlePrintService"
+		class="article.service.ArticlePrintService" />
+
+	<bean id="articleDao" class="article.dao.ArticleDaoImpl" />
+</beans>
