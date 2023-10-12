@@ -1,37 +1,134 @@
+//
+//import Swift
+//
+//// dictionary형 상수 subjects 내의 각 과목에 대한 성적의 합을 totalScore에 저장하도록 line 4에서 ???로 표현된 부분 구현
+//func addFunc(subjects: [String: Int], totalScore: inout Int) -> Void {
+//    totalScore = 0
+//
+//    // subjects 내의 각 과목(subject)에 대한 성적(score)의 합을 totalScore에 저장하고 화면에 과목과 성적을 출력하도록 line 8에서 ???로 표현된 부분 구현
+//    for (subject, score) in subjects {
+//        print("subject: \(subject) (score: \(score))")
+//        totalScore += score
+//    }
+//}
+//
+//// dictionary형 상수 subjects 내의 각 과목에 대한 성적의 합을 totalScore에 저장하도록 line 15에서 ???로 표현된 부분 구현
+//func addFunc(subjects: [String: Double], totalScore: inout Double) -> Void {
+//    totalScore = 0.0
+//    
+//    // subjects 내의 각 과목(subject)에 대한 성적(score)의 합을 totalScore에 저장하고 화면에 과목과 성적을 출력하도록 line 19에서 ???로 표현된 부분 구현
+//    for (subject, score) in subjects {
+//        print("subject: \(subject) (score: \(score))")
+//        totalScore += score
+//    }
+//}
+//
+//// dictionary형 변수 coursesA는 key와 value가 과목과 해당 과목의 성적(실수)으로 구성됨
+//var coursesA: [String: Double] = ["math": 12.20, "english": 57.45, "programming": 90.85]
+//// dictionary형 변수 coursesB는 key와 value가 과목과 해당 과목의 성적(정수)으로 구성됨
+//var coursesB: [String: Int] = ["math": 12, "english": 57, "programming": 90]
+//var scoreSumA: Double = 0.0
+//var scoreSumB: Int = 0
+//
+//// 함수 addScoreA를 통해 변수 coursesA 내의 모든 과목 성적(실수)의 합을 변수 scoreSumA에 저장하도록 line 33, 34에서 ???로 표현된 부분 구현
+//var addScoreA: ([String: Double], inout Double) -> Void = addFunc
+//addScoreA(coursesA, &scoreSumA) // addScoreA(coursesA, ???scoreSumA)
+//print("Total score: \(scoreSumA)")
+//
+//// 함수 addScoreB를 통해 변수 coursesB 내의 모든 과목 성적(정수)의 합을 변수 scoreSumB에 저장하도록 line 38, 39에서 ???로 표현된 부분 구현
+//var addScoreB: ([String: Int], inout Int) -> Void = addFunc
+//addScoreB(coursesB, &scoreSumB)
+//print("Total score: \(scoreSumB)")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 import Swift
 
-//========================================================================
-// quiz 1 (각 ??? 구현 : 1점 (총 10점))
-//========================================================================
-var str: String
-var arr: Array<Any>
-var dic: [Int : Any]
-var tpl: (name: String, info: [Any], score: [Int: Any])
+// dictionary형 상수 subjects 내의 각 과목에 대한 성적의 합을 totalScore에 저장하도록 line 4에서 ???로 표현된 부분 구현
+func addFunc(subjects: [String: Int], totalScore: inout Int) -> Void { // func addFunc(subjects: [String: Int], totalScore: ???)
+    totalScore = 0
 
-str = "joe"
-arr = [20000814, "abc@smu.ac.kr"]
-dic = [1011: 99.3, 1012: "pass", 1013: "fail"]
+    // subjects 내의 각 과목(subject)에 대한 성적(score)의 합을 totalScore에 저장하고 화면에 과목과 성적을 출력하도록 line 8에서 ???로 표현된 부분 구현
+    for (subject, score) in subjects { // for ???
+        print("subject: \(subject) (score: \(score))")
+        totalScore += score
+    }
+}
 
-// 변수 tpl이 튜플 (name: "joe", info: [20000814, "abc@smu.ac.kr"], score: [1011: 99.3, 1012: "pass", 1013: "fail"])의 값을 갖도록 line 6, 7, 8, 9에서 ???로 표시된 부분 구현
-tpl = (name: str, info: arr, score: dic)
+// dictionary형 상수 subjects 내의 각 과목에 대한 성적의 합을 totalScore에 저장하도록 line 15에서 ???로 표현된 부분 구현
+func addFunc(subjects: [String: Double], totalScore: inout Double) -> Void { // func addFunc(subjects: [String: Double], totalScore: ???) -> Void
+    totalScore = 0.0
+    
+    // subjects 내의 각 과목(subject)에 대한 성적(score)의 합을 totalScore에 저장하고 화면에 과목과 성적을 출력하도록 line 19에서 ???로 표현된 부분 구현
+    for (subject, score) in subjects { // for ???
+        print("subject: \(subject) (score: \(score))")
+        totalScore += score
+    }
+}
 
-// 튜플 tpl이 (name: "joe", info: [20000814, "joe@smu.ac.kr"], score: [1011: 99.3, 1012: "pass", 1013: "fail"])와 같이 변형되도록 아래의 line 19에서 ???로 표시된 부분 구현
-tpl.info[1] = "joe@smu.ac.kr"
+// dictionary형 변수 coursesA는 key와 value가 과목과 해당 과목의 성적(실수)으로 구성됨
+var coursesA: [String: Double] = ["math": 12.20, "english": 57.45, "programming": 90.85]
+// dictionary형 변수 coursesB는 key와 value가 과목과 해당 과목의 성적(정수)으로 구성됨
+var coursesB: [String: Int] = ["math": 12, "english": 57, "programming": 90]
+var scoreSumA: Double = 0.0
+var scoreSumB: Int = 0
 
-// 튜플 tpl이 (name: "joe", info: [20000814, "joe@smu.ac.kr", "male"], score: [1011: 99.3, 1012: "pass", 1013: "fail"])와 같이 변형되도록 아래의 line 22에서 ???로 표시된 부분 구현
-tpl.info.append("male")
+// 함수 addScoreA를 통해 변수 coursesA 내의 모든 과목 성적(실수)의 합을 변수 scoreSumA에 저장하도록 line 33, 34에서 ???로 표현된 부분 구현
+var addScoreA: ([String: Double], inout Double) -> Void = addFunc // var addScoreA: ??? = ???
+addScoreA(coursesA, &scoreSumA) // addScoreA(coursesA, ???scoreSumA)
+print("Total score: \(scoreSumA)")
 
-// 튜플 tpl이 (name: "joe", info: [20000814, "male"], score: [1011: 99.3, 1012: "pass", 1013: "fail"])와 같이 변형되도록 아래의 line 25에서 ???로 표시된 부분 구현
-tpl.info.remove(at: 2)
-
-// 튜플 tpl이 (name: "joe", info: [20000814, "male"], score: [1011: 99.3, 1012: "pass", 1013: "pass"])와 같이 변형되도록 아래의 line 28에서 ???로 표시된 부분 구현
-tpl.score[1013] = "pass"
-
-// 튜플 tpl이 (name: "joe", info: [20000814, "male"], score: [1011: 99.3, 1012: "pass", 1013: "pass", 1014: 99.5])와 같이 변형되도록 아래의 line 31에서 ???로 표시된 부분 구현
-tpl.score[1014] = 99.5
-
-// 튜플 tpl이 (name: "joe", info: [20000814, "male"], score: [1011: 99.3, 1012: "pass", 1013: "pass"])와 같이 변형되도록 아래의 line 34에서 ???로 표시된 부분 구현
-tpl.score.removeValue(forKey: 1014)
-
-print("tpl: \(tpl)")
-// 실행결과: tpl: (name: "joe", info: [20000814, "male"], score: [1013: "pass", 1012: "pass", 1011: 99.3])
+// 함수 addScoreB를 통해 변수 coursesB 내의 모든 과목 성적(정수)의 합을 변수 scoreSumB에 저장하도록 line 38, 39에서 ???로 표현된 부분 구현
+var addScoreB: ([String: Int], inout Int) -> Void = addFunc // var addScoreA: ??? = ???
+addScoreB(coursesB, &scoreSumB) // addScoreA(coursesB, ???scoreSumB)
+print("Total score: \(scoreSumB)")
