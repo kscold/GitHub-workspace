@@ -1,3 +1,4 @@
 #Tomcat publish data
-#Thu Sep 21 14:13:29 KST 2023
+#Fri Oct 20 03:01:49 KST 2023
+org.eclipse.jst.jee.server\:/binary\:/Users/chan6502/.m2/repository/org/springframework/spring-web/5.2.9.RELEASE/spring-web-5.2.9.RELEASE.jar=/Users/chan6502/Desktop/apache-tomcat-9.0.80/apache-tomcat-9.0.80/wtpwebapps/ch07_pjt_01/WEB-INF/lib/spring-web-5.2.9.RELEASE.jar
 org.eclipse.jst.jee.server\:ch07_pjt_01=/Users/chan6502/Desktop/apache-tomcat-9.0.80/apache-tomcat-9.0.80/wtpwebapps/ch07_pjt_01

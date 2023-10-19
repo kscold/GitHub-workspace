@@ -1,134 +1,14 @@
-//
-//import Swift
-//
-//// dictionary형 상수 subjects 내의 각 과목에 대한 성적의 합을 totalScore에 저장하도록 line 4에서 ???로 표현된 부분 구현
-//func addFunc(subjects: [String: Int], totalScore: inout Int) -> Void {
-//    totalScore = 0
-//
-//    // subjects 내의 각 과목(subject)에 대한 성적(score)의 합을 totalScore에 저장하고 화면에 과목과 성적을 출력하도록 line 8에서 ???로 표현된 부분 구현
-//    for (subject, score) in subjects {
-//        print("subject: \(subject) (score: \(score))")
-//        totalScore += score
-//    }
-//}
-//
-//// dictionary형 상수 subjects 내의 각 과목에 대한 성적의 합을 totalScore에 저장하도록 line 15에서 ???로 표현된 부분 구현
-//func addFunc(subjects: [String: Double], totalScore: inout Double) -> Void {
-//    totalScore = 0.0
-//    
-//    // subjects 내의 각 과목(subject)에 대한 성적(score)의 합을 totalScore에 저장하고 화면에 과목과 성적을 출력하도록 line 19에서 ???로 표현된 부분 구현
-//    for (subject, score) in subjects {
-//        print("subject: \(subject) (score: \(score))")
-//        totalScore += score
-//    }
-//}
-//
-//// dictionary형 변수 coursesA는 key와 value가 과목과 해당 과목의 성적(실수)으로 구성됨
-//var coursesA: [String: Double] = ["math": 12.20, "english": 57.45, "programming": 90.85]
-//// dictionary형 변수 coursesB는 key와 value가 과목과 해당 과목의 성적(정수)으로 구성됨
-//var coursesB: [String: Int] = ["math": 12, "english": 57, "programming": 90]
-//var scoreSumA: Double = 0.0
-//var scoreSumB: Int = 0
-//
-//// 함수 addScoreA를 통해 변수 coursesA 내의 모든 과목 성적(실수)의 합을 변수 scoreSumA에 저장하도록 line 33, 34에서 ???로 표현된 부분 구현
-//var addScoreA: ([String: Double], inout Double) -> Void = addFunc
-//addScoreA(coursesA, &scoreSumA) // addScoreA(coursesA, ???scoreSumA)
-//print("Total score: \(scoreSumA)")
-//
-//// 함수 addScoreB를 통해 변수 coursesB 내의 모든 과목 성적(정수)의 합을 변수 scoreSumB에 저장하도록 line 38, 39에서 ???로 표현된 부분 구현
-//var addScoreB: ([String: Int], inout Int) -> Void = addFunc
-//addScoreB(coursesB, &scoreSumB)
-//print("Total score: \(scoreSumB)")
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import Swift
 
-// dictionary형 상수 subjects 내의 각 과목에 대한 성적의 합을 totalScore에 저장하도록 line 4에서 ???로 표현된 부분 구현
-func addFunc(subjects: [String: Int], totalScore: inout Int) -> Void { // func addFunc(subjects: [String: Int], totalScore: ???)
-    totalScore = 0
 
-    // subjects 내의 각 과목(subject)에 대한 성적(score)의 합을 totalScore에 저장하고 화면에 과목과 성적을 출력하도록 line 8에서 ???로 표현된 부분 구현
-    for (subject, score) in subjects { // for ???
-        print("subject: \(subject) (score: \(score))")
-        totalScore += score
-    }
-}
 
-// dictionary형 상수 subjects 내의 각 과목에 대한 성적의 합을 totalScore에 저장하도록 line 15에서 ???로 표현된 부분 구현
-func addFunc(subjects: [String: Double], totalScore: inout Double) -> Void { // func addFunc(subjects: [String: Double], totalScore: ???) -> Void
-    totalScore = 0.0
-    
-    // subjects 내의 각 과목(subject)에 대한 성적(score)의 합을 totalScore에 저장하고 화면에 과목과 성적을 출력하도록 line 19에서 ???로 표현된 부분 구현
-    for (subject, score) in subjects { // for ???
-        print("subject: \(subject) (score: \(score))")
-        totalScore += score
-    }
-}
+//  튜플 변수 선언 및 초기화
+var personA: (String, Int, Double) // unnamed
 
-// dictionary형 변수 coursesA는 key와 value가 과목과 해당 과목의 성적(실수)으로 구성됨
-var coursesA: [String: Double] = ["math": 12.20, "english": 57.45, "programming": 90.85]
-// dictionary형 변수 coursesB는 key와 value가 과목과 해당 과목의 성적(정수)으로 구성됨
-var coursesB: [String: Int] = ["math": 12, "english": 57, "programming": 90]
-var scoreSumA: Double = 0.0
-var scoreSumB: Int = 0
+var personB: (name: String, age: Int, height: Double) // named
 
-// 함수 addScoreA를 통해 변수 coursesA 내의 모든 과목 성적(실수)의 합을 변수 scoreSumA에 저장하도록 line 33, 34에서 ???로 표현된 부분 구현
-var addScoreA: ([String: Double], inout Double) -> Void = addFunc // var addScoreA: ??? = ???
-addScoreA(coursesA, &scoreSumA) // addScoreA(coursesA, ???scoreSumA)
-print("Total score: \(scoreSumA)")
+personA = ("joe", 10, 150.23)
+personB = (name: "joe", age: 10, height: 150.23)
+personB = ("joe", 12, 150.23) // 이렇게 해도 튜플은 오류 안남
 
-// 함수 addScoreB를 통해 변수 coursesB 내의 모든 과목 성적(정수)의 합을 변수 scoreSumB에 저장하도록 line 38, 39에서 ???로 표현된 부분 구현
-var addScoreB: ([String: Int], inout Int) -> Void = addFunc // var addScoreA: ??? = ???
-addScoreB(coursesB, &scoreSumB) // addScoreA(coursesB, ???scoreSumB)
-print("Total score: \(scoreSumB)")
+print(personB)
