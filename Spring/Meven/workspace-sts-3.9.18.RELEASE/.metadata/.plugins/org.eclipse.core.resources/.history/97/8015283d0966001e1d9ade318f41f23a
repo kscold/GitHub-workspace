@@ -1,6 +1,0 @@
-package ch03_pjt_03;
-public class CalAdd implements ICalcultor {
-	public int doOperation(int firstNum, int secondNum) {
-		return firstNum + secondNum;
-	}
-}

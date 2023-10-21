@@ -13,4 +13,6 @@
     <fullyQualifiedTypeName name="ch04_pjt_01.ems.member.service.StudentSelectService"/>
     <fullyQualifiedTypeName name="ch04_pjt_01.ems.member.service.StudentModifyService"/>
     <fullyQualifiedTypeName name="ch04_pjt_01.ems.member.service.EMSInformationService"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Controller"/>
+    <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
 </qualifiedTypeNameHistroy>
