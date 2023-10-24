@@ -3,7 +3,6 @@ INDEX VERSION 1.4+/Users/chan6502/Desktop/GitHub-workspace/Spring/Meven/workspac
 3529319133.index
 503010010.index
 2091383616.index
-503010010.index
 1513992434.index
 1978057276.index
 2597415982.index
