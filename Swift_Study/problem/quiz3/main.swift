@@ -21,6 +21,7 @@ tpl.info[1] = "joe@smu.ac.kr"
 
 // 튜플 tpl이 (name: "joe", info: [20000814, "joe@smu.ac.kr", "male"], score: [1011: 99.3, 1012: "pass", 1013: "fail"])와 같이 변형되도록 아래의 line 22에서 ???로 표시된 부분 구현
 tpl.info.append("male")
+// 혹은 tpl.info.insert("male", at: 2)
 
 // 튜플 tpl이 (name: "joe", info: [20000814, "male"], score: [1011: 99.3, 1012: "pass", 1013: "fail"])와 같이 변형되도록 아래의 line 25에서 ???로 표시된 부분 구현
 tpl.info.remove(at: 1)
