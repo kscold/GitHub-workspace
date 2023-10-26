@@ -3,10 +3,10 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Sign Up Complete</title>
+    <title>smubook register</title>
 </head>
 <body>
-<h1>Sign Up Complete</h1>
-<p>회원가입이 완료되었습니다. 이제 <a href="/smubook">로그인</a>하세요!</p>
+<h1>회원가입 실패</h1>
+<p>회원가입에 실패하였습니다. 다시 <a href="/smubook/signup">회원가입</a>하세요</p>
 </body>
 </html>

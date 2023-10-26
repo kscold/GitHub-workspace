@@ -7,14 +7,14 @@
 </head>
 <body>
 <h1>Login</h1>
-<form action="/login" method="post">
+<form action="/smubook/login" method="post">
     <label for="username">Username:</label>
     <input type="text" id="username" name="username" required>
     <br>
     <label for="password">Password:</label>
     <input type="password" id="password" name="password" required>
     <br>
-    <input type="submit" value="Login">
+    <input type="submit">
 </form>
 <a href="/smubook/signup">Sign Up</a>
 </body>
