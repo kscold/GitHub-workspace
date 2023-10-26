@@ -1,4 +1,4 @@
 #Tomcat publish data
-#Thu Oct 26 21:48:58 KST 2023
-org.eclipse.jst.jee.server\:/binary\:/Users/chan6502/.m2/repository/org/springframework/spring-web/5.2.9.RELEASE/spring-web-5.2.9.RELEASE.jar=/Users/chan6502/Desktop/apache-tomcat-9.0.80/apache-tomcat-9.0.80/wtpwebapps/ch08_pjt_1/WEB-INF/lib/spring-web-5.2.9.RELEASE.jar
-org.eclipse.jst.jee.server\:ch08_pjt_1=/Users/chan6502/Desktop/apache-tomcat-9.0.80/apache-tomcat-9.0.80/wtpwebapps/ch08_pjt_1
+#Fri Oct 27 03:18:09 KST 2023
+org.eclipse.jst.jee.server\:/binary\:/Users/chan6502/.m2/repository/org/springframework/spring-web/5.2.9.RELEASE/spring-web-5.2.9.RELEASE.jar=/Users/chan6502/Desktop/apache-tomcat-9.0.80/apache-tomcat-9.0.80/wtpwebapps/smubook/WEB-INF/lib/spring-web-5.2.9.RELEASE.jar
+org.eclipse.jst.jee.server\:smubook=/Users/chan6502/Desktop/apache-tomcat-9.0.80/apache-tomcat-9.0.80/wtpwebapps/smubook
