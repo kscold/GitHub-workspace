@@ -586,16 +586,45 @@ public class UserService implements UserServiceInterface {
 		}
 	}
 
+//	public boolean authenticate(String username, String password) {
+//		for (User user : users.values()) {
+//			if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
+//				// 사용자 인증 성공
+//				currentUser = user;
+//				return true;
+//			}
+//		}
+//		return false;
+//	}
+	
+	// 해당 username에 해당하는 사용자를 가져오는 메서드
+    private User getUserByUsername(String username) {
+        for (User user : users.values()) {
+            if (user.getUsername().equals(username)) {
+                return user;
+            }
+        }
+        return null;
+    }
+	
 	public boolean authenticate(String username, String password) {
-		for (User user : users.values()) {
-			if (user.getUsername().equals(username) && user.getPassword().equals(password)) {
-				// 사용자 인증 성공
-				currentUser = user;
-				return true;
-			}
-		}
-		return false;
-	}
+        JSONArray existingUsers = loadUsersFromJsonFile();
+
+        if (existingUsers != null) {
+            for (Object jsonUser : existingUsers) {
+                JSONObject jsonObject = (JSONObject) jsonUser;
+                String storedUsername = (String) jsonObject.get("username");
+                String storedPassword = (String) jsonObject.get("password");
+
+                if (storedUsername.equals(username) && storedPassword.equals(password)) {
+                    // 사용자 인증 성공
+                    currentUser = getUserByUsername(username);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
 
 	public boolean userExists(String username) {
 		return users.containsKey(username);

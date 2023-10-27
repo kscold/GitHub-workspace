@@ -108,37 +108,21 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String loginSubmit(@RequestParam("username") String username, @RequestParam("password") String password,
-			Model model) {
-		if (userService.authenticate(username, password)) {
-			// 로그인 성공 시 feed 페이지로 이동
-			return "feed";
-		} else {
-			// 로그인 실패 시 에러 메시지를 모델에 추가하고 login 페이지로 이동
-			model.addAttribute("error", "Invalid username or password");
-			return "login";
-		}
+	public String loginSubmit(@RequestParam("username") String username, @RequestParam("password") String password, Model model) {
+	    if (userService.authenticate(username, password)) {
+	        // 로그인 성공 시 feed 페이지로 이동
+	        return "feed";
+	    } else {
+	        // 로그인 실패 시 에러 메시지를 모델에 추가하고 login 페이지로 이동
+	        model.addAttribute("error", "Invalid username or password");
+	        return "login_ng"; // 로그인 실패 시 login_ng.jsp로 리디렉트
+	    }
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signUp() {
 		return "signup";
 	}
-
-//    @RequestMapping(value = "/signup", method = RequestMethod.POST)
-//    public String signUpSubmit(@RequestParam("username") String username, @RequestParam("password") String password, Model model) {
-//        // 사용자 이름(username)이 이미 존재하는지 확인
-//        if (userService.userExists(username)) {
-//            model.addAttribute("error", "Username already exists");
-//            return "signup";
-//        } else {
-//            // 회원 가입 처리 로직
-//            User newUser = new User(username, password);
-//            userService.signUp(newUser);
-//            // 회원 가입 후 로그인 페이지로 리다이렉트
-//            return "redirect:/";
-//        }
-//    }
 
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
 	public String signUpSubmit(@RequestParam("username") String username, @RequestParam("password") String password,
