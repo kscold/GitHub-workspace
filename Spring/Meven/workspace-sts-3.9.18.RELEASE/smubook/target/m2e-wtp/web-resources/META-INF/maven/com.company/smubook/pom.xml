@@ -118,13 +118,13 @@
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Jackson 라이브러리 버전 -->
+		<!-- Jackson 라이브러리 -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
 			<artifactId>jackson-databind</artifactId>
 			<version>2.12.5</version>
 		</dependency>
-		<!-- json-simple 설정 -->
+		<!-- json-simple 라이브러리 -->
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>

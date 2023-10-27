@@ -1,1 +1,34 @@
-[{"password":"1234","id":"1","username":"qwer"},{"password":"1234","id":"2","username":"zxv"},{"password":"1234","id":"3","username":"ㅂㅈㄷㄱ"},{"password":"1234","id":"4","username":"승찬"},{"password":"1234","id":"5","username":"zxvf"}]
+[
+	{
+		"password": "1234",
+		"id": "1",
+		"follow": false,
+		"username": "승찬"
+	},
+	{
+		"password": "1234",
+		"id": "2",
+		"follow": false,
+		"username": "채범"
+	},
+	{
+		"password": "1234",
+		"id": "3",
+		"follow": false,
+		"username": "태호"
+	},
+	{
+		"password": "1234",
+		"following": [],
+		"id": "4",
+		"follow": false,
+		"username": "민혁"
+	},
+	{
+		"password": "1234",
+		"following": [],
+		"id": "5",
+		"follow": false,
+		"username": "동우"
+	}
+]

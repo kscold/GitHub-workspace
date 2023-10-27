@@ -1,31 +1,8 @@
-//package com.company.smubook.models;
-//
-//public class Post {
-//	private String content;
-//	private User author;
-//
-//	public String getContent() {
-//		return content;
-//	}
-//
-//	public void setContent(String content) {
-//		this.content = content;
-//	}
-//
-//	public User getAuthor() {
-//		return author;
-//	}
-//
-//	public void setAuthor(User author) {
-//		this.author = author;
-//	}
-//
-//}
 
-package com.company.smubook.models; 
+package com.company.smubook.models;
 
 import java.time.LocalDateTime;
-import java.util.Date;
+//import java.util.Date;
 
 public class Post {
 	private int id;
@@ -34,10 +11,10 @@ public class Post {
 //	private Date timestamp;
 	private LocalDateTime timestamp;
 	private int likes;
-	
+
 	public Post() {
-        // 기본 생성자
-    }
+		// 기본 생성자
+	}
 
 	public Post(int id, User author, String content) {
 		this.id = id;
@@ -79,5 +56,4 @@ public class Post {
 		likes--;
 	}
 
-	// 다른 필요한 메서드 및 데이터 멤버를 추가할 수 있습니다.
 }
