@@ -482,50 +482,93 @@ public class UserService implements UserServiceInterface {
 	}
 
 
+//	public String signUp(User user, Model model) {
+//        // 동일한 사용자가 이미 존재하는지 확인
+//        if (users.containsKey(user.getUsername())) {
+//            model.addAttribute("error", "User Already Exists: " + user.getUsername());
+//            return "signup_ng"; // 회원가입 실패 처리
+//        }
+//
+//        JSONArray existingUsers = loadUsersFromJsonFile();
+//
+//        if (existingUsers != null) {
+//            boolean userExistsInJson = false;
+//            int maxId = 0;
+//
+//            for (Object jsonUser : existingUsers) {
+//                JSONObject jsonObject = (JSONObject) jsonUser;
+//                String username = (String) jsonObject.get("username");
+//                if (username.equals(user.getUsername())) {
+//                    userExistsInJson = true;
+//                    break;
+//                }
+//
+//                int userId = Integer.parseInt(jsonObject.get("id").toString());
+//                maxId = Math.max(maxId, userId);
+//            }
+//
+//            if (!userExistsInJson) {
+//                // 사용자 추가 로직을 실행
+//                String userId = Integer.toString(maxId + 1);
+//                user.setId(userId);
+//                users.put(user.getUsername(), user);
+//            }
+//        } else {
+//            // JSON 파일이 비어 있거나 없는 경우에는 데이터를 저장
+//            users.put(user.getUsername(), user);
+//            // 초기 ID를 1로 설정
+//            user.setId("1");
+//            createJsonFile(jsonFilePath);
+//        }
+//
+//        System.out.println("User Signed Up: " + user.getUsername() + ", ID: " + user.getId());
+//        saveUsersToFile(users, jsonFilePath); // 사용자 데이터를 JSON 파일에 저장
+//
+//        return "signup_ok"; // 회원가입 성공 처리
+//    }
+
 	public String signUp(User user, Model model) {
-        // 동일한 사용자가 이미 존재하는지 확인
-        if (users.containsKey(user.getUsername())) {
-            model.addAttribute("error", "User Already Exists: " + user.getUsername());
-            return "signup_ng"; // 회원가입 실패 처리
-        }
+	    // 동일한 사용자가 이미 존재하는지 확인
+	    if (users.containsKey(user.getUsername())) {
+	        model.addAttribute("error", "User Already Exists: " + user.getUsername());
+	        return "signup_ng"; // 회원가입 실패 처리
+	    }
 
-        JSONArray existingUsers = loadUsersFromJsonFile();
+	    JSONArray existingUsers = loadUsersFromJsonFile();
 
-        if (existingUsers != null) {
-            boolean userExistsInJson = false;
-            int maxId = 0;
+	    boolean userExistsInJson = false;
+	    int maxId = 0;
 
-            for (Object jsonUser : existingUsers) {
-                JSONObject jsonObject = (JSONObject) jsonUser;
-                String username = (String) jsonObject.get("username");
-                if (username.equals(user.getUsername())) {
-                    userExistsInJson = true;
-                    break;
-                }
+	    if (existingUsers != null) {
+	        for (Object jsonUser : existingUsers) {
+	            JSONObject jsonObject = (JSONObject) jsonUser;
+	            String username = (String) jsonObject.get("username");
+	            if (username.equals(user.getUsername())) {
+	                userExistsInJson = true;
+	                break;
+	            }
 
-                int userId = Integer.parseInt(jsonObject.get("id").toString());
-                maxId = Math.max(maxId, userId);
-            }
+	            int userId = Integer.parseInt(jsonObject.get("id").toString());
+	            maxId = Math.max(maxId, userId);
+	        }
+	    }
 
-            if (!userExistsInJson) {
-                // 사용자 추가 로직을 실행
-                String userId = Integer.toString(maxId + 1);
-                user.setId(userId);
-                users.put(user.getUsername(), user);
-            }
-        } else {
-            // JSON 파일이 비어 있거나 없는 경우에는 데이터를 저장
-            users.put(user.getUsername(), user);
-            // 초기 ID를 1로 설정
-            user.setId("1");
-            createJsonFile(jsonFilePath);
-        }
+	    if (!userExistsInJson) {
+	        // 사용자 추가 로직을 실행
+	        String userId = Integer.toString(maxId + 1);
+	        user.setId(userId);
+	        users.put(user.getUsername(), user);
+	    } else {
+	        // JSON 파일에 이미 동일한 username이 존재하는 경우, 회원가입 실패 처리
+	        model.addAttribute("error", "User Already Exists in JSON: " + user.getUsername());
+	        return "signup_ng";
+	    }
 
-        System.out.println("User Signed Up: " + user.getUsername() + ", ID: " + user.getId());
-        saveUsersToFile(users, jsonFilePath); // 사용자 데이터를 JSON 파일에 저장
+	    System.out.println("User Signed Up: " + user.getUsername() + ", ID: " + user.getId());
+	    saveUsersToFile(users, jsonFilePath); // 사용자 데이터를 JSON 파일에 저장
 
-        return "signup_ok"; // 회원가입 성공 처리
-    }
+	    return "signup_ok"; // 회원가입 성공 처리
+	}
 
 
 
