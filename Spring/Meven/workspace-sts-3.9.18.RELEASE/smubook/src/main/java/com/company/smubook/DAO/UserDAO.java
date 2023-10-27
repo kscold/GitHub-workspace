@@ -2,10 +2,15 @@ package com.company.smubook.DAO;
 
 import java.util.Map;
 
+import org.springframework.stereotype.Repository;
+
 import com.company.smubook.models.User;
 
+@Repository
 public class UserDAO {
     private Map<String, User> userDB;
+    
+    
 
     public UserDAO(Map<String, User> userDB) {
         this.userDB = userDB;
@@ -31,17 +36,17 @@ public class UserDAO {
         return userDB;
     }
 
-    public void addFollower(String follower, String followee) {
-        User user = userDB.get(follower);
-        if (user != null) {
-            user.addFollowing(followee);
-        }
-    }
-
-    public void removeFollower(String follower, String followee) {
-        User user = userDB.get(follower);
-        if (user != null) {
-            user.removeFollowing(followee);
-        }
-    }
+//    public void addFollower(String follower, String followee) {
+//        User user = userDB.get(follower);
+//        if (user != null) {
+//            user.addFollowing(followee);
+//        }
+//    }
+//
+//    public void removeFollower(String follower, String followee) {
+//        User user = userDB.get(follower);
+//        if (user != null) {
+//            user.removeFollowing(followee);
+//        }
+//    }
 }
