@@ -1,42 +1,10 @@
 # from flask import Flask, jsonify, request
-# import requests
-
-# app = Flask(__name__)
-
-
-# @app.route("/getWeather", methods=["GET"])
-# def get_weather():
-#     api_url = (
-#         "https://apis.data.go.kr/1360000/TourStnInfoService1/getTourStnVilageFcst1"
-#     )
-#     service_key = "ZtGq7Au5Kf%2FNiW3xAO04zSKex1VLDedcbpzt1nXzTkfpQKnN%2FT1F0a4yttny2a6k6ONyBTMBG8QTBUbMNVi4bQ%3D%3D"
-#     page_no = "1"
-#     num_of_rows = "10"
-#     data_type = "JSON"
-#     current_date = "20220329"
-#     hour = "24"
-#     course_id = "1"
-
-#     url = f"{api_url}?ServiceKey={service_key}&pageNo={page_no}&numOfRows={num_of_rows}&dataType={data_type}&CURRENT_DATE={current_date}&HOUR={hour}&COURSE_ID={course_id}"
-
-#     response = requests.get(url, verify=False)
-
-#     if response.status_code == 200:
-#         data = response.json()
-#         return jsonify(data)
-#     else:
-#         return "Error: Unable to fetch data from the API"
-
-
-# if __name__ == "__main__":
-#     app.run(debug=True, port=4000)
-
-
-# from flask import Flask, jsonify, request
+# from flask_cors import CORS  # CORS 모듈 임포트
 # import requests
 # import xml.etree.ElementTree as ET
 
 # app = Flask(__name__)
+# CORS(app)  # CORS를 애플리케이션에 적용
 
 
 # def recursive_parse(xml):
@@ -55,9 +23,10 @@
 #     return data
 
 
-# @app.route("/get", methods=["GET"])
+# @app.route("/get", methods=["POST"])
 # def get_weather():
-#     url = "http://openapi.seoul.go.kr:8088/487a5844577363343130326b6a625576/xml/citydata/1/5/영등포 타임스퀘어"
+#     place = request.json.get("place")
+#     url = f"http://openapi.seoul.go.kr:8088/487a5844577363343130326b6a625576/xml/citydata/1/5/{place}"
 
 #     response = requests.get(url, verify=False)
 
@@ -76,12 +45,25 @@
 # if __name__ == "__main__":
 #     app.run(debug=True, port=4000)
 
-
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 import requests
 import xml.etree.ElementTree as ET
 
 app = Flask(__name__)
+CORS(app)
+
+location_data = {
+    "강남 MICE 관광특구": {"lat": 37.535001, "lng": 126.9928168},
+    "동대문 관광특구": {"lat": 37.5819561, "lng": 127.054846},
+    "명동 관광특구": {"lat": 37.55998, "lng": 126.9858296},
+    "이태원 관광특구": {"lat": 37.535001, "lng": 126.9928168},
+    "잠실 관광특구": {"lat": 37.5049054, "lng": 127.0880716},
+    "종로·청계 관광특구": {"lat": 37.535001, "lng": 126.9928168},
+    "홍대 관광특구": {"lat": 37.535001, "lng": 126.9928168},
+    "경복궁": {"lat": 37.579617, "lng": 126.977041},
+    "광화문·덕수궁": {"lat": 37.5658049, "lng": 126.9751461},
+}
 
 
 def recursive_parse(xml):
@@ -108,12 +90,11 @@ def get_weather():
     response = requests.get(url, verify=False)
 
     if response.status_code == 200:
-        # Parse the XML response
         root = ET.fromstring(response.text)
-
-        # Convert the XML data to a dictionary
         data = recursive_parse(root)
-
+        data["AREA_NM"] = place
+        data["LAT"] = location_data.get(place, {}).get("lat", None)
+        data["LNG"] = location_data.get(place, {}).get("lng", None)
         return jsonify(data)
     else:
         return "Error: Unable to fetch data from the API"
