@@ -15,7 +15,16 @@ class OnboardingViewController: UIViewController {
 
     var slides: [OnboardingSlide] = []
 
-    var currentPage = 0
+    var currentPage = 0 {
+        didSet {
+            pageControl.currentPage = currentPage
+            if currentPage == slides.count - 1 {
+                nextBtn.setTitle("시작하기", for: .normal)
+            } else {
+                nextBtn.setTitle("다음", for: .normal)
+            }
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +41,18 @@ class OnboardingViewController: UIViewController {
 
 
     @IBAction func nextBtnClicked(_ sender: UIButton) {
+        if currentPage == slides.count - 1 {
+//            print("Go to the next page")
+            let controller = storyboard?.instantiateViewController(identifier: "HomeNC") as! UINavigationController
+            controller.modalPresentationStyle = .fullScreen
+            controller.modalTransitionStyle = .flipHorizontal
+
+            present(controller, animated: true, completion: nil)
+        } else {
+            currentPage += 1
+            let indexPath = IndexPath(item: currentPage, section: 0)
+            collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
+        }
     }
 
 }
@@ -57,7 +78,7 @@ extension OnboardingViewController: UICalendarViewDelegate,
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let width = scrollView.frame.width
         let currentPage = Int(scrollView.contentOffset.x / width)
-        
+
         pageControl.currentPage = currentPage
     }
 }
