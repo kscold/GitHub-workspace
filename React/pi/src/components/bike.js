@@ -1,54 +1,54 @@
-// // src/components/Bike.js
-// import React, { useEffect, useState } from "react"
-// import axios from "axios"
+// src/components/Bike.js
+import React, { useEffect, useState } from "react"
+import axios from "axios"
 
-// const { kakao } = window
+const { kakao } = window
 
-// const BikeMap = ({ map }) => {
-//   const [bikeData, setBikeData] = useState([])
+const BikeMap = ({ map }) => {
+  const [bikeData, setBikeData] = useState([])
 
-//   useEffect(() => {
-//     const fetchBikeData = async () => {
-//       try {
-//         const response = await axios.get("http://localhost:4000/get_bike")
-//         if (response.status === 200) {
-//           const data = response.data
+  useEffect(() => {
+    const fetchBikeData = async () => {
+      try {
+        const response = await axios.get("http://localhost:4000/get_bike")
+        if (response.status === 200) {
+          const data = response.data
 
-//           // 지도에 마커 추가
-//           data.forEach((bikeInfo) => {
-//             const markerPosition = new kakao.maps.LatLng(
-//               bikeInfo.stationLatitude,
-//               bikeInfo.stationLongitude
-//             )
+          // 지도에 마커 추가
+          data.forEach((bikeInfo) => {
+            const markerPosition = new kakao.maps.LatLng(
+              bikeInfo.stationLatitude,
+              bikeInfo.stationLongitude
+            )
 
-//             const marker = new kakao.maps.Marker({
-//               position: markerPosition,
-//               title: bikeInfo.stationName,
-//             })
+            const marker = new kakao.maps.Marker({
+              position: markerPosition,
+              title: bikeInfo.stationName,
+            })
 
-//             marker.setMap(map)
+            marker.setMap(map)
 
-//             kakao.maps.event.addListener(marker, "click", function () {
-//               alert(
-//                 `대여소명: ${bikeInfo.stationName}\n자전거 보유 수: ${bikeInfo.parkingBikeTotCnt}`
-//               )
-//             })
-//           })
+            kakao.maps.event.addListener(marker, "click", function () {
+              alert(
+                `대여소명: ${bikeInfo.stationName}\n자전거 보유 수: ${bikeInfo.parkingBikeTotCnt}`
+              )
+            })
+          })
 
-//           setBikeData(data)
-//         }
-//       } catch (error) {
-//         console.error("자전거 정보를 불러오는 중 에러 발생:", error)
-//       }
-//     }
+          setBikeData(data)
+        }
+      } catch (error) {
+        console.error("자전거 정보를 불러오는 중 에러 발생:", error)
+      }
+    }
 
-//     fetchBikeData()
-//   }, [map]) // map이 변경될 때마다 실행
+    fetchBikeData()
+  }, [map]) // map이 변경될 때마다 실행
 
-//   return null
-// }
+  return null
+}
 
-// export default BikeMap
+export default BikeMap
 
 // // src/components/Bike.js
 // import React, { useEffect } from "react"

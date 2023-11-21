@@ -184,6 +184,9 @@
   <ItemGroup>
     <ClCompile Include="test.c" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="a.dat" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
