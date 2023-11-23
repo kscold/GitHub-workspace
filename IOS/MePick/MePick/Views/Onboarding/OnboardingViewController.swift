@@ -35,6 +35,7 @@ class OnboardingViewController: UIViewController {
             OnboardingSlide(title: "제목 3", description: "내용3", image: #imageLiteral(resourceName: "slide3"))
         ]
 
+        pageControl.numberOfPages = slides.count
 
 
     }
