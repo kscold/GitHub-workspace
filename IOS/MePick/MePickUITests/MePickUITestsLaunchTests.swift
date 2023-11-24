@@ -2,7 +2,7 @@
 //  MePickUITestsLaunchTests.swift
 //  MePickUITests
 //
-//  Created by 김승찬 on 11/15/23.
+//  Created by 김승찬 on 11/24/23.
 //
 
 import XCTest

@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  MePick
 //
-//  Created by 김승찬 on 11/15/23.
+//  Created by 김승찬 on 11/24/23.
 //
 
 import UIKit
@@ -14,11 +14,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-
-        UINavigationBar.appearance().setBackgroundImage(UIImage(), for: .default)
-        UINavigationBar.appearance().shadowImage = UIImage()
-        UINavigationBar.appearance().tintColor = .black
-
         return true
     }
 
