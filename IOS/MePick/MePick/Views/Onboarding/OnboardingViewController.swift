@@ -30,9 +30,10 @@ class OnboardingViewController: UIViewController {
         super.viewDidLoad()
 
         slides = [
-            OnboardingSlide(title: "제목 1", description: "내용1", image: #imageLiteral(resourceName: "slide1.png")),
-            OnboardingSlide(title: "제목 2", description: "내용2", image: #imageLiteral(resourceName: "slide2.png")),
-            OnboardingSlide(title: "제목 3", description: "내용3", image: #imageLiteral(resourceName: "slide3"))
+            OnboardingSlide(title: "음식점 랜덤 추천", description: "늘 같은 음식, 뭐를 먹을지 모르겠어 ㅠ, 우리동네에서 뭐먹지?\n고민하지 말고 버튼을 눌러 추천 음식점을 확인해보세요!", image: #imageLiteral(resourceName: "random")),
+            OnboardingSlide(title: "디테일적인 내용", description: "앞서 랜덤으로 뽑은 음식점에 대한 정보들을 보고 싶다면?\nMePick은 이름뿐만 아니라 카테고리와\n그 음식점에 대한 정보들도 보여드려요!", image: #imageLiteral(resourceName: "detail")),
+            OnboardingSlide(title: "내 주변 음식점, 카페 확인", description: "내 주변에는 어떤 음식점과 카페가 있지?\n일일이 확인하지 말고 바로 지도로 확인하세요!", image: #imageLiteral(resourceName: "map")),
+            
         ]
 
         pageControl.numberOfPages = slides.count

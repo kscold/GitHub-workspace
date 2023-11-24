@@ -14,8 +14,8 @@ class HomeViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        mapImage.image = #imageLiteral(resourceName: "slide1")
-        randomImage.image = #imageLiteral(resourceName: "slide3")
+        mapImage.image = #imageLiteral(resourceName: "two")
+        randomImage.image = #imageLiteral(resourceName: "random")
 
         // 이미지에 탭 제스처 추가
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(mapImageTapped))

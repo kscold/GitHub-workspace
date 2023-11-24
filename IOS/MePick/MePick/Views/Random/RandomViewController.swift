@@ -5,51 +5,47 @@
 //  Created by 김승찬 on 11/24/23.
 //
 
+
 import UIKit
 import CoreLocation
+import WebKit
 
-class RandomViewController: UIViewController {
-
+class RandomViewController: UIViewController, WKNavigationDelegate {
 
     @IBOutlet var recommendLbl: UILabel!
+    @IBOutlet var recommendcategoryLbl: UILabel!
     @IBOutlet var logText: UITextView!
+    @IBOutlet var recommendWeb: WKWebView!
 
-    // 카카오 API 관련 상수
     let kakaoAPIKey = "8ffc297049f2cc47d0703e33b1879b2d"
     let kakaoSearchBaseUrl = "https://dapi.kakao.com/v2/local/search/category.json"
 
-    // 이전에 추천받은 음식점을 저장할 배열
     var previousRecommendations: [String] = []
-
-    // 위치 관리자
     var locationManager: CLLocationManager!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // 위치 관리자 초기화
         locationManager = CLLocationManager()
         locationManager.delegate = self
 
-        // 위치 서비스 권한 요청
         requestLocationAuthorization()
+
+        recommendWeb.navigationDelegate = self
     }
 
     @IBAction func randomButtonTapped(_ sender: Any) {
-        // 랜덤 음식점 추천
         recommendRandomRestaurant()
     }
 
     func recommendRandomRestaurant() {
         guard let userLocation = getUserLocation() else {
-            // 위치 정보를 가져올 수 없는 경우
             showAlert(message: "위치 정보를 가져올 수 없습니다.")
             return
         }
 
-        // API 호출을 위한 파라미터 설정
-        let categoryCode = "FD6" // "음식점" 카테고리 코드
-        let radius = "1000" // 반경 1km
+        let categoryCode = "FD6"
+        let radius = "1000"
 
         let parameters: [String: String] = [
             "category_group_code": categoryCode,
@@ -58,13 +54,9 @@ class RandomViewController: UIViewController {
             "radius": radius
         ]
 
-        print(parameters)
-
-        // API 호출
         callKakaoAPI(parameters: parameters) { [weak self] result in
             switch result {
             case .success(let places):
-                // 랜덤 음식점 추천
                 if let randomPlace = places.randomElement() {
                     self?.displayRecommendation(place: randomPlace)
                 }
@@ -139,15 +131,15 @@ class RandomViewController: UIViewController {
     }
 
     func displayRecommendation(place: KakaoPlace) {
-        // 추천된 음식점을 UI에 표시하는 코드
         DispatchQueue.main.async { [weak self] in
             self?.recommendLbl.text = place.place_name
+
+            let categoryWithoutPrefix = place.category_name.replacingOccurrences(of: "음식점 > ", with: "")
+            self?.recommendcategoryLbl.text = categoryWithoutPrefix
         }
 
-        // 이전에 추천된 음식점 배열에 추가
         self.previousRecommendations.append(place.place_name)
 
-        // 이전에 추천된 음식점 목록을 로그에 표시
         DispatchQueue.main.async { [weak self] in
             if let logText = self?.logText {
                 logText.text += "\(place.place_name)\n"
@@ -155,7 +147,26 @@ class RandomViewController: UIViewController {
 
             self?.showAlert(message: "추천된 음식점: \(place.place_name)")
         }
+
+        let placeURLString = place.place_url
+        if !placeURLString.isEmpty, var components = URLComponents(string: placeURLString) {
+            components.scheme = "https"
+            if let placeURL = components.url {
+                let request = URLRequest(url: placeURL)
+                DispatchQueue.main.async { [weak self] in
+                    self?.recommendWeb.load(request)
+                }
+            } else {
+                print("Invalid URL after changing scheme to https")
+            }
+        } else {
+            print("URL이 존재하지 않습니다.")
+        }
     }
+    func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+        print("Web page failed to load with error: \(error)")
+    }
+
 
     func showAlert(message: String) {
         let alert = UIAlertController(title: "알림", message: message, preferredStyle: .alert)
@@ -173,7 +184,6 @@ extension RandomViewController: CLLocationManagerDelegate {
         }
 
         print("업데이트된 위치 - 위도: \(location.latitude), 경도: \(location.longitude)")
-        // You can use the location data as needed.
         locationManager.stopUpdatingLocation()
     }
 }

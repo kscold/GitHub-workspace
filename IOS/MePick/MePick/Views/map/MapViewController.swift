@@ -55,6 +55,9 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 
     @IBOutlet var catergoryPickerView: UIPickerView!
     @IBOutlet var mapViewContainer: UIView!
+    @IBOutlet var zoomInButton: UIButton!
+    @IBOutlet var zoomOutButton: UIButton!
+
     var mapView: MKMapView!
     var locationManager: CLLocationManager!
 
@@ -91,11 +94,45 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
         refreshButton.addTarget(self, action: #selector(refreshLocation), for: .touchUpInside)
         mapViewContainer.addSubview(refreshButton)
 
+
+        // 확대 버튼 설정
+        zoomInButton.addTarget(self, action: #selector(zoomInButtonTapped), for: .touchUpInside)
+
+        // 축소 버튼 설정
+        zoomOutButton.addTarget(self, action: #selector(zoomOutButtonTapped), for: .touchUpInside)
+
+
         // 피커 뷰 설정
         catergoryPickerView.delegate = self
         catergoryPickerView.dataSource = self
 
-//        addMarkersForSelectedCategory(places: <#T##[KakaoPlace]#>)
+
+    }
+
+    // 확대 버튼 탭 시 실행
+    @objc func zoomInButtonTapped() {
+        changeMapRegion(zoomFactor: 2) // 확대를 원하는 정도로 조절
+    }
+
+    // 축소 버튼 탭 시 실행
+    @objc func zoomOutButtonTapped() {
+        changeMapRegion(zoomFactor: -2) // 축소를 원하는 정도로 조절
+    }
+
+    func changeMapRegion(zoomFactor: Double) {
+        guard let currentRegion = mapView?.region else {
+            return
+        }
+
+        // 현재의 맵 영역에서 zoomFactor를 적용하여 새로운 영역을 계산
+        let newLatitudeDelta = max(min(currentRegion.span.latitudeDelta * exp(zoomFactor), 180), 0.0001)
+        let newLongitudeDelta = max(min(currentRegion.span.longitudeDelta * exp(zoomFactor), 180), 0.0001)
+        
+        let span = MKCoordinateSpan(latitudeDelta: newLatitudeDelta, longitudeDelta: newLongitudeDelta)
+        let newRegion = MKCoordinateRegion(center: currentRegion.center, span: span)
+
+        // 새로운 영역을 맵뷰에 적용
+        mapView?.setRegion(newRegion, animated: true)
     }
 
     func requestLocationAuthorization() {
@@ -177,7 +214,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
 //
 //        return annotationView
 //    }
-    
+
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation {
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "userLocation")
@@ -193,7 +230,7 @@ class MapViewController: UIViewController, MKMapViewDelegate, CLLocationManagerD
             if annotationView == nil {
                 annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: "customAnnotation")
                 annotationView!.canShowCallout = true
-                
+
                 // 사용자 정의 마커 이미지 설정 (예: 빨간색 마커)
                 let customMarkerImage = UIImage(systemName: "mappin.and.ellipse")?.withTintColor(.red)
                 annotationView!.image = customMarkerImage
