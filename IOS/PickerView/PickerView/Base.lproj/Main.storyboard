@@ -43,7 +43,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <connections>
-                        <outlet property="imageView" destination="cUw-EU-sbN" id="aag-E7-YL5"/>
+                        <outlet property="imageView" destination="cUw-EU-sbN" id="JJ0-pm-Owk"/>
                         <outlet property="lblImageFileName" destination="2mU-ye-uTL" id="1u9-7k-HVd"/>
                         <outlet property="pickerImage" destination="xlV-ev-610" id="AiU-wT-bYd"/>
                     </connections>
