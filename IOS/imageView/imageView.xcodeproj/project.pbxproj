@@ -51,6 +51,7 @@
 		8709C8792AFC5A49005C65DE /* imageViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = imageViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8709C87D2AFC5A49005C65DE /* imageViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageViewUITests.swift; sourceTree = "<group>"; };
 		8709C87F2AFC5A49005C65DE /* imageViewUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = imageViewUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		8768F0FC2B182ED2000812D8 /* htmlView.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = htmlView.html; sourceTree = "<group>"; };
 		87B4B11A2AFC5CD000725113 /* lamp_on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lamp_on.png; sourceTree = "<group>"; };
 		87B4B11B2AFC5CD000725113 /* lamp_off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lamp_off.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -109,6 +110,7 @@
 				87B4B11A2AFC5CD000725113 /* lamp_on.png */,
 				8709C8602AFC5A47005C65DE /* ViewController.swift */,
 				8709C8622AFC5A47005C65DE /* Main.storyboard */,
+				8768F0FC2B182ED2000812D8 /* htmlView.html */,
 				8709C8652AFC5A48005C65DE /* Assets.xcassets */,
 				8709C8672AFC5A48005C65DE /* LaunchScreen.storyboard */,
 				8709C86A2AFC5A48005C65DE /* Info.plist */,
