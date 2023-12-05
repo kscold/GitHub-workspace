@@ -145,6 +145,11 @@ public class AdminMemberDao {
 
     }
 
+
+    public AdminMemberVo selectAdmin(int a_m_no){
+        System.out.println();
+    }
+
     public List<AdminMemberVo> selectAdmins() {
         System.out.println("[AdminMemberDao] selectAdmins()");
 
@@ -187,18 +192,23 @@ public class AdminMemberDao {
         return adminMemberVos;
     }
 
-    public int updateAdminAccount(int a_m_no) {
+    public int updateAdminAccount(AdminMemberVo adminMemberVo) {
         System.out.println("[AdminMemberDao] updateAdminAccount()");
 
-        String sql = "UPDATE tbl_admin_member SET "
-                + "a_m_approval = 1 "
+        String sql = "UPDATE tbl_admin_member SET " + "a_m_name = ?, "
+                + "a_m_gender = ?, " + "a_m_part = ?, "
+                + "a_m_position = ?, " + "a_m_mail = ?, "
+                + "a_m_phone = ?, " + "a_m_mod_date = NOW()"
                 + "WHERE a_m_no = ?";
 
         int result = -1;
 
         try {
 
-            result = jdbcTemplate.update(sql, a_m_no);
+            result = jdbcTemplate.update(sql, adminMemberVo.getA_m_name(),
+                    adminMemberVo.getA_m_gender(), adminMemberVo.getA_m_part(),
+                    adminMemberVo.getA_m_position(), adminMemberVo.getA_m_mail(),
+                    adminMemberVo.getA_m_phone(), adminMemberVo.getA_m_no());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -208,6 +218,9 @@ public class AdminMemberDao {
         return result;
 
     }
+
+
+
 
 
 }
