@@ -138,7 +138,7 @@ public class AdminMemberController {
         int result = adminMemberService.modifyAccountConfirm(adminMemberVo);
 
         if (result > 0) {
-            AdminMemberVo loginedAdminMemberVo = adminMemberService.getLoginAdminMemberVo(adminMemberVo.getA_m_no());
+            AdminMemberVo loginedAdminMemberVo = adminMemberService.getLoginedAdminMemberVo(adminMemberVo.getA_m_no());
 
             session.setAttribute("loginedAdminMemberVo", loginedAdminMemberVo);
             session.setMaxInactiveInterval(60 * 30);

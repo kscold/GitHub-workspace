@@ -64,16 +64,17 @@ public class AdminMemberService {
         int result = adminMemberDao.updateAdminAccount(a_m_no);
     }
 
-    public int modifyAccountConfirm(AdminMemberVo adminMemberVo){
+    public int modifyAccountConfirm(AdminMemberVo adminMemberVo) {
         System.out.println("[AdminMemberService] modifyAccountConfirm()");
 
         return adminMemberDao.updateAdminAccount(adminMemberVo);
     }
 
-    public AdminMemberVo getLoginedAdminMemberVo(int a_m_no){
+    public AdminMemberVo getLoginedAdminMemberVo(int a_m_no) {
         System.out.println("[AdminMemberService] getLoginedAdminMemberVo()");
 
         return adminMemberDao.selectAdmin(a_m_no);
     }
+
 
 }
