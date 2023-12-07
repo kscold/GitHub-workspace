@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="22155" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22131"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="quiz" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1hY-dk-Ad2">
+                                <rect key="frame" x="116" y="266" width="222" height="81"/>
+                            </pickerView>
+                            <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DXL-h8-dYq">
+                                <rect key="frame" x="116" y="544" width="222" height="85"/>
+                            </pickerView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wus-rY-DO4">
+                                <rect key="frame" x="16" y="637" width="361" height="181"/>
+                            </imageView>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="gmW-Tn-Sem">
+                                <rect key="frame" x="27" y="59" width="320" height="216"/>
+                                <connections>
+                                    <action selector="datePicker:" destination="BYZ-38-t0r" eventType="valueChanged" id="Gp4-8y-jvn"/>
+                                </connections>
+                            </datePicker>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9bj-BI-Qhj">
+                                <rect key="frame" x="16" y="355" width="361" height="181"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="181" id="MS1-Ug-cEe"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오전 없음" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fid-Xz-LWH">
+                                <rect key="frame" x="27" y="296" width="80" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="80" id="2Cg-7D-8ef"/>
+                                    <constraint firstAttribute="height" constant="21" id="Bwk-Y5-tKZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오후 없음" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qes-j6-NKk">
+                                <rect key="frame" x="27" y="576" width="80" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="WWj-2N-ZUX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="9bj-BI-Qhj" firstAttribute="trailing" secondItem="wus-rY-DO4" secondAttribute="trailing" id="CAS-eK-UY7"/>
+                            <constraint firstItem="9bj-BI-Qhj" firstAttribute="top" secondItem="fid-Xz-LWH" secondAttribute="bottom" constant="38" id="CPl-XH-5mH"/>
+                            <constraint firstItem="9bj-BI-Qhj" firstAttribute="top" secondItem="1hY-dk-Ad2" secondAttribute="bottom" constant="8" id="HLk-Uk-PuU"/>
+                            <constraint firstItem="gmW-Tn-Sem" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="27" id="JIW-d3-9Eh"/>
+                            <constraint firstItem="Qes-j6-NKk" firstAttribute="top" secondItem="9bj-BI-Qhj" secondAttribute="bottom" constant="40" id="KfH-N4-io2"/>
+                            <constraint firstItem="gmW-Tn-Sem" firstAttribute="leading" secondItem="fid-Xz-LWH" secondAttribute="leading" id="Kpf-Ox-UIi"/>
+                            <constraint firstItem="fid-Xz-LWH" firstAttribute="leading" secondItem="Qes-j6-NKk" secondAttribute="leading" id="LaB-iy-8vu"/>
+                            <constraint firstItem="DXL-h8-dYq" firstAttribute="top" secondItem="9bj-BI-Qhj" secondAttribute="bottom" constant="8" id="OXo-Hr-04o"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="1hY-dk-Ad2" secondAttribute="trailing" constant="55" id="RDs-NR-hNY"/>
+                            <constraint firstItem="fid-Xz-LWH" firstAttribute="trailing" secondItem="Qes-j6-NKk" secondAttribute="trailing" id="RMy-fr-Lp3"/>
+                            <constraint firstItem="9bj-BI-Qhj" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" id="T9e-AI-d2X"/>
+                            <constraint firstItem="9bj-BI-Qhj" firstAttribute="leading" secondItem="wus-rY-DO4" secondAttribute="leading" id="TG1-53-6hg"/>
+                            <constraint firstItem="Qes-j6-NKk" firstAttribute="centerY" secondItem="DXL-h8-dYq" secondAttribute="centerY" id="VaR-pK-SEf"/>
+                            <constraint firstItem="1hY-dk-Ad2" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="207" id="WwM-v8-qNJ"/>
+                            <constraint firstItem="wus-rY-DO4" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="e8W-YD-Hza"/>
+                            <constraint firstItem="gmW-Tn-Sem" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="i3c-Wm-uEj"/>
+                            <constraint firstItem="wus-rY-DO4" firstAttribute="top" secondItem="DXL-h8-dYq" secondAttribute="bottom" constant="8" id="kqr-en-YLW"/>
+                            <constraint firstItem="1hY-dk-Ad2" firstAttribute="leading" secondItem="fid-Xz-LWH" secondAttribute="trailing" constant="9" id="lD4-js-hSv"/>
+                            <constraint firstItem="9bj-BI-Qhj" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" id="qwB-jL-9Hj"/>
+                            <constraint firstItem="1hY-dk-Ad2" firstAttribute="trailing" secondItem="DXL-h8-dYq" secondAttribute="trailing" id="sYa-Tj-1b4"/>
+                            <constraint firstItem="1hY-dk-Ad2" firstAttribute="leading" secondItem="DXL-h8-dYq" secondAttribute="leading" id="svD-OD-Pwm"/>
+                            <constraint firstItem="fid-Xz-LWH" firstAttribute="centerY" secondItem="1hY-dk-Ad2" secondAttribute="centerY" id="vwZ-HV-drt"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="btmImg" destination="wus-rY-DO4" id="v7i-US-A6d"/>
+                        <outlet property="btmLbl" destination="Qes-j6-NKk" id="9Iw-Gt-r6d"/>
+                        <outlet property="btmPicker" destination="DXL-h8-dYq" id="U3e-IF-uno"/>
+                        <outlet property="topImg" destination="9bj-BI-Qhj" id="m9P-N9-aze"/>
+                        <outlet property="topLbl" destination="fid-Xz-LWH" id="s5D-69-Imy"/>
+                        <outlet property="topPicker" destination="1hY-dk-Ad2" id="x4W-8Z-9Nm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="129.00763358778624" y="-2.1126760563380285"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
