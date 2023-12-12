@@ -31,30 +31,27 @@
 				
 			</div>
 		
-			<%
-			AdminMemberVo loginedAdminMemberVo = (AdminMemberVo) session.getAttribute("loginedAdminMemberVo");
-			%>
-		
 			<div class="modify_account_form">
 			
 				<form action="<c:url value='/admin/member/modifyAccountConfirm' />" name="modify_account_form" method="post">
 					
-					<input type="hidden" 	name="a_m_no"		value="<%= loginedAdminMemberVo.getA_m_no() %>">
+					<input type="hidden" name="a_m_no" value="${loginedAdminMemberVo.a_m_no}">
 					
-					<input type="text"		name="a_m_id" 		value="<%= loginedAdminMemberVo.getA_m_id() %>" readonly disabled> <br>
-					<input type="password"	name="a_m_pw" 		value="******" readonly disabled> <br>
-					<input type="text"		name="a_m_name" 	value="<%= loginedAdminMemberVo.getA_m_name() %>" placeholder="INPUT USER NAME."> <br>
+					<input type="text" name="a_m_id" value="${loginedAdminMemberVo.a_m_id}" readonly disabled> <br>
+					<input type="password" name="a_m_pw" value="******" readonly disabled> <br>
+					<input type="text" name="a_m_name" value="${loginedAdminMemberVo.a_m_name}" placeholder="INPUT USER NAME."> <br>
 					<select name="a_m_gender">
 						<option value="">SELECET USER GENDER.</option>
-						<option value="M" <% if (loginedAdminMemberVo.getA_m_gender().equals("M")) {%> selected <%}%>>Man</option>
-						<option value="W" <% if (loginedAdminMemberVo.getA_m_gender().equals("W")) {%> selected <%}%>>Woman</option>
+						<c:set var="gender" value="${loginedAdminMemberVo.a_m_gender}" />
+						<option value="M" <c:if test = "${gender eq 'M'}"> selected </c:if>>Man</option>
+						<option value="W" <c:if test = "${gender eq 'W'}"> selected </c:if>>Woman</option>
 					</select> <br>
-					<input type="text"		name="a_m_part"		value="<%= loginedAdminMemberVo.getA_m_part() %>" placeholder="INPUT USER PART." ><br>
-					<input type="text"		name="a_m_position"	value="<%= loginedAdminMemberVo.getA_m_position() %>" placeholder="INPUT USER POSITION." ><br>
-					<input type="email"		name="a_m_mail"		value="<%= loginedAdminMemberVo.getA_m_mail() %>" placeholder="INPUT USER MAIL." ><br>
-					<input type="text"		name="a_m_phone"	value="<%= loginedAdminMemberVo.getA_m_phone() %>" placeholder="INPUT USER PHONE."> <br>
-					<input type="button"	value="modify account" onclick="modifyAccountForm();"> 
-					<input type="reset"		value="reset">
+					<input type="text" name="a_m_part" value="${loginedAdminMemberVo.a_m_part}" placeholder="INPUT USER PART." ><br>
+					<input type="text" name="a_m_position" value="${loginedAdminMemberVo.a_m_position}" placeholder="INPUT USER POSITION." ><br>
+					<input type="email"	name="a_m_mail"	value="${loginedAdminMemberVo.a_m_mail}" placeholder="INPUT USER MAIL." ><br>
+					<input type="text"	name="a_m_phone" value="${loginedAdminMemberVo.a_m_phone}" placeholder="INPUT USER PHONE."> <br>
+					<input type="button" value="modify account" onclick="modifyAccountForm();"> 
+					<input type="reset"	value="reset">
 					
 				</form>
 				

@@ -70,29 +70,6 @@
 						
 					</tbody>
 					
-					<%--
-					<tbody>
-						<%
-							List<BookVo> bookVos = (List<BookVo>) request.getAttribute("bookVos");
-							for (int i = 0; i < bookVos.size(); i++) {
-						%>
-						<tr>
-							<td>
-								<a href="/library/book/admin/bookDetail?b_no=<%=bookVos.get(i).getB_no()%>"><%=bookVos.get(i).getB_name()%></a>
-							</td>
-							<td><%=bookVos.get(i).getB_author()%></td>
-							<td><%=bookVos.get(i).getB_publisher()%></td>
-							<td><%=bookVos.get(i).getB_publish_year()%></td>
-							<td><%=bookVos.get(i).getB_isbn()%></td>
-							<td><%=bookVos.get(i).getB_call_number()%></td>
-							<td><%=bookVos.get(i).getB_rantal_able()%></td>
-						</tr>
-						<%
-							}
-						%>
-					</tbody>
-					--%>
-					
 				</table>
 				
 			</div>

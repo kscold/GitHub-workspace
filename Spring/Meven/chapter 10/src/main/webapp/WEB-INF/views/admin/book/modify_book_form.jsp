@@ -47,9 +47,9 @@
 						<option value="0" <c:if test="${bookVo.b_rantal_able eq '0'}"> selected </c:if>>UNABLE.</option>
 						<option value="1" <c:if test="${bookVo.b_rantal_able eq '1'}"> selected </c:if>>ABLE.</option>
 					</select><br>
-					<input type="file"		name="file"><br>
-					<input type="button"	value="modify book" onclick="modifyBookForm();"> 
-					<input type="reset"		value="reset">
+					<input type="file" name="file"><br>
+					<input type="button" value="modify book" onclick="modifyBookForm();"> 
+					<input type="reset" value="reset">
 					
 				</form>
 				
