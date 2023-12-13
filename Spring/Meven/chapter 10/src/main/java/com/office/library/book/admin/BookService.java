@@ -4,6 +4,8 @@ import com.office.library.book.BookVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class BookService {
     final static public int BOOK_ISBN_ALREADY_EXIST = 0; // 이미 등록된 도서
@@ -28,5 +30,17 @@ public class BookService {
         } else {
             return BOOK_ISBN_ALREADY_EXIST;
         }
+    }
+
+    public List<BookVo> searchBookConfirm(BookVo bookVo) {
+        System.out.println("[BookService] searchBookConfirm()");
+
+        return bookDao.selectBooksBySearch(bookVo);
+    }
+
+    public BookVo bookDetail(int b_no){
+        System.out.println("[BookService] bookDetail()");
+
+        return bookDao.selectBook(b_no);
     }
 }

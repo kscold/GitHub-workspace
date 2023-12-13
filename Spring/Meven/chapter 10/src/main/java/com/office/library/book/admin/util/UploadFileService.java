@@ -15,28 +15,30 @@ public class UploadFileService {
         // 파일 저장
         String fileOriName = file.getOriginalFilename();
         String fileExtension = fileOriName.substring(fileOriName.lastIndexOf("."), fileOriName.length());
-        String uploadDir = "C:\\library\\upload\\";
+//        String uploadDir = "C:\\library\\upload\\";
+        String uploadDir = "/Users/chan6502/Desktop/";
+
 
         UUID uuid = UUID.randomUUID();
         String uniqueName = uuid.toString().replaceAll("-", "");
 
         File saveFile = new File(uploadDir + "\\" + uniqueName + fileExtension);
 
-        if(!saveFile.exists())
+        if (!saveFile.exists())
             saveFile.mkdir();
 
-        try{
+        try {
             file.transferTo(saveFile);
             result = true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
-        if(result){
+        if (result) {
             System.out.println("[UploadFileService] FILE UPLOAD SUCCESS!!");
             return uniqueName + fileExtension;
 
-        }else{
+        } else {
             System.out.println("[UploadFileService] FILE UPLOAD FAIL!!");
 
             return null;

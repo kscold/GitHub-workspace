@@ -7,7 +7,7 @@ public class BookVo {
     String b_name;
     String b_author;
     String b_publisher;
-    String b_publisher_year;
+    String b_publish_year;
     String b_isbn;
     String b_call_number;
     int b_rantal_able;
@@ -55,12 +55,12 @@ public class BookVo {
         this.b_publisher = b_publisher;
     }
 
-    public String getB_publisher_year() {
-        return b_publisher_year;
+    public String getB_publish_year() {
+        return b_publish_year;
     }
 
-    public void setB_publisher_year(String b_publisher_year) {
-        this.b_publisher_year = b_publisher_year;
+    public void setB_publish_year(String b_publish_year) {
+        this.b_publish_year = b_publish_year;
     }
 
     public String getB_isbn() {
