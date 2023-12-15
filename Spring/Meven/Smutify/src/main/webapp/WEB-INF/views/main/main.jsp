@@ -6,14 +6,12 @@
     <title>Smutify Main</title>
 </head>
 <body>
-<h2>Main Page</h2>
-<!-- Add create playlist button -->
-<a href="<c:url value='/search' />">Create Playlist</a>
+<h2>메인 페이지</h2>
 
-<!-- Display existing playlists -->
-<!-- You can use JSTL forEach loop to iterate through playlists -->
+<a href="<c:url value='/search?keyword=&sortBy=id' />">Create Playlist</a>
+
 <c:forEach var="playlist" items="${playlists}">
-    <a href="<c:url value='/playlist/${playlist.id}' />">${playlist.title}</a><br>
+    <a href="<c:url value='/playlist/${playlist.id}' />">${playlist.playlistName}</a><br>
 </c:forEach>
 </body>
 </html>

@@ -1,4 +1,4 @@
-package com.office.smutify.data;
+package com.office.smutify.song;
 
 public class SongVo {
     private Long id;

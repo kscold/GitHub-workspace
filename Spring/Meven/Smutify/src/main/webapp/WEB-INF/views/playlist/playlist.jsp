@@ -3,29 +3,20 @@
 
 <html>
 <head>
-    <title>Add to Playlist</title>
+    <title>플레이리스트</title>
 </head>
 <body>
-<h2>Add to Playlist</h2>
+<h2>플레이리스트 관리</h2>
 
-<h3>Select a Playlist</h3>
-<form action="<c:url value='/playlist/add/${playlist.id}' />" method="post">
-    <select name="playlistId">
-        <c:forEach var="playlistItem" items="${userPlaylists}">
-            <option value="${playlistItem.id}">${playlistItem.playlistName}</option>
-        </c:forEach>
-    </select>
-    <!-- Add the following input field for songId -->
-    <input type="hidden" name="songId" value="${selectedSong.id}"/>
-    <input type="submit" value="Add to Playlist"/>
-</form>
+<h3>플레이 리스트</h3>
 
-<h3>Selected Song</h3>
-<p>Singer: ${selectedSong.singer}</p>
-<p>Title: ${selectedSong.title}</p>
-<p>Genre: ${selectedSong.genre}</p>
+<c:if test="${not empty songsInPlaylist}">
+    <c:forEach var="song" items="${songsInPlaylist}">
+        <p>${song.title} - ${song.singer} (${song.genre})</p>
+    </c:forEach>
+</c:if>
 
-<p><a href="<c:url value='/search' />">Back to Search</a></p>
+<p><a href="<c:url value='/main' />">메인으로 돌아가기</a></p>
 
 </body>
 </html>

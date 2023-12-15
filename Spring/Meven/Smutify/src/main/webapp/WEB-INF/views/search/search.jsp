@@ -17,14 +17,15 @@
 <h2>Search Page</h2>
 
 <form action="<c:url value='/search' />" method="get">
-    <input type="text" id="keyword" name="keyword" placeholder="Search keyword" />
+    <input type="text" id="keyword" name="keyword" placeholder="Search keyword"/>
     <select id="sortBy" name="sortBy" onchange="sortByChanged()">
-        <option value="id" <c:if test="${param.sortBy == null || param.sortBy == 'id'}">selected</c:if>>Sort by ID</option>
+        <option value="id" <c:if test="${param.sortBy == null || param.sortBy == 'id'}">selected</c:if>>Sort by ID
+        </option>
         <option value="title" <c:if test="${param.sortBy == 'title'}">selected</c:if>>Sort by Title</option>
         <option value="singer" <c:if test="${param.sortBy == 'singer'}">selected</c:if>>Sort by Singer</option>
         <option value="genre" <c:if test="${param.sortBy == 'genre'}">selected</c:if>>Sort by Genre</option>
     </select>
-    <input type="submit" value="Search" />
+    <input type="submit" value="Search"/>
 </form>
 
 
@@ -37,13 +38,21 @@
             장르: ${result.genre}<br>
         </div>
         <div>
-            <form action="<c:url value='/playlist/add/${result.id}' />" method="post">
-                <input type="submit" value="기존의 플레이 리스트에 추가하기">
+            <form action="<c:url value='/playlist/add' />" method="post">
+                <input type="hidden" name="songId" value="${result.id}">
+                <select name="playlistId">
+                    <c:forEach var="playlist" items="${userPlaylists}">
+                        <option value="${playlist.id}">${playlist.playlistName}</option>
+                    </c:forEach>
+                </select>
+                <input type="submit" value="선택한 플레이리스트에 추가">
             </form>
             <form action="<c:url value='/playlist/create/${result.id}' />" method="post">
                 <input type="submit" value="새로운 플레이 리스트에 추가">
             </form>
-            <form action="<c:url value='/playlist/addGenre/${result.id}/${result.genre}' />" method="post">
+            <form action="<c:url value='/playlist/addGenre' />" method="post">
+                <input type="hidden" name="songId" value="${result.id}">
+                <input type="text" name="genre" placeholder="장르 입력">
                 <input type="submit" value="장르 추가">
             </form>
         </div>

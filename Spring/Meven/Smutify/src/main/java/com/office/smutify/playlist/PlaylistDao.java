@@ -1,10 +1,9 @@
 package com.office.smutify.playlist;
 
-import com.office.smutify.data.SongVo;
+import com.office.smutify.song.SongVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Component;
@@ -19,29 +18,6 @@ public class PlaylistDao {
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
-
-    // 플레이리스트 id와 songid를 playlist_song에 넣는 쿼리
-//    public void addToPlaylist(Long playlistId, Long songId) {
-//        // Implement SQL to add the song to the playlist
-//        String sql = "INSERT INTO playlist_song (playlist_id, song_id) VALUES (?, ?)";
-//        jdbcTemplate.update(sql, playlistId, songId);
-//    }
-
-    public void addToPlaylist(Long playlistId, Long songId) {
-        // Check if the playlistId exists in user_playlist table
-        String checkPlaylistSql = "SELECT COUNT(*) FROM user_playlist WHERE id = ?";
-        int playlistCount = jdbcTemplate.queryForObject(checkPlaylistSql, Integer.class, playlistId);
-
-        if (playlistCount == 0) {
-            // Playlist with the given ID does not exist
-            throw new IllegalArgumentException("Playlist with ID " + playlistId + " does not exist.");
-        }
-
-        // Implement SQL to add the song to the playlist
-        String sql = "INSERT INTO playlist_song (playlist_id, song_id) VALUES (?, ?)";
-        jdbcTemplate.update(sql, playlistId, songId);
-    }
 
 
     public Long createPlaylist(String playlistName) {
@@ -72,11 +48,14 @@ public class PlaylistDao {
         });
     }
 
-    public List<SongVo> getSongsInPlaylist(Long playlistId) {
-        String sql = "SELECT s.id, s.singer, s.title, s.genre FROM song_table s " +
+
+    // PlaylistDao 클래스의 getSongsInPlaylist 메서드 수정
+    public List<SongVo> getSongsInPlaylist(Long userId, Long playlistId) {
+        String sql = "SELECT s.id, s.singer, s.title, s.genre " +
+                "FROM song_table s " +
                 "JOIN playlist_song ps ON s.id = ps.song_id " +
-                "WHERE ps.playlist_id = ?";
-        return jdbcTemplate.query(sql, new Object[]{playlistId}, (rs, rowNum) -> {
+                "WHERE ps.playlist_id = ? AND ps.user_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{playlistId, userId}, (rs, rowNum) -> {
             SongVo song = new SongVo();
             song.setId(rs.getLong("id"));
             song.setSinger(rs.getString("singer"));
@@ -98,31 +77,6 @@ public class PlaylistDao {
         return jdbcTemplate.queryForObject(sql, Integer.class);
     }
 
-//    public Long createPlaylistForUser(String userId, String playlistName) {
-//        String sql = "INSERT INTO user_playlist (user_id, playlist_name) VALUES (?, ?)";
-//        jdbcTemplate.update(sql, userId, playlistName);
-//
-//        // 해당 플레이리스트의 ID 가져오기
-//        sql = "SELECT LAST_INSERT_ID()";
-//        return jdbcTemplate.queryForObject(sql, Long.class);
-//    }
-
-//    public Long createPlaylistForUser(Long userId, String playlistName) {
-//        String sql = "INSERT INTO user_playlist (user_id, playlist_name) VALUES (?, ?)";
-//
-//        KeyHolder keyHolder = new GeneratedKeyHolder();
-//        jdbcTemplate.update(
-//                connection -> {
-//                    PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-//                    ps.setLong(1, userId);
-//                    ps.setString(2, playlistName);
-//                    return ps;
-//                },
-//                keyHolder
-//        );
-//        return keyHolder.getKey().longValue();
-//    }
-
 
     // 새로운 플레리 리스트에 추가를 눌렀을 때 동작하는 쿼리
     public Long createPlaylistForUser(Long userId, int playlistId, String playlistName) {
@@ -142,5 +96,27 @@ public class PlaylistDao {
         return keyHolder.getKey().longValue();
     }
 
+    // 현재 유저의 playlist를 가져옴
+    public List<PlaylistVo> getUserPlaylists(Long userId) {
+        String sql = "SELECT id, user_id, playlist_name FROM user_playlist WHERE user_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{userId}, (rs, rowNum) -> {
+            PlaylistVo playlist = new PlaylistVo();
+            playlist.setId(rs.getLong("id"));
+            playlist.setUserId(rs.getLong("user_id"));
+            playlist.setPlaylistName(rs.getString("playlist_name"));
+            return playlist;
+        });
+    }
+
+
+
+    public void addToPlaylist(Long playlistId, Long songId) {
+        String sql = "INSERT INTO playlist_song (playlist_id, song_id, song_singer, song_title, song_genre) " +
+                "SELECT ?, s.id, s.singer, s.title, s.genre " +
+                "FROM song_table s " +
+                "WHERE s.id = ?";
+
+        jdbcTemplate.update(sql, playlistId, songId);
+    }
 
 }

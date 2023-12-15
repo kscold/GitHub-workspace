@@ -1,20 +1,20 @@
 package com.office.smutify.playlist;
 
-import com.office.smutify.data.SongVo;
+import com.office.smutify.song.SongVo;
 
 import java.util.List;
 
 public class PlaylistVo {
     private Long id;
-    private String userId; // 플레이리스트 소유자의 아이디
+    private Long userId; // 플레이리스트 소유자의 아이디
     private String playlistName; // 플레이리스트 이름
     private List<SongVo> songs;  // 플레이리스트에 속한 노래 목록
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
