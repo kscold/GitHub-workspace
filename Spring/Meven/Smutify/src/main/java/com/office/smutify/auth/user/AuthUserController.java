@@ -40,6 +40,7 @@ public class AuthUserController {
         return modelAndView;
     }
 
+
     @GetMapping("/signup")
     public String signupPage() {
         System.out.println("[AuthUserController] signupPage()");

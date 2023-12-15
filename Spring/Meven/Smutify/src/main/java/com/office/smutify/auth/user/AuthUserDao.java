@@ -23,6 +23,18 @@ public class AuthUserDao {
         }
     }
 
+    public AuthUserVo findByUserId(Long userId) {
+        System.out.println("[AuthUserDao] findByUserId()");
+
+        String sql = "SELECT * FROM users WHERE user_id = ?";
+
+        try {
+            return jdbcTemplate.queryForObject(sql, new Object[]{userId}, new BeanPropertyRowMapper<>(AuthUserVo.class));
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public void save(AuthUserVo authUser) {
         System.out.println("[AuthUserDao] save()");
 

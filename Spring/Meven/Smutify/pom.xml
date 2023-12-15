@@ -146,10 +146,21 @@
 
         <!-- Spring security -->
         <!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.security</groupId>-->
+<!--            <artifactId>spring-security-core</artifactId>-->
+<!--            <version>${org.springframework-version}</version>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-core</artifactId>
-            <version>${org.springframework-version}</version>
+            <artifactId>spring-security-web</artifactId>
+            <version>4.2.2.RELEASE</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-config</artifactId>
+            <version>4.2.2.RELEASE</version>
         </dependency>
 
         <!-- SEND MAIL -->

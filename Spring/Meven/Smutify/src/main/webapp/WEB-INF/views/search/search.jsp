@@ -37,7 +37,7 @@
             장르: ${result.genre}<br>
         </div>
         <div>
-            <form action="<c:url value='/playlist/add/${result.id}/${result.id}' />" method="post">
+            <form action="<c:url value='/playlist/add/${result.id}' />" method="post">
                 <input type="submit" value="기존의 플레이 리스트에 추가하기">
             </form>
             <form action="<c:url value='/playlist/create/${result.id}' />" method="post">
