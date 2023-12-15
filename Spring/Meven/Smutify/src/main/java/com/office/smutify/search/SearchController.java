@@ -25,12 +25,16 @@ public class SearchController {
     public String searchPage(@RequestParam(name = "keyword", required = false, defaultValue = "") String keyword,
                              @RequestParam(name = "sortBy", required = false, defaultValue = "singer") String sortBy,
                              Model model) {
+        System.out.println("[SearchController] searchPage()");
+
+        // 검색어와 정렬 기준을 이용하여 노래를 검색하고 결과를 모델에 추가
         List<SearchVo> searchResults = searchService.searchSongs(keyword, sortBy);
         model.addAttribute("searchResults", searchResults);
 
-        // 플레이 리스트 설정
+        // 사용자의 플레이리스트 목록을 가져와서 모델에 추가
         List<PlaylistVo> userPlaylists = playlistService.getUserPlaylists();
-        model.addAttribute("userPlaylists", userPlaylists); // 모델에 추가
+        model.addAttribute("userPlaylists", userPlaylists);
+
         return "search/search";
     }
 }

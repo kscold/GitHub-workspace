@@ -14,18 +14,13 @@ import java.util.List;
 @RequestMapping("/main")
 public class MainController {
 
-//    @GetMapping
-//    public String mainPage() {
-//        // Implement main page logic
-//        return "main/main";
-//    }
 
     @Autowired
     private PlaylistService playlistService;
 
     @GetMapping
     public String mainPage(Model model) {
-        // Get user-specific playlists
+        System.out.println("[MainController] mainPage()");
         List<PlaylistVo> playlists = playlistService.getUserPlaylists();
         model.addAttribute("playlists", playlists);
 

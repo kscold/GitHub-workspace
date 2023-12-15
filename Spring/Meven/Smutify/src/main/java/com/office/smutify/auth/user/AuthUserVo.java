@@ -1,7 +1,7 @@
 package com.office.smutify.auth.user;
 
 public class AuthUserVo {
-    private Long userId; // 추가된 부분
+    private Long userId;
     private String username;
     private String password;
 
