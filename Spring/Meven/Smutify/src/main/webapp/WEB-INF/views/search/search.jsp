@@ -17,7 +17,7 @@
 <h2>Search Page</h2>
 
 <form action="<c:url value='/search' />" method="get">
-    <input type="text" id="keyword" name="keyword" placeholder="Search keyword"/>
+    <input type="text" id="keyword" name="keyword" placeholder="키워드 검색"/>
     <select id="sortBy" name="sortBy" onchange="sortByChanged()">
         <option value="id" <c:if test="${param.sortBy == null || param.sortBy == 'id'}">selected</c:if>>ID 정렬
         </option>
@@ -25,7 +25,7 @@
         <option value="singer" <c:if test="${param.sortBy == 'singer'}">selected</c:if>>가수 정렬</option>
         <option value="genre" <c:if test="${param.sortBy == 'genre'}">selected</c:if>>장르 정렬</option>
     </select>
-    <input type="submit" value="Search"/>
+    <input type="submit" value="검색"/>
 </form>
 <p><a href="<c:url value='/main' />">메인으로 돌아가기</a></p>
 
