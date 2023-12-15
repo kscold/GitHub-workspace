@@ -1,33 +1,3 @@
-<%--<%@ page contentType="text/html;charset=UTF-8" language="java" %>--%>
-<%--<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>--%>
-
-<%--<html>--%>
-<%--<head>--%>
-<%--    <title>Search</title>--%>
-<%--</head>--%>
-<%--<body>--%>
-<%--<h2>Search Page</h2>--%>
-<%--<!-- Implement search form and result display -->--%>
-<%--<form action="<c:url value='/search' />" method="get">--%>
-<%--    <input type="text" name="keyword" placeholder="Search keyword" />--%>
-<%--    <select name="sortBy">--%>
-<%--        <option value="singer">Sort by Singer</option>--%>
-<%--        <option value="title">Sort by Title</option>--%>
-<%--        <option value="genre">Sort by Genre</option>--%>
-<%--        <option value="id">Sort by ID</option>--%>
-<%--    </select>--%>
-<%--    <input type="submit" value="Search" />--%>
-<%--</form>--%>
-<%--<!-- Display search results -->--%>
-<%--<c:forEach var="result" items="${searchResults}">--%>
-<%--    ${result.singer} - ${result.title} (${result.genre})<br>--%>
-<%--    <a href="<c:url value='/playlist/add/${result.id}' />">Add to Playlist</a><br>--%>
-<%--    <a href="<c:url value='/playlist/create/${result.id}' />">Create Playlist</a><br>--%>
-<%--</c:forEach>--%>
-<%--</body>--%>
-<%--</html>--%>
-
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -67,8 +37,15 @@
             장르: ${result.genre}<br>
         </div>
         <div>
-            <a href="<c:url value='/playlist/add/${result.id}' />">Add to Playlist</a><br>
-            <a href="<c:url value='/playlist/create/${result.id}' />">Create Playlist</a><br>
+            <form action="<c:url value='/playlist/add/${result.id}/${result.id}' />" method="post">
+                <input type="submit" value="기존의 플레이 리스트에 추가하기">
+            </form>
+            <form action="<c:url value='/playlist/create/${result.id}' />" method="post">
+                <input type="submit" value="새로운 플레이 리스트에 추가">
+            </form>
+            <form action="<c:url value='/playlist/addGenre/${result.id}/${result.genre}' />" method="post">
+                <input type="submit" value="장르 추가">
+            </form>
         </div>
     </div>
 </c:forEach>

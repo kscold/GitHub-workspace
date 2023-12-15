@@ -43,16 +43,4 @@ public class SearchVo {
         this.genre = genre;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        SearchVo searchVo = (SearchVo) o;
-        return Objects.equals(id, searchVo.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 }

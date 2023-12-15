@@ -14,8 +14,18 @@ public class SearchDao {
     private JdbcTemplate jdbcTemplate;
 
 
+//    public List<SearchVo> searchSongs(String keyword, String sortBy) {
+////        String sql = "SELECT * FROM song_table WHERE singer LIKE ? OR title LIKE ? OR genre LIKE ? GROUP BY singer, title, genre ORDER BY " + sortBy;
+//        String sql = "SELECT DISTINCT * FROM song_table WHERE singer LIKE ? OR title LIKE ? OR genre LIKE ? ORDER BY " + sortBy;
+//        String searchKeyword = "%" + keyword + "%";
+//        return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(SearchVo.class), searchKeyword, searchKeyword, searchKeyword);
+//    }
+
     public List<SearchVo> searchSongs(String keyword, String sortBy) {
-        String sql = "SELECT * FROM song_table WHERE singer LIKE ? OR title LIKE ? OR genre LIKE ? GROUP BY singer, title, genre ORDER BY " + sortBy;
+        String sql = "SELECT DISTINCT * FROM song_table WHERE singer LIKE ? OR title LIKE ? OR genre LIKE ?";
+        if (sortBy != null && !sortBy.isEmpty()) {
+            sql += " ORDER BY " + sortBy;
+        }
         String searchKeyword = "%" + keyword + "%";
         return jdbcTemplate.query(sql, new BeanPropertyRowMapper<>(SearchVo.class), searchKeyword, searchKeyword, searchKeyword);
     }
