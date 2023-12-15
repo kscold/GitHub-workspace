@@ -3,12 +3,12 @@
 
 <html>
 <head>
-    <title>플레이리스트</title>
+    <title>Smutify Playlist</title>
 </head>
 <body>
 <h2>플레이리스트 관리</h2>
 
-<h3>플레이 리스트</h3>
+<h3>플레이리스트</h3>
 
 <c:if test="${not empty songsInPlaylist}">
     <c:forEach var="song" items="${songsInPlaylist}">

@@ -19,14 +19,15 @@
 <form action="<c:url value='/search' />" method="get">
     <input type="text" id="keyword" name="keyword" placeholder="Search keyword"/>
     <select id="sortBy" name="sortBy" onchange="sortByChanged()">
-        <option value="id" <c:if test="${param.sortBy == null || param.sortBy == 'id'}">selected</c:if>>Sort by ID
+        <option value="id" <c:if test="${param.sortBy == null || param.sortBy == 'id'}">selected</c:if>>ID 정렬
         </option>
-        <option value="title" <c:if test="${param.sortBy == 'title'}">selected</c:if>>Sort by Title</option>
-        <option value="singer" <c:if test="${param.sortBy == 'singer'}">selected</c:if>>Sort by Singer</option>
-        <option value="genre" <c:if test="${param.sortBy == 'genre'}">selected</c:if>>Sort by Genre</option>
+        <option value="title" <c:if test="${param.sortBy == 'title'}">selected</c:if>>타이틀 정렬</option>
+        <option value="singer" <c:if test="${param.sortBy == 'singer'}">selected</c:if>>가수 정렬</option>
+        <option value="genre" <c:if test="${param.sortBy == 'genre'}">selected</c:if>>장르 정렬</option>
     </select>
     <input type="submit" value="Search"/>
 </form>
+<p><a href="<c:url value='/main' />">메인으로 돌아가기</a></p>
 
 
 <c:forEach var="result" items="${searchResults}">

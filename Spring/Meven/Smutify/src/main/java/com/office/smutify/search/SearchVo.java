@@ -1,6 +1,5 @@
 package com.office.smutify.search;
 
-import java.util.Objects;
 
 public class SearchVo {
     private Long id;
@@ -9,7 +8,6 @@ public class SearchVo {
     private String title;
     private String genre;
 
-    // 사용자가 검색을 통해 플레이 리스트를 만들어야하기 때문에
 
     public Long getId() {
         return id;

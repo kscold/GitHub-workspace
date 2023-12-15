@@ -13,7 +13,7 @@ public class SearchDao {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    // 노래를 검색하는 메소드
+    // 노래를 검색하는 쿼리
     public List<SearchVo> searchSongs(String keyword, String sortBy) {
         System.out.println("[SearchDao] searchSongs()");
 

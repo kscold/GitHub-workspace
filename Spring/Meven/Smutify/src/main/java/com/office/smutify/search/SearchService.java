@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
-
 @Service
 public class SearchService {
 
@@ -14,6 +13,8 @@ public class SearchService {
     private SearchDao searchDao;
 
     public List<SearchVo> searchSongs(String keyword, String sortBy) {
+        System.out.println("[SearchService] searchSongs()");
+
         return searchDao.searchSongs(keyword, sortBy);
     }
 }
