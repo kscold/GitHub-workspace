@@ -32,6 +32,7 @@
 		878EE08A2A3F2B05009224CA /* lec05_quiz.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lec05_quiz.c; sourceTree = "<group>"; };
 		878EE08B2A3F2B06009224CA /* lec05_quiz.pdf */ = {isa = PBXFileReference; lastKnownFileType = image.pdf; path = lec05_quiz.pdf; sourceTree = "<group>"; };
 		878EE08C2A3F2B07009224CA /* lec05_quiz2.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lec05_quiz2.c; sourceTree = "<group>"; };
+		87AC0F402B2E019E00FBF21D /* name.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = name.csv; sourceTree = "<group>"; };
 		87E0A1092B170244006F0724 /* sample2.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sample2.c; sourceTree = "<group>"; };
 		87E0A10C2B17080D006F0724 /* sample.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = sample.c; sourceTree = "<group>"; };
 		87E0A10F2B170DDE006F0724 /* test.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = test.c; sourceTree = "<group>"; };
@@ -73,6 +74,7 @@
 				87E0A1092B170244006F0724 /* sample2.c */,
 				87E0A10C2B17080D006F0724 /* sample.c */,
 				87E0A10F2B170DDE006F0724 /* test.c */,
+				87AC0F402B2E019E00FBF21D /* name.csv */,
 			);
 			path = C;
 			sourceTree = "<group>";

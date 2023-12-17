@@ -1,120 +1,188 @@
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
-#include <time.h>
+#include <string.h>
 
-#define MAX_LENGTH 100000
+#define TABLE_SIZE 300
+#define MAX_LINE_SIZE 256
 
-struct NUMS {
-    int N;
-    long arr[MAX_LENGTH];
-    long sum, min_value, max_value;
-    double var, median;
+struct Data {
+    char FirstName[50];
+    char SecondName[50];
+    int Age;
+    char Email[50];
+    char CompanyName[50];
 };
 
-struct NUMS_DOUBLE {
-    int N;
-    double arr[MAX_LENGTH];
-    double sum, min_value, max_value;
-    double var, median;
-};
+struct Data hashTable[TABLE_SIZE];
 
-long getsum(struct NUMS *nums)
-{
-    int i;
-    long sum;
-  
-    sum = 0;
-
-    for(i=0; i<nums->N; i++)
-        sum = sum + nums->arr[i];
-    return sum;
-}
-
-double getsum_double(struct NUMS_DOUBLE *nums)
-{
-    long i;
-    double sum;
-  
-    sum = 0;
-
-    for(i=0; i<nums->N; i++) sum = sum + nums->arr[i];
-    return sum;
-}
-
-double getavg(struct NUMS *nums)
-{
-    long sum = getsum(nums);
-    return sum / (double)nums->N;
-}
-
-double getavg_double(struct NUMS_DOUBLE *nums)
-{
-    double sum = getsum_double(nums);
-    return sum / (double)nums->N;
-}
-
-double getvar1(struct NUMS *nums)
-{
-    double avg = getavg(nums);
-    double  diff;
-    struct NUMS_DOUBLE nums_diff;
-    long i;
-    nums_diff.N = nums->N;
-    for(i=0; i<nums->N; i++) {
-        diff = nums->arr[i] - avg;
-        nums_diff.arr[i] = diff * diff;
+unsigned int hash1(char* email) {
+    unsigned int hash = 0;
+    while (*email) {
+        hash = (hash << 5) + *email++;
     }
-    return getavg_double(&nums_diff);
+    return hash % TABLE_SIZE;
 }
 
-double getvar2(struct NUMS *nums)
-{
-    long i;
-    struct NUMS_DOUBLE nums_double;
-    double avg = getavg(nums);
-    nums_double.N = nums->N;
-    for(i=0; i<nums_double.N; i++) nums_double.arr[i] = (double)nums->arr[i] * (double)nums->arr[i];
-    double avg_double = getavg_double(&nums_double);
-    return avg_double - avg * avg;
+unsigned int hash2(char* email) {
+    unsigned int hash = 0;
+    while (*email) {
+        hash = (hash << 7) + *email++;
+    }
+    return (hash % (TABLE_SIZE - 1)) + 1;
 }
 
-int compare(const void *a, const void *b)
-{
-    return *(int *)a - *(int *)b;
-}
- 
-int main(void)
-{
-    struct NUMS nums;
-    nums.N =  MAX_LENGTH;
-    long i, k;
-    int var2 = 0;
+int insertData(struct Data newData) {
+    unsigned int index, step, i;
 
-    clock_t start_time, end_time;
-    start_time = clock();
+    index = hash1(newData.Email);
+    step = hash2(newData.Email);
 
-    srand(20231213);
-
-    for(i=0; i<nums.N; i++) {
-        if (rand() == nums.N)
-            nums.arr[i];
+    for (i = 0; i < TABLE_SIZE; i++) {
+        if (hashTable[index].Email[0] == '\0') {
+            hashTable[index] = newData;
+            return 1;  // Data added successfully
+        }
+        index = (index + step) % TABLE_SIZE;
     }
 
-    for(k=0; k<1000; k++) { // do not edit this line
-        qsort(nums.arr, nums.N, sizeof(long), compare);
-        nums.sum = getsum(&nums);
-        nums.var = getvar1(&nums);
-        var2 = getvar2(&nums);
-        nums.median = (nums.arr[nums.N / 2] + nums.arr[nums.N / 2 - 1])/2.0;
-        nums.min_value = nums.arr[0];
-        nums.max_value = nums.arr[nums.N - 1];
-    }
-    
-    printf("%ld %ld %lf %ld %lf %d\n", nums.min_value, nums.max_value, nums.median, nums.sum, nums.var, var2);
-    printf("The results should be 4 99999 50065.000000 5009789286 830379368.080319 830379368.080321\n");
-
-    end_time = clock();
-    printf("Elapsed time: %.2f seconds.\n", ((double) (end_time - start_time)) / CLOCKS_PER_SEC);
+    return 0;  // Unable to add data (hash table is full)
 }
 
+void deleteData(char* email, int age) {
+    unsigned int index, step, i;
+
+    index = hash1(email);
+    step = hash2(email);
+
+    for (i = 0; i < TABLE_SIZE; i++) {
+        if (strcmp(hashTable[index].Email, email) == 0 && hashTable[index].Age == age) {
+            printf("-> 데이터를 삭제했습니다.: %s,%s,%s,%d,%s\n", hashTable[index].FirstName, hashTable[index].SecondName,
+                hashTable[index].Email, hashTable[index].Age, hashTable[index].CompanyName);
+            hashTable[index].Email[0] = '\0';  // Mark as deleted
+            return;
+        }
+        index = (index + step) % TABLE_SIZE;
+    }
+
+    printf("->삭제할 데이터가 없습니다.\n");
+}
+
+void searchData(char* email, int age) {
+    unsigned int index, step, i;
+
+    index = hash1(email);
+    step = hash2(email);
+
+    for (i = 0; i < TABLE_SIZE; i++) {
+        if (strcmp(hashTable[index].Email, email) == 0 && hashTable[index].Age == age) {
+            printf("-> 데이터를 찾았습니다.: %s,%s,%s,%d,%s\n", hashTable[index].FirstName, hashTable[index].SecondName,
+                hashTable[index].Email, hashTable[index].Age, hashTable[index].CompanyName);
+            return;
+        }
+        index = (index + step) % TABLE_SIZE;
+    }
+
+    printf("->데이터가 없습니다.\n");
+}
+
+int main(void) {
+    FILE* file;
+    char line[MAX_LINE_SIZE];
+    char* token;
+    char filename[256];
+    char exename[256];
+
+    // Initialize hash table
+    for (int i = 0; i < TABLE_SIZE; i++) {
+        hashTable[i].Email[0] = '\0';
+    }
+
+    // open file
+    printf("C:> ");
+    scanf("%s %s", exename, filename);
+    file = fopen(filename, "r");
+    if (file == NULL) {
+        printf("->파일을 열 수 없습니다.\n");
+        return 1;
+    }
+
+    // read file line by line
+    while (fgets(line, MAX_LINE_SIZE, file) != NULL) {
+        struct Data newData;
+        // Parse comma separated data
+        token = strtok(line, ",");
+        strcpy(newData.FirstName, token);
+        token = strtok(NULL, ",");
+        strcpy(newData.SecondName, token);
+        token = strtok(NULL, ",");
+        strcpy(newData.Email, token);
+        token = strtok(NULL, ",");
+        newData.Age = atoi(token);
+        token = strtok(NULL, ",");
+        strcpy(newData.CompanyName, token);
+
+        // Insert data into hash table
+        insertData(newData);
+    }
+    // close file
+    fclose(file);
+
+    int choice;
+    char email[50];
+    int age;
+
+    do {
+        printf("무엇을 원하십니까? 1:삽입 2:삭제 3:검색 4:종료 -> ");
+        scanf("%d", &choice);
+
+        switch (choice) {
+        case 1:
+        {
+            struct Data newData;  // 블록 내에서 변수 선언
+            printf("\nFirst name: ");
+            scanf("%s", newData.FirstName);
+            fflush(stdin);
+            printf("\nSecond name: ");
+            scanf("%s", newData.SecondName);
+            fflush(stdin);
+            printf("\n이메일: ");
+            scanf("%s", newData.Email);
+            printf("\n나이: ");
+            scanf("%d", &newData.Age);
+            printf("\n회사명: ");
+            scanf("%s", newData.CompanyName);
+            insertData(newData);
+            printf("->데이터를 추가하였습니다.\n");
+            break;
+        }
+        case 2:
+        {
+            printf("\n이메일: ");
+            scanf("%s", email);
+            printf("\n나이: ");
+            scanf("%d", &age);
+            deleteData(email, age);
+            break;
+        }
+        case 3:
+        {
+            printf("\n이메일: ");
+            scanf("%s", email);
+            printf("\n나이: ");
+            scanf("%d", &age);
+            searchData(email, age);
+            break;
+        }
+        case 4:
+        {
+            printf("-> Bye~\n");
+            break;
+        }
+        default:
+            printf("->잘못된 입력입니다. 다시 작업을 선택해주세요.\n");
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
