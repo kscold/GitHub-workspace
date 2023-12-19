@@ -55,19 +55,26 @@ nav {
     }
 }
 
-// .back-video {
-//     position: absolute;
-//     right: 0;
-//     bottom: 0;
-//     z-index: -1;
-// }
-
 .back-video {
     position: absolute;
     right: 0;
     bottom: 0;
-    z-index: -1;
-    width: 100%; /* Set the width to 100% to fill the entire screen horizontally */
-    height: 100%; /* Set the height to 100% to fill the entire screen vertically */
-    object-fit: cover; /* Maintain aspect ratio and cover the entire container */
+    z-index: -1; // z 인덱스를 가장 낮게 주므로 맨 뒷배경으로 설정
+    width: 100%; // 가로 세로 비율 100퍼센트로 설정
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (min-aspect-ratio: 16/9) {
+    .back-video {
+        width: 100%;
+        height: auto;
+    }
+}
+
+@media (max-aspect-ratio: 16/9) {
+    .back-video {
+        width: auto;
+        height: 100%;
+    }
 }
