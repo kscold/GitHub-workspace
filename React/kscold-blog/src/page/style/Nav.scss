@@ -54,3 +54,20 @@ nav {
         font-size: 17px;
     }
 }
+
+// .back-video {
+//     position: absolute;
+//     right: 0;
+//     bottom: 0;
+//     z-index: -1;
+// }
+
+.back-video {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    z-index: -1;
+    width: 100%; /* Set the width to 100% to fill the entire screen horizontally */
+    height: 100%; /* Set the height to 100% to fill the entire screen vertically */
+    object-fit: cover; /* Maintain aspect ratio and cover the entire container */
+}

@@ -1,11 +1,16 @@
 import React from "react";
 import "../style/Nav.scss";
 import logo from "../style/images/logo.png";
+import video from "../style/images/video.mp4";
 import Main from "../main/Main";
 
 const Nav = () => {
   return (
     <div className="hero">
+      <video autoPlay loop muted playsInline className="back-video">
+        <source src={video} type="video/mp4" />
+      </video>
+
       <nav>
         <div className="logo-container">
           <img src={logo} className="logo" alt="Logo" />
