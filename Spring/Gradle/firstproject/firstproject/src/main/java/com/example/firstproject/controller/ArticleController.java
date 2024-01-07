@@ -39,10 +39,10 @@ public class ArticleController {
         log.info(saved.toString());
         // System.out.println(saved); // article이 DB에 잘 저장되는지 확인 출력
 
-        return "";
+        return "redirect:/articles/" + saved.getId();
     }
 
-    @GetMapping("/articles/{id}")
+    @GetMapping("/articles/{id}") // 상세페이지 메서드
     public String show(@PathVariable Long id, Model model) { // 매개변수로 id 받아 오기
         log.info("id = " + id); // id를 잘 받았는지 확인하는 로그 찍기
         // 1. id를 조회해 데이터 가져오기
@@ -50,7 +50,7 @@ public class ArticleController {
         // 2. 모델에 데이터 등록하기
         model.addAttribute("article", articleEntity);
         // 3. 뷰 페이지 반환하기
-        return "articles/show";
+        return "articles/show"; // 목록으로 돌아가기 링크를 넣을 뷰 파일 확인
     }
 
     @GetMapping("/articles")
