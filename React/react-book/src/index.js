@@ -2,12 +2,12 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import reportWebVitals from './reportWebVitals';
-import EventPractice from './EventPractice';
+import EventPracticeFuntion from './EventPractice(funtion)';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <EventPractice />
+    <EventPracticeFuntion />
   </React.StrictMode>
 );
 

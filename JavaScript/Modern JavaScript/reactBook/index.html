@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Example</title>
+    <style>
+        .success {
+            background-color: green;
+        }
+
+        .failure {
+            background-color: red
+        }
+    </style>
+    <script>
+        function vaildate() {
+            var input = document.getElementById('password')
+            input.className = '';
+            if (input.value === '0000') {
+                input.className = 'success'
+            } else {
+                input.className = 'failure'
+            }
+        }
+    </script>
+</head>
+
+<body>
+    <input type="password" id="password"></input>
+    <button onclick="vaildate()">Vaildate</button>
+
+</body>
+
+</html>
