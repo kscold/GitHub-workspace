@@ -7,8 +7,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class ArticleForm {
+    private Long id;
     private String title; // 제목을 받을 필드
     private String content; // 내용을 받을 필드
+
+    public Article toEntity() {
+        return new Article(id, title, content);
+    }
 
 
     // 전송받은 제목과 내용을 필드에 저장하는 생성자 추가 (롬복을 적용하면서 이 코드를 대체할 수 있음)
@@ -26,7 +31,5 @@ public class ArticleForm {
                 '}';
     }*/
 
-    public Article toEntity() {
-        return new Article(null, title, content);
-    }
+
 }

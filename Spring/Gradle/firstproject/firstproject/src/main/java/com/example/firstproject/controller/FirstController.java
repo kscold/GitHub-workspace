@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class FirstController {
 
+
     @GetMapping("/hi")
     public String niceToMeetYou(Model model) { // model 객체 받아 오기
         // model 객체가 "승찬" 값을 "username"에 연결해 웹 브라우저로 보냄
