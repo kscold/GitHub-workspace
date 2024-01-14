@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './ValidationSample';
+import './ValidationSample.css';
 
 class ValidationSample extends Component {
   state = {
@@ -19,12 +19,26 @@ class ValidationSample extends Component {
       clicked: true,
       validated: this.state.password === '0000',
     });
+    this.input.focus();
   };
 
   render() {
     return (
       <div>
-        <input type="password" value={this.state.password}></input>
+        <input
+          ref={(ref) => (this.input = ref)}
+          type="password"
+          value={this.state.password}
+          onChange={this.handleChange}
+          className={
+            this.state.clicked
+              ? this.state.validated
+                ? 'success'
+                : 'failure'
+              : ''
+          } // state의 clicked가 true 이면 또 state의 vaildated가 ture이면 success
+        />
+        <button onClick={this.handleButtonClick}>검증하기</button>
       </div>
     );
   }

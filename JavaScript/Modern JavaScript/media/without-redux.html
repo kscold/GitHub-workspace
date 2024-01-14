@@ -1,24 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
 
-  <body>
-    <style>
-      .container {
-        border: 5px solid black;
-        padding: 10px;
-      }
-    </style>
-    <div id="red"></div>
-    <div id="green"></div>
-    <div id="blue"></div>
-    <script>
-      function red() {
-        document.querySelector('#red').innerHTML = `
+    <body>
+        <style>
+            .container {
+                border: 5px solid black;
+                padding: 10px;
+            }
+        </style>
+        <div id="red"></div>
+        <div id="green"></div>
+        <div id="blue"></div>
+        <script>
+            function red() {
+                document.querySelector('#red').innerHTML = `
                 <div class="container" id = "component_red">
                     <h1>red</h1>
                     <input type="button" value="fire" onClick="
@@ -27,11 +27,11 @@
                     ">
                 </div>
             `;
-      }
-      red();
+            }
+            red();
 
-      function green() {
-        document.querySelector('#green').innerHTML = `
+            function green() {
+                document.querySelector('#green').innerHTML = `
                 <div class="container" id = "component_green">
                     <h1>green</h1>
                     <input type="button" value="fire" onClick="
@@ -40,11 +40,11 @@
                     ">
                 </div>
             `;
-      }
-      green();
+            }
+            green();
 
-      function blue() {
-        document.querySelector('#blue').innerHTML = `
+            function blue() {
+                document.querySelector('#blue').innerHTML = `
                 <div class="container" id = "component_blue">
                     <h1>blue</h1>
                     <input type="button" value="fire" onClick="
@@ -54,8 +54,8 @@
                     ">
                 </div>
             `;
-      }
-      blue();
-    </script>
-  </body>
+            }
+            blue();
+        </script>
+    </body>
 </html>
