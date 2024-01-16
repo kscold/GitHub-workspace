@@ -32,7 +32,16 @@ const IterationSample = () => {
     setInputText(''); // inputText를 비운다.
   };
 
-  const nameList = names.map((name) => <li key={name.id}>{name.text}</li>);
+  const onRemove = (id) => {
+    const nextNames = names.filter((name) => name.id !== id); // name의 id와 파라미터 id를 비교해서 같지 않은 객체만 뽑아 새로 배열을 만듬
+    setNames(nextNames);
+  };
+
+  const nameList = names.map((name) => (
+    <li key={name.id} onClick={() => onRemove(name.id)}>
+      {name.text}
+    </li>
+  ));
 
   return (
     <>

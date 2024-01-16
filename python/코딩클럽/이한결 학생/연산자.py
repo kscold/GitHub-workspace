@@ -35,17 +35,23 @@
 # # //=
 # # %=
 
+# number = 1
+
+# number = number / 1
+
+
+# number /= 1
 # number = 1  # 변수의 초기화
 # number += 100
 # print(number)
 
-import math
+import math  # 라이브러리
 
-result = math.sqrt(4.99)
+result = math.sqrt(4)
 print(result)
 
 # 정의되어 있는 함수
-print(abs(-100))
+print(abs(-100))  # 절대값
 
 print(max(-100, 1000))
 print(min(-100, 1000))
