@@ -77,25 +77,57 @@
 
 // export default App;
 
-import { useReducer } from 'react';
+// 이 페이지에서 리듀서를 선언해서 사용
+// import { useReducer } from 'react';
 
-function reducer(state, action) {
-  return {
-    // 바뀐 state 객체를 반환
-    ...state,
-    [action.name]: action.value,
-  };
-}
+// function reducer(state, action) {
+//   return {
+//     // 바뀐 state 객체를 반환
+//     ...state,
+//     [action.name]: action.value,
+//   };
+// }
+
+// const Info = () => {
+//   const [state, dispatch] = useReducer(reducer, {
+//     name: '',
+//     nickname: '',
+//   });
+//   const { name, nickname } = state;
+//   const onChange = (e) => {
+//     dispatch(e.target);
+//   };
+
+//   return (
+//     <div>
+//       <div>
+//         <input name="name" value={name} onChange={onChange} />
+//         <input name="nickname" value={nickname} onChange={onChange} />
+//       </div>
+//       <div>
+//         <div>
+//           <b>이름:</b> {name}
+//         </div>
+//         <div>
+//           <b>닉네임:</b> {nickname}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default Info;
+
+// 다른 파일에서 useReducer를 선언해서 사용
+import useInput from './useInput';
 
 const Info = () => {
-  const [state, dispatch] = useReducer(reducer, {
+  const [state, onChange] = useInput({
     name: '',
     nickname: '',
   });
-  const { name, nickname } = state;
-  const onChange = (e) => {
-    dispatch(e.target);
-  };
+
+  const { name, nickname } = state; // onChnage로 바뀌는 state를 비구조화 할당
 
   return (
     <div>
@@ -105,10 +137,13 @@ const Info = () => {
       </div>
       <div>
         <div>
-          <b>이름:</b> {name}
+          이름:
+          <b /> {name}
         </div>
         <div>
-          <b>닉네임:</b> {nickname}
+          닉네임:
+          <b />
+          {nickname}
         </div>
       </div>
     </div>
