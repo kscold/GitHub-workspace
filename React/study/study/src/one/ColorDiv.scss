@@ -1,0 +1,41 @@
+.Template {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    .ColorInput {
+        height: 40px;
+        border-radius: 0.5rem;
+        border-radius: 10px;
+        margin-top: 10vh;
+        margin-bottom: 5vh;
+        &:hover {
+            border-color: orange;
+        }
+    }
+
+    .ColorBtn {
+        border: none;
+        background-color: darkgray;
+        color: white;
+        border-radius: 10px;
+        height: 4vh;
+        width: 10vw;
+        margin-top: 10px;
+        margin-bottom: 5vh;
+    }
+
+    .ColorText {
+        font-size: 20px;
+        margin-bottom: 3vh;
+    }
+
+    .ColorDiv {
+        height: 50vh;
+        width: 50vw;
+        position: relative;
+        margin: auto;
+        border-radius: 10px;
+        border: 2px solid black;
+    }
+}
