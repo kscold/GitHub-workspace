@@ -1,6 +1,6 @@
 {{>layouts/header}}
 
-{{#article}}
+{{#article}} <!-- model에 등록된 article Optional 객체의 생존 범위 -->
 <form class="container" action="/articles/update" method="post">
     <input name="id" type="hidden" value="{{id}}">
     <div class="mb-3">
