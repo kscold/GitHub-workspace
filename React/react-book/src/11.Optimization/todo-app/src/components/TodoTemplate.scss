@@ -1,0 +1,22 @@
+.TodoTemplate {
+    width: 512px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 6rem; // 16 * 6= 96px
+    border-radius: 4px;
+    overflow: hidden;
+
+    .app-title {
+        background: #22b8cf;
+        color: white;
+        height: 4rem; // <html> 폰트크기가 16px 이므로 16 * 4 = 64px
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .content {
+        background: white;
+    }
+}
