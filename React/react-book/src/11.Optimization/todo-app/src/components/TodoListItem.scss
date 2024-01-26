@@ -2,10 +2,12 @@
     padding: 1rem;
     display: flex;
     align-items: center;
+
     &:nth-child(even) {
         // 부모 안에 모든 요소 중 N 번째 요소 여기서는 홀수
         background: #f8f9fa;
     }
+
     .checkbox {
         cursor: pointer;
         flex: 1; // 차지할 수 있는 영역 모두 차지
@@ -33,6 +35,8 @@
     }
 
     .remove {
+        display: flex;
+        align-items: center;
         font-size: 1.5rem;
         color: #ff6b6b;
         cursor: pointer;
@@ -44,5 +48,15 @@
     // 엘리먼트 사이사이에 테두리를 넣어줌
     & + & {
         border-top: 1px solid #dee2e6;
+    }
+}
+
+.TodoListItem-virtualized {
+    & + & {
+        border-top: 1px solid #dee2e6;
+    }
+
+    &:nth-child(even) {
+        background: #f8f9fa;
     }
 }
