@@ -1,11 +1,7 @@
-// import "./App.css"
-
-import ColorDiv from './one/ColorDiv';
-import IterationSample from './twoClass/IterationSample';
-import Info from './twoClass/info';
+import { SlideX } from './two/Slide';
 
 function App() {
-  return <Info />;
+  return <SlideX />;
 }
 
 export default App;
