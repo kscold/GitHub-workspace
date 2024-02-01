@@ -20,7 +20,7 @@ const TTS = () => {
         <input value={input} onChange={onChange}></input>
         <button type="submit">TTS 실행</button>
       </form>
-      <div>{input}</div>
+      <div style={{ height: '20.5px' }}>{input}</div>
     </div>
   );
 };

@@ -1,7 +1,16 @@
-import { SlideX } from './two/Slide';
+import Slide from './two/Slide';
+import TTS from './two/TTS';
 
 function App() {
-  return <SlideX />;
+  return (
+    <>
+      <div>
+        <TTS />
+        <Slide x />
+      </div>
+      <Slide y />
+    </>
+  );
 }
 
 export default App;

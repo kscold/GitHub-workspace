@@ -8,12 +8,12 @@ const colorDiv = [
   { color: 'green', key: 4 },
 ];
 
-export const SlideX = (props) => {
+const Slide = (props) => {
   const slideRef = useRef(null);
   const slideArray = [...colorDiv];
 
   return (
-    <div className="Background">
+    <div className={props.x ? 'BackgroundX' : 'BackgroundY'}>
       <div className="DivContainer" ref={slideRef}>
         {slideArray.map((slide, index) => (
           <div
@@ -21,10 +21,15 @@ export const SlideX = (props) => {
             className="DivBox"
             style={{ backgroundColor: slide.color }}
           >
-            <p className="nameY">{slide.color}</p>
+            <div>
+              <p className="name">{props.x ? 'X Slide' : 'Y Slide'}</p>
+              <p className="name">{slide.color}</p>
+            </div>
           </div>
         ))}
       </div>
     </div>
   );
 };
+
+export default Slide;
