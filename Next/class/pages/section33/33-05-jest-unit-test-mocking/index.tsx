@@ -1,6 +1,8 @@
 import { gql, useMutation } from "@apollo/client";
-
 import { useState } from "react";
+import type { ChangeEvent } from "react";
+import { wrapAsync } from "../../../src/commons/libraries/asyncFunc";
+import { useRouter } from "next/router";
 
 const 나의그래프큐엘셋팅 = gql`
   mutation createBoard($createBoardInput: CreateBoardInput!) {
@@ -14,32 +16,54 @@ const 나의그래프큐엘셋팅 = gql`
 `;
 
 export default function StaticRoutingMovedPage(): JSX.Element {
+  const router = useRouter();
+
   const [writer, setWriter] = useState("");
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
 
   const [나의함수] = useMutation(나의그래프큐엘셋팅);
 
-  const onClickSubmit = async ():Promise<void>
+  const onClickSubmit = async (): Promise<void> => {
+    const result = await 나의함수({
+      variables: {
+        createBoardInput: {
+          writer,
+          title,
+          contents,
+          password: "1234",
+        },
+      },
+    });
+    console.log(result);
 
-  const onChangeWriter = (event) => {
+    const boardId = result.data.createBoard._id;
+    void router.push(`/boards/${boardId}`);
+  };
+
+  const onChangeWriter = (event: ChangeEvent<HTMLInputElement>): void => {
     setWriter(event.target.value);
   };
 
-  const onChangeTitle = (event) => {
+  const onChangeTitle = (event: ChangeEvent<HTMLInputElement>): void => {
     setTitle(event.target.value);
   };
 
-  const onChangeContents = (event) => {
+  const onChangeContents = (event: ChangeEvent<HTMLInputElement>): void => {
     setContents(event.target.value);
   };
 
   return (
     <div>
-      작성자: <input type="text" onChange={onChangeWriter} />
-      제목: <input type="text" onChange={onChangeTitle} />
-      내용: <input type="text" onChange={onChangeContents} />
-      <button onClick={onClickSubmit}>GRAPHQL-API요청하기</button>
+      작성자:
+      <input role="input-writer" type="text" onChange={onChangeWriter} />
+      제목:
+      <input role="input-title" type="text" onChange={onChangeTitle} />
+      내용:
+      <input role="input-contents" type="text" onChange={onChangeContents} />
+      <button role="submit-button" onClick={wrapAsync(onClickSubmit)}>
+        GRAPHQL-API요청하기
+      </button>
     </div>
   );
 }
