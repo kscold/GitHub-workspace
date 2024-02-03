@@ -1,0 +1,16 @@
+package org.example.calculate;
+
+public class AdditionOperator implements NewArithmeticOperator {
+
+    @Override
+    public boolean supports(String opeartor) {
+        return "+".equals(opeartor);
+    }
+
+    @Override
+    public int calculate(int operand1, int operand2) {
+        return operand1 + operand2;
+    }
+
+
+}
