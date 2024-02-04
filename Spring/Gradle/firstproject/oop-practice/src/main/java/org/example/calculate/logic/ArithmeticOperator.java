@@ -1,4 +1,4 @@
-package org.example;
+package org.example.calculate.logic;
 
 import java.util.Arrays;
 
