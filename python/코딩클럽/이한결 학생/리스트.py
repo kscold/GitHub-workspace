@@ -36,7 +36,7 @@ print(subway)
 print(subway.count("이한결"))
 
 
-# 리스트는 보통 숫자로 만든다.
+# 정렬은 숫자만 가능
 num_list = [5, 2, 4, 3, 1]
 # num_list.sort()  # 오름차순 정렬
 num_list.sort(reverse=True)  # 내림차순 정렬
