@@ -20,7 +20,7 @@ public class GradeCalculatorTest {
     /*
     * 핵심 포인트
     */
-    // 이수한 과목을 전달하여 평균학점 계산 요청 ----> 학점 계산기 ----> (학점수 + 교과목 평점)의 합계 ---> 과목(코스)
+    // 이수한 과목을 전달하여 평균학점 계산 요청 ----> 학점 계산기 ----> (학점수 + 교과목 평점)의 합계 ---> 과목(코스) 일급 컬렉션
     //                                                ----> 수강신청 총학점 수          ---> 과목(코스)
 
 
@@ -28,11 +28,11 @@ public class GradeCalculatorTest {
     @Test
     void calculateGradeTest() {
         List<Course> courses = List.of(new Course("OOP", 3, "A+"),
-                new Course("자료구조", 3, "A+"));
+                new Course("자료구조", 3, "A+")); // Course 객체들의 리스트를 생성
 
-        GradeCalculator gradeCalculator = new GradeCalculator(new Course(courses));
-        double gradeResult = gradeCalculator.calculateGrade();
+        GradeCalculator gradeCalculator = new GradeCalculator(new Courses(courses)); // Course 객체 리스트인 Courses 객체를 GradeCalculator에 위임(인스턴스 생성)
+        double gradeResult = gradeCalculator.calculateGrade(); // (학점수 x 교과목 평점(성적))의 합계 메서드 호출
 
-        assertThat(gradeResult).isEqualTo(4.5);
+        assertThat(gradeResult).isEqualTo(4.5); // 결과 예샹
     }
 }

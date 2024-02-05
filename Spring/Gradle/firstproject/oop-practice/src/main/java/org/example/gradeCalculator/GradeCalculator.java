@@ -12,7 +12,7 @@ public class GradeCalculator {
 
     public GradeCalculator(Courses courses) {
         this.courses = courses;
-    }
+    } // Courses 객체가 들어오면 인스턴스를 생성
 
     /*
      * 요구사항
