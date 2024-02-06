@@ -9,7 +9,7 @@ public class MenuItemTest {
     @DisplayName("메뉴항목을 생성한다.")
     @Test
     void createTest() {
-        assertThatCode(() -> new MeniItem("만두", 5000))
+        assertThatCode(() -> new MenuItem("만두", 5000))
                 .doesNotThrowAnyException();
     }
 }

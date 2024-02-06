@@ -11,7 +11,7 @@ public class Cook {
         this.price = price;
     }
 
-    public Cook(MeniItem meniItem) {
+    public Cook(MenuItem meniItem) {
         this.name = meniItem.getName();
         this.price = meniItem.getPrice();
     }
