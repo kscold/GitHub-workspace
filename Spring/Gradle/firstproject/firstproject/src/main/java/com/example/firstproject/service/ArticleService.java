@@ -6,6 +6,7 @@ import com.example.firstproject.repository.ArticleRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -71,13 +72,22 @@ public class ArticleService {
         return target;
     }
 
+    @Transactional
     public List<Article> createArticles(List<ArticleForm> dtos) {
         // 1. dto 묶음을 엔티티 묶음으로 변환하기
         List<Article> articlesList = dtos.stream()
                 .map(dto -> dto.toEntity())
-                .collect(Collectors.toList());
+                .collect(Collectors.toList()); // 스트림을 리스트로 변환한다.
+
         // 2. 엔티티 묶음을 DB에 저장하기
+        articlesList.stream() // 위에서 만든 articlesList를 forEach를 통해 article 하나씩 DB에 저장
+                .forEach(article -> articleRepository.save(article));
+
         // 3. 강제 예외 발생시키기
+        articleRepository.findById(-1L) // Long형식 -1인 Id 찾기(즉, 강제로 예외상황 발생), 테스트 코드라고 생각
+                .orElseThrow(() -> new IllegalArgumentException("결제 실패!")); // 예외 에러 처리 메세지
+
         // 4. 결과 값 반환하기
+        return articlesList;
     }
 }
