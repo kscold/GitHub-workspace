@@ -128,11 +128,21 @@ public class ArticleApiController {
     }
 
     // DELETE
+    @DeleteMapping("/api/articles/{id}")
     public ResponseEntity<Article> delete(@PathVariable Long id) {
         Article deleted = articleService.delete(id);
         return (deleted != null) ?
-                ResponseEntity.status(HttpStatus.NO_CONTENT).build() :
+                ResponseEntity.status(HttpStatus.NO_CONTENT).build() : // 성공하면 No Content를 반환
                 ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+    }
+
+    @PostMapping("/api/transaction-test") // Rest 컨트롤러가 데이터 3개의 생성 요청을 어떻게 받아 결과를 응답하는지 확인
+    public ResponseEntity<List<Article>> transactionTest(@RequestBody List<ArticleForm> dtos) {
+        List<Article> createdList = articleService.createArticles(dtos);
+        return (createdList != null) ?
+                ResponseEntity.status(HttpStatus.OK).body(createdList) :
+                ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
     }
 }
 
