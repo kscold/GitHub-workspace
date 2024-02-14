@@ -16,7 +16,7 @@ import java.util.concurrent.Executors;
 public class CustomWebApplicationServer {
     private final int port; // 일반 상수 선언
 
-    private final ExecutorService executorService = Executors.newFixedThreadPool(10);
+    private final ExecutorService executorService = Executors.newFixedThreadPool(10); // 쓰레드풀 생성
     private static final Logger logger = LoggerFactory.getLogger(CustomWebApplicationServer.class); // 모든 인스턴스가 동일한 상수를 가짐
 
     public CustomWebApplicationServer(int port) {
@@ -44,8 +44,7 @@ public class CustomWebApplicationServer {
                     System.out.println(line); // 입렵 받은 값을 출력
                 }
                  */
-
-                new Thread(new ClientRequestHandler(clientSocket)).start(); // 클라이언트가 연결될 때마다 새로운 쓰레드를 생성
+                executorService.execute(new ClientRequestHandler(clientSocket)); // 쓰레드 풀을 적용해서 클라이언트들을 관리
             }
         }
     }
