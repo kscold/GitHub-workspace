@@ -2,12 +2,14 @@ package org.example;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import org.h2.engine.User;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+
+import java.sql.SQLException;
 
 public class UserDaoTest {
 
@@ -20,12 +22,12 @@ public class UserDaoTest {
     }
 
     @Test
-    void createTest() {
+    void createTest() throws SQLException {
         UserDao userDao = new UserDao(); // UserDao라는 객체를 생성
 
-        userDao.create(new User("wizard", "password", "name", "email")); // userDao에 유저 정보 저장
+        userDao.create2(new User("wizard", "password", "name", "email")); // userDao에 유저 정보 저장
 
-        User user = userDao.findByUserId("wirzard"); // 유저 정보가 제대로 저장되었으면 그 정보를 조회해옴
+        User user = userDao.findByUserId2("wizard"); // 유저 정보가 제대로 저장되었으면 그 정보를 조회해옴
         assertThat(user).isEqualTo(new User("wizard", "password", "name", "email")); // 조회한 정보가 기대값하고 같은지 검증
     }
 }
