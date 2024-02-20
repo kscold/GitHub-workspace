@@ -1,5 +1,7 @@
 package org.example.mvc.controller;
 
+import org.example.mvc.repository.UserRepository;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
@@ -7,7 +9,7 @@ import java.util.List;
 public class UserListController implements Controller{
     @Override
     public String handleRequest(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.setAttribute("users", List.of()); // jsp 뷰에 users 객체를 전달
-        return "/user/list.jsp";
+        request.setAttribute("users", UserRepository.findAll()); // jsp 뷰에 users 객체를 전달
+        return "/user/list";
     }
 }
