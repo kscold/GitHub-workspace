@@ -10,7 +10,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 public class BeanFactory {
-    private final Set<Class<?>> preInstantiatedClazz;
+    private final Set<Class<?>> preInstantiatedClazz; // 클래스을 가져올 수 있는 변수를 Set 집합으로 선언
     private Map<Class<?>, Object> beans = new HashMap<>();
 
     public BeanFactory(Set<Class<?>> preInstantiatedClazz) {
@@ -19,7 +19,7 @@ public class BeanFactory {
     }
 
     private void initialize() {
-        for (Class<?> clazz : preInstantiatedClazz) {
+        for (Class<?> clazz : preInstantiatedClazz) { // 클래스를 하나씩 돌음
             Object instance = createInstance(clazz);
             beans.put(clazz, instance);
         }
@@ -58,8 +58,8 @@ public class BeanFactory {
     private Object getPrarameterByClass(Class<?> typeClass) {
         Object instanceBean = getBean(typeClass);
 
-        if (Objects.nonNull(instanceBean)) {
-            return instanceBean;
+        if (Objects.nonNull(instanceBean)) { // 인스턴스가 없다면
+            return instanceBean; // 재귀 호출을 하여 필요함 대상부터 인스턴스를 생성
         }
 
         return createInstance(typeClass);

@@ -47,7 +47,7 @@ public class DispatcherServlet extends HttpServlet { // HttpServlet를 상속
         RequestMethod requestMethod = RequestMethod.valueOf(request.getMethod());
 
         try {
-            Object handler = handlerMappings.stream()
+            Object handler = handlerMappings.stream() // handlerMappings을 통해 적절한 핸들러를 선택하게 됨
                     .filter(hm -> hm.findHandler(new HandlerKey(requestMethod, requestURI)) != null) // 메서드랑 패스가 null이 아닌 값만 뽑기
                     .map(hm -> hm.findHandler(new HandlerKey(requestMethod, requestURI))) // 데이터를 뿌림
                     .findFirst() // 첫번째 만족하는 값을 반환
@@ -57,16 +57,16 @@ public class DispatcherServlet extends HttpServlet { // HttpServlet를 상속
             // 정의한 HandlerKey 객체를 통해 메서드와 uri를 매칭하여 인스턴스화
             // 이후, finHandler를 통해 적절한 Controller를 객체로 반환 받음
 
-            HandlerAdapter handlerAdapter = handlerAdapters.stream() // handlerAdapters 클래스의 메서드를 실행
+            HandlerAdapter handlerAdapter = handlerAdapters.stream() // handlerAdapters 클래스를 통해 handler를 실행
                     .filter(ha -> ha.supports(handler)) // supports 객체 실행(전달한 handler가 Controller 인터페이스의 구현체(인스턴스)라면)
                     .findFirst() // 첫번째 만족하는 데이터를 찾아서 반환
                     .orElseThrow(() -> new ServletException("No adaptor for handler [" + handler + "]")); // 못찾으면 오류 메세지 반환
 
             ModelAndView modelAndView = handlerAdapter.handle(request, response, handler); // handlerAdapter에서 handle 메서드 실행(viewName String을 ModelAndView 객체로 반환)
 
-            for (ViewResolver viewResolver : viewResolvers) {
-                View view = viewResolver.resolveView(modelAndView.getViewName());
-                view.render(modelAndView.getModel(), request, response);
+            for (ViewResolver viewResolver : viewResolvers) { // viewResolvers의 메서드를 종류별로 순회
+                View view = viewResolver.resolveView(modelAndView.getViewName()); // viewResolver에 따라 적절한 뷰 네임을 반환 받음
+                view.render(modelAndView.getModel(), request, response); // 선택된 뷰를 렌더링
             }
 
 

@@ -16,7 +16,8 @@ public class SimpleControllerHandlerAdapter implements HandlerAdapter {
 
     @Override
     public ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        String viewName = ((Controller) handler).handleRequest(request, response); // Controller의 구현체가 호출을 하면 viewName으로 리턴
+        String viewName = ((Controller) handler).handleRequest(request, response); // 내부적으로 전달받은 핸들러를 어댑터 내부에서 실행
+        // Controller의 구현체가 호출을 하면 viewName으로 리턴
         return new ModelAndView(viewName); // 최종적으로는 ModelAndView 객체로 반환
     }
 }
