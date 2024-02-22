@@ -1,8 +1,10 @@
 # 사전 key : value 한 쌍
+# key로 접근이 가능
 
 cabinet = {3: "푸", 100: "피글렛"}
 print(cabinet)
 print(cabinet[3])
+
 print(cabinet.get(3))
 
 # 딕셔너리에 새로운 값을 추가하는 방법

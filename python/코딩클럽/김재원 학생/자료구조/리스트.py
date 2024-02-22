@@ -2,10 +2,10 @@
 # subway2 = 20
 # subway3 = 30
 # print(subway1, subway2, subway3)
-
+# 인덱스로 접근이 가능함
 
 subway = [15, 50, 30, 10, 40]
-# print(subway)
+# print(subway[0])
 
 # 값 추가 삽입 삭제는 어떻게??
 
