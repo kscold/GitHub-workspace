@@ -17,7 +17,7 @@ print(iceCream)
 subway = [10, 20, 30, 20]
 #         0   1  2   3
 
-
+print(subway[0])
 print(subway.index(20))  # 리스트에서 인덱스 구하기
 
 # append는 맨 뒤에 요소(item)를 추가하는 것

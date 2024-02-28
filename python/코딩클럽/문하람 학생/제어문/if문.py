@@ -12,7 +12,7 @@
 
 temp = int(input("오늘 기온은 어때요?"))
 
-if 45 <= temp:
+if 45 <= temp:  # True False
     print("기후가 이상해요")
 
 elif 30 <= temp < 45:

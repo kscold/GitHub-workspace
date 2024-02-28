@@ -9,8 +9,9 @@
 # %=
 
 var = 5
+# var = var + 1
+var += 1
+print(var)
 
 # var = var - 2  # 3
-var -= 2  # var = var - 2
-
-print(var)
+# var -= 2  # var = var - 2

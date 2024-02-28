@@ -49,7 +49,7 @@
 # 문제 2
 temp = float(input())
 
-if temp >= 39:
+if temp >= 39:  # True
     print("고열입니다.")
 elif temp >= 37:
     print("미열입니다.")
