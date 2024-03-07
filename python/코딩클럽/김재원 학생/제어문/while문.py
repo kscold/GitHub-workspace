@@ -2,7 +2,8 @@
 #     실행할 명령
 
 
-# for waiting_no in [1, 2, 3, 4]:
+# for waiting_no in [1, 2, 3, 4]: #range(1,5)
+# for waiting_no in range(1, 5):
 #     print(f"대기번호 : {waiting_no}")
 
 waiting_no = 1
@@ -14,8 +15,8 @@ while waiting_no <= 10:  # 5 <= 4 False
         waiting_no += 1
         continue
 
-    # if waiting_no == 8:  # 짝수일 때 실행하는 조건 2
-    #     break
+    if waiting_no == 9:  # 짝수일 때 실행하는 조건 2
+        break
 
     print(f"대기번호 : {waiting_no}")  # 1 3 5 6 7 8 9
     waiting_no += 1  # waiting_no = waiting_no - 1

@@ -15,17 +15,3 @@ for waiting_no in range(1, 11):  # [1, 2, 3, 4] randrange(1, 11) randint(1, 10)
 orders = ["아이언맨", "토르", "스파이더맨"]
 for order in orders:
     print(f"고객님 : {order}")
-
-
-# for문을 한줄로 표현하는 방법 (리스트 컴프리헨션)
-# list1 = [1, 2, 3, 4, 5]
-# print(list1)
-
-list2 = [i for i in range(1, 6)]
-print(list2)
-
-list2 = []
-for i in range(1, 6):
-    list2.append(i)
-    print(list2)
-print(list2)

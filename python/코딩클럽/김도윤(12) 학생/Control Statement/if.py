@@ -22,5 +22,9 @@ elif 10 <= temp and temp < 30:
     print("활동하기 좋은 날씨에요.")
 elif 0 <= temp and temp < 10:
     print("조금 추워요.")
-else:
+elif -20 <= temp and temp < 0:
     print("너무 추워요")
+else:
+    print("빙하기")
+
+print("항상 마지막에 실행되는 프린트문입니다.")
