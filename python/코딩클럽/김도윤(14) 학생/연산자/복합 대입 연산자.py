@@ -9,14 +9,8 @@
 # %=
 
 number = 2  # 변수를 선언(대입)
-# number = number + 2  # 4
-number += 3  # number = number + 2
+number += 3  # number = number + 3
 print(number)  # 5
-
-# number = number * 2
-number *= 2  # number = number * 2
-
-print(number)
 
 
 # 다음과 같은 실행결과를 얻기 위해 가에 들어갈 코드로 알맞은 것은?
