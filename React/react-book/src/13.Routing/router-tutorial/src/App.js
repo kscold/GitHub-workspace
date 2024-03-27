@@ -5,6 +5,7 @@ import Profile from './page/Profile';
 import Article from './page/Article';
 import Articles from './page/Articles';
 import Layout from './page/Layout';
+import NotFound from './page/NotFound';
 
 const App = () => {
   return (
@@ -17,6 +18,8 @@ const App = () => {
       <Route path="/articles" element={<Articles />}>
         <Route path=":id" element={<Article />} />
       </Route>
+      <Route path="*" element={<NotFound />} />
+      {/* 가장 마지막에 규칙을 정의함으로써 위의 url를 제외하고는 404 페이지를 띄움 */}
     </Routes>
   );
 };
