@@ -2,7 +2,6 @@
 # subway2 = 20
 # subway3 = 30
 
-
 # print(subway1, subway2, subway3)
 
 # index를 이용한 String
@@ -53,7 +52,7 @@ print(subway)
 # num_list2 = [8, 3, 9, 2, 5]
 # num_list1.append(num_list2)
 # print(num_list1)
-# print(num_list1[5][0]) # 이차원 리스트가 만들어져서 안됨
+# print(num_list1[5][0])  # 이차원 리스트가 만들어져서 안됨
 
 # 리스트 2개를 합치기(확장) extend
 num_list1 = [5, 2, 4, 3, 1]

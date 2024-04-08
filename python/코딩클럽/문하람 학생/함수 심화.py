@@ -1,11 +1,15 @@
 # 매개변수 parameter
+# 기본 인자 선언 예시
 def profile(name, age=25, main_lang="자바스크립트"):
     print(f"이름 : {name}\t나이 : {age}\t주 사용 언어 : {main_lang}")
 
 
 profile("찰리", 20, "파이썬")
 profile("루시", 25, "자바")
-profile(age=16, name="문하람")  # 키워드 인자
+
+
+# 키워드 인자
+profile(age=16, name="문하람")
 
 
 # 가변 인자
