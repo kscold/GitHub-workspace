@@ -59,7 +59,7 @@ stealth1 = Unit("전투기", 80, 5)
 
 stealth2 = Unit("업그레이드한 전투기", 80, 5)
 
-stealth2.cloaking = True  # 오버라이딩
+stealth2.cloaking = True  # 인스턴스 변수 오버라이딩(업데이트)
 
 if stealth2.cloaking == True:
     print(f"{stealth2.name}는 현재 은폐 상태입니다.")

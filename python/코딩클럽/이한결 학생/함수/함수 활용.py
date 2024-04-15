@@ -13,7 +13,7 @@ profile(main_lang="스위프트", age=20, name="김승찬")
 # 가변 인자
 def profile2(name, age, *language):
     print(f"이름 : {name}\t나이 : {age}\t주 사용 언어 :", end=" ")
-    for lang in language:  # ["파이썬", "자바", "자바스크립트"]
+    for lang in language:  # ["파이썬", "자바", "자바스크립트", "C", "C++"]
         print(lang, end=" ")
     print()
 
