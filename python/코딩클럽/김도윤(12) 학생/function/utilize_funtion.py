@@ -19,4 +19,4 @@ def profile2(name, age, *language):
     print()
 
 
-profile2("Lucy", 23, "Java", "JavaScript", "C", "C++")
+profile2("Lucy", 23, "Java", "JavaScript", "C", "python")
