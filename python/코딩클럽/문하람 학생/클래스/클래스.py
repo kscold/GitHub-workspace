@@ -23,6 +23,7 @@
 
 # 클래스는 함수(명령어)들의 집합
 class Unit:
+    # 클래스를 호출하면 자동적으로 호출됨
     def __init__(self, name, hp, damage):  # 생성자 메서드(생성자 함수)
         self.name = name
         self.hp = hp
@@ -39,11 +40,11 @@ tank = Unit("탱크", 150, 35)
 
 stealth = Unit("전투기", 80, 5)
 print(f"유닛 이름 : {stealth.name}, 공격력 :{stealth.damage}")
-print(dir(stealth))
+# print(dir(stealth))
 
 stealth2 = Unit("업그레이드된 전투기", 80, 5)
 stealth2.cloaking = True  # 은폐상태를 추가(오버라이딩) 업그레이드
-print(dir(stealth2))
+# print(dir(stealth2))
 
 if stealth2.cloaking == True:
     print(f"{stealth2.name}는 현재 은폐 상태입니다.")
