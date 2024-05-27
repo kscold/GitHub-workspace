@@ -4,11 +4,15 @@
 # 문자열(string) 변수 예) "문자"
 # 불리언(boolean) 변수 예) True or False
 
-입력1 = int(input())  # 3
-입력2 = int(input())  # 4
+# input() 한줄에 하나씩 입력을 받을 수 있음
+a = int(input())  # 3
+b = int(input())  # 4
 
 # == 같다
 # 7   -> "7"  -> "결과값: " + "7" == "결과값: 7"
-print("결과값: " + str(입력1 + 입력2))
+print("결과값: " + str(a + b))
 
-print("결과값: " + str(입력1 - 입력2))
+
+# map()과 input().split() 한줄에 여러개를 띄어쓰기 기준으로 입력을 받을 수 있음
+a, b = map(int, input().split())
+print(f"결과값: {a,b}")

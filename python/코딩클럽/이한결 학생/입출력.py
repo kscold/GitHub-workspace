@@ -2,6 +2,15 @@
 # input() 명령어는 기본적으로 문자열(str)("")을 받는다.
 # 그래서 숫자(정수)로 받을려면 int(input())으로 만들어 주어야 한다.
 
+a = int(input())
+print(a)
+print(type(a))
+# 123
+# 123 "123" str
+a = int(input())
+print(a)
+print(type(a))  # int
+
 var1 = int(input())
 var2 = int(input())
 
