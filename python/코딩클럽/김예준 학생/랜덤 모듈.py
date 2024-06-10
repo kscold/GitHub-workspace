@@ -1,3 +1,4 @@
+# import random
 from random import *
 
 # random() 이라는 메서드는 0이상 1미만까지 실수를 생성함

@@ -1,14 +1,16 @@
 # if 만약 ~ 라면
+# if문의 특징 boolean 값의 조건이 들어감
+# 이 조건이 True일 때만 밑의 block실행이 됨
 
 # 기본 예시
-# weather = input()
+weather = input()
 
-# if weather == "비" or weather == "눈":
-#     print("우산을 챙기세요")
-# elif weather == "미세먼지":
-#     print("마스크를 챙기세요")
-# else:
-#     print("준비물이 필요 없어요")
+if weather == "비" or weather == "눈":
+    print("우산을 챙기세요")
+elif weather == "미세먼지":
+    print("마스크를 챙기세요")
+else:
+    print("준비물이 필요 없어요")
 
 # 온도를 입력받는 예시
 # temp = int(input("오늘 기온은 어때요? "))

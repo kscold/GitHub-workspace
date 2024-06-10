@@ -26,11 +26,26 @@
 # 예제 출력 3
 # ==
 
-a, b = map(int, input().split())
+# a, b = map(int, input().split())
 
-if a < b:
-    print("<")
-elif a > b:
-    print(">")
-else:
-    print("==")
+# if a < b:
+#     print("<")
+# elif a > b:
+#     print(">")
+# else:  # elif a == b:
+#     print("==")
+
+
+# 숫자를 하나 입력받음
+# 0부터 33까지면 "난이도 하"
+# 34부터 66까지는 "난이도 중"
+# 67이상 "난이도 상"
+
+a = int(input())
+
+if a >= 0 and a < 34:
+    print("난이도 하")
+elif a >= 34 and a < 67:
+    print("난이도 중")
+elif a >= 67:
+    print("난이도 상")

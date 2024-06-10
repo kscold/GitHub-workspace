@@ -1,7 +1,17 @@
-import Name from './Name';
+import MyComponent from './components/MyComponent';
+import Name from './components/Name';
+import Say from './components/Say';
 
 const App = () => {
-  return <Name />;
+  return (
+    <>
+      {/* <Name /> */}
+      {/* <MyComponent name="김승찬" height="180">
+        안녕
+      </MyComponent> */}
+      <Say />
+    </>
+  );
 };
 
 export default App;
