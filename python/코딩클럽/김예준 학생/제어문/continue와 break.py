@@ -1,5 +1,5 @@
-# continue는 반복문에서 현재 상황을 건너 뛰고 다음 반복을 진행
-# break는 break를 만나는 순간 반복문을 중단시킴
+# continue는 반복문(for문, while문)에서 현재 상황을 건너 뛰고 다음 반복을 진행
+# break는 반복문(for문, while문)에서 break를 만나는 순간 반복문을 중단시킴
 
 # for문 안의 if문과 continue break를 사용하는 경우
 absent = [2, 5]
