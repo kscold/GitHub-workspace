@@ -9,13 +9,15 @@
 
 
 # 매개변수(parameter) x나 y같이 변수인데 값을 매개(연결)하는 변수
-# def plus(x, y):  # x = 4 y = 3
-#     sum = x + y  # sum = 4 + 3, == 7
-#     print(f"결과는 : {sum}")
+def plus(x, y):  # x = 4 y = 3
+    sum = x + y  # sum = 4 + 3, == 7
+    # print(f"결과는 : {sum}")
+    return sum
 
 
 # # 인자(argument) 3이나 4처럼 실제 값이 들어가서 매개변수에 대입되는 값
-# plus(4, 3)
+print(f"결과는 : {plus(4,3)}")
+# print(plus(4, 3))
 
 # # 인자랑 매개변수의 순서와 갯수는 꼭 맞추어 주어야 함
 
