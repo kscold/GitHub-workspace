@@ -38,3 +38,20 @@
 # 3. str("734" "893")로 바꿨으면 reverse가 가능함("437" "398")
 # 4. 뒤집은 문자열을 다시 int로 바꿈 str -> int
 # 5. if문을 통해 더 큰 뒤집은 숫자를 프린트함
+
+
+def reverse(target):
+    reverse_str = ""
+    for i in target:
+        reverse_str = i + reverse_str
+
+    return int(reverse_str)
+
+
+a, b = map(str, input().split())
+
+
+if reverse(a) > reverse(b):
+    print(reverse(a))
+else:
+    print(reverse(b))
