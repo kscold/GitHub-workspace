@@ -20,3 +20,5 @@
 num = int(input())
 num -= 543  # num = num - 543
 print(num)
+
+# 리뷰 1 완료

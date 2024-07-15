@@ -9,12 +9,12 @@ def open_account():
     print("새로운 계좌를 개설합니다.")
 
 
-def deposit(balance, money):  # balance = 0, money = 1000
+def deposit(balance, money):  # balance = 2000, money = 1000
     print(f"{money}원을 입금했습니다. 잔액은 {balance+money}원입니다.")
-    return balance + money  # 0 + 1000
+    return balance + money  # 2000 + 1000
 
 
-def withdraw(balance, money):
+def withdraw(balance, money):  # balance = 3000, money = 1500
     if balance >= money:
         print(f"{money}원을 출금했습니다. 잔액은 {balance-money}원입니다.")
         return balance - money
@@ -23,12 +23,12 @@ def withdraw(balance, money):
         return balance
 
 
-def withdraw_night(balance, money):
+def withdraw_night(balance, money):  # balance = 1500, money = 1000
     now = datetime.now()
     print("현재 시간은:" + str(now.hour))
     commission = 100
 
-    if now.hour >= 9 and now.hour <= 17:  # 9시 ~ 17시
+    if now.hour >= 9 and now.hour < 17:  # 9시 ~ 16시
         return commission, balance - money
     else:
         print(f"업무 시간 외에 {money}원을 출금했습니다.")
@@ -48,7 +48,7 @@ print(f"입금 후 자금: {balance}원")  # 3000
 balance = withdraw(balance, 1500)  # 1500
 print(f"출금 후 자금: {balance}원")
 
-balance = withdraw(balance, 2000)  # 2000
+balance = withdraw(balance, 2000)  # 1500
 print(f"출금 후 자금: {balance}원")
 
 commission, balance = withdraw_night(balance, 1000)  # 1000

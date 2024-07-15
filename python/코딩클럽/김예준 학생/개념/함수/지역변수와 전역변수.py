@@ -14,7 +14,7 @@ print(f"남은 3D 안경 개수: {glasses}")
 
 
 # global 키워드를 사용하서 전역변수를 지역변수로 가져오는 방법
-def rent2(people):  # glasses = 10. people = 2
+def rent2(people):  # people = 2
     # local
     global glasses
     glasses = glasses - people  # 10 - 2,    glasess = 8 지역 변수

@@ -1,10 +1,9 @@
-import Counter from './components/Counter';
-import EventPractice from './components/EventPractice';
+import IterationSample from './components/IterationSample';
 
 const App = () => {
   return (
     <>
-      <EventPractice />
+      <IterationSample />
     </>
   );
 };

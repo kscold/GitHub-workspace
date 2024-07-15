@@ -15,7 +15,7 @@ def plus(x, y):  # x = 4 y = 3
     return sum
 
 
-# # 인자(argument) 3이나 4처럼 실제 값이 들어가서 매개변수에 대입되는 값
+# 인자(argument) 3이나 4처럼 실제 값이 들어가서 매개변수에 대입되는 값
 print(f"결과는 : {plus(4,3)}")
 # print(plus(4, 3))
 

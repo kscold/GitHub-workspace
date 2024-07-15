@@ -28,3 +28,9 @@ for waiting_no in range(5, 0, -1):  # [1, 3 ,5]2, 3따로 지정하지 않으면
 orders = ["아이언맨", "토르", "스파이더맨"]
 for order in orders:
     print(f"주문하신 분 : {order}")
+
+
+# list와 마찬가지로 문자열도 반복 대상으로 설정하면 똑같이 한글자씩 반복할 수 있음
+c = "hello"
+for char in c:
+    print(char)

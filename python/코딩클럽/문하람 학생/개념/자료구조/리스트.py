@@ -14,6 +14,7 @@ iceCream.insert(index, "투게더")
 print(iceCream)
 
 
+# subway = list(10, 20, 30, 40)
 subway = [10, 20, 30, 20]
 #         0   1  2   3
 

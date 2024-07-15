@@ -27,15 +27,21 @@
 # A
 
 
-words = input()
-words = words.upper()
-set_list = list(set(words))
+words = input()  # Mississipi
+words = words.upper()  # MISSISSIPI
+set_lists = list(set(words))  # {"M","S", "I", "P"} -> ["M","S", "I", "P"]
 
-set_count = []
-for i in set_list:
-    set_count.append(words.count(i))
+set_list_count = []  # [1, 4, 4, 1]
 
-if set_count.count(max(set_count)) > 1:
+for set_list in set_lists:
+    set_list_count.append(words.count(set_list))  # MISSISSIPI.count("P")
+
+if set_list_count.count(max(set_list_count)) > 1:
     print("?")
 else:
-    print(set_list[set_count.index(max(set_count))])
+    print(set_lists[set_list_count.index(max(set_list_count))])
+
+# ZZA
+# set_lists =  ["Z", "A"]
+# set_list_count = [2, 1]
+# Z

@@ -9,7 +9,11 @@
 # == 같니?
 # != 같지않니?
 
-print(10 > 3)
-print(4 >= 7)
-print(10 < 3)
-print(5 <= 3)
+print(10 > 3)  # True
+print(4 >= 7)  # False
+print(10 < 3)  # False
+print(5 <= 3)  # False
+
+print(3 == 3)  # True
+print(4 != 3)  # True
+print(3 + 4 == 7)  # True

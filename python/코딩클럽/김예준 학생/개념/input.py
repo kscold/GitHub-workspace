@@ -11,3 +11,8 @@ a = int(input())
 
 print(a)
 print(type(a))
+
+# 만약 입력이 한줄에 띄어쓰기를 기준으로 입력을 받아야할 때
+# map() split()를 활용함
+a, b, c = map(int, input().split())
+print(a, b, c)
