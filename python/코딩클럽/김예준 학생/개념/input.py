@@ -16,3 +16,7 @@ print(type(a))
 # map() split()를 활용함
 a, b, c = map(int, input().split())
 print(a, b, c)
+
+# map().split()으로 바로 리스트에 값을 넣는 방법
+a = list(map(int, input().split()))
+print(a)

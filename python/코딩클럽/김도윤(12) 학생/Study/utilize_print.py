@@ -18,3 +18,8 @@ print(f"{var1}{var2}")
 print("{0:.2f}".format(5 / 3))
 # f
 print(f"{round(5/3,2)}")
+
+
+# Convert list to string through "".join(list)
+string = ["안녕", "하세요"]
+print("".join(string))

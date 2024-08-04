@@ -72,3 +72,7 @@ mix_list = ["푸", 20, True]
 num_list = [5, 2, 4, 3, 1]
 mix_list.extend(num_list)
 print(mix_list)
+
+# 리스트는 인덱스를 기반으로 슬라이싱을 할 수 있음
+datas = [23, 64, 124, 643, 12]
+print(datas[:3])

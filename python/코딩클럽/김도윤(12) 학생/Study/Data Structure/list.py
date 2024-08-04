@@ -60,3 +60,10 @@ num_list2 = [8, 3, 9, 2, 5]
 num_list1.extend(num_list2)
 num_list1.sort()
 print(num_list1)
+
+
+# How to select the last element(item)
+numbers = [1, 2, 3, 4, 5]
+#         -5 -4 -3 -2 -1
+print(numbers[-1])
+print(numbers[-2])

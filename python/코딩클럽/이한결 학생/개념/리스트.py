@@ -17,8 +17,10 @@
 # clear() 리스트 안에 있는 모든 데이터를 삭제해 주는 명령어
 
 subway = []  # [] ["김승찬"]
+# subway = list() # 또 다른 리스트를 선언하는 방법
 # subway = [100, "홍대역", 1]
 #          0      1      2
+# subway = list(100, "홍대역", 1)
 
 subway.append("김승찬")  # "김승찬"을 맨 뒤에 넣어라
 subway.append("김승찬")  # "김승찬"을 맨 뒤에 넣어라
@@ -46,3 +48,8 @@ num_list2 = [3, 4, 5, 234, 23, 6236]
 num_list.extend(num_list2)
 num_list.sort()
 print(num_list)
+
+# index를 사용해서 특정 요소의 index를 찾는 예시
+number = [85, 234, 63, 23, 125, 63]
+
+print(number.index(23) + 1)

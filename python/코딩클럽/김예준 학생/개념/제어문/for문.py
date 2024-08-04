@@ -20,20 +20,19 @@
 # range(start, end, interval) 한개만 설정해도되고, 두개만 설정해도 되고, 세개만 설정해도 됨
 
 # range(end) # 0부터 end - 1까지 반복 대상을 만듬
-# for waiting_no in range(5):  # [0, 1, 2, 3, 4]
-#     print(f"대기번호: {waiting_no}")
+for waiting_no in range(5):  # [0, 1, 2, 3, 4]
+    print(f"대기번호: {waiting_no}")
 
 # range(start, end) # 1부터 end - 1까지 반복 대상을 만듬
-# for waiting_no in range(1, 101):  # [1, 2, 3, 4, 5 ... 100]
-#     print(f"대기번호: {waiting_no}")
+for waiting_no in range(1, 101):  # [1, 2, 3, 4, 5 ... 100]
+    print(f"대기번호: {waiting_no}")
 
 # range(start, end, interval) # 1부터 end - 1까지 interval 만큼 띄어서 반복 대상을 만듬
-# for waiting_no in range(1, 6, 2):  # [1, 3, 5]
-#     print(f"대기번호: {waiting_no}")
+for waiting_no in range(1, 6, 2):  # [1, 3, 5]
+    print(f"대기번호: {waiting_no}")
 
-
-# for waiting_no in range(5, 0, -1):  # [5, 4, 3, 2, 1]
-#     print(f"대기번호: {waiting_no}")
+for waiting_no in range(5, 0, -1):  # [5, 4, 3, 2, 1]
+    print(f"대기번호: {waiting_no}")
 
 
 # 리스트 반복을 써야만 할때, 문자열일 때
