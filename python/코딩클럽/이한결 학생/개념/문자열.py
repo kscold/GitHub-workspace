@@ -9,14 +9,15 @@
 
 # print(f"전화 번호는 {seungChan[0:9]}****")
 
-# 문자 = "한결\n안녕"  # 개행 \n
+문자 = "Hello"
+#       01234
 
-# print(문자.lower())
-# print(문자.upper())
-# print(문자[0].isupper())  # a가 대문자면 True를 반환 소문자면 False 반환
-# print(문자[0].islower())
-# print(문자)
-# print(문자[1:3])
+print(문자.lower())
+print(문자.upper())
+print(문자[0].isupper())  # H가 대문자면 True를 반환
+print(문자[0].islower())  # H가 소문자가 아니기 때문에 False 반환
+print(문자)
+print(문자[1:3])
 
 # 문자 = "한결안녕"  # 개행 \n
 # # 0 1 2 3

@@ -12,3 +12,7 @@
 
 # 출력 #1
 # stringstringstringstringstring
+
+str, n = map(str, input().split())
+n = int(n)
+print(str * n)

@@ -16,3 +16,8 @@ print("파이썬", "자바", sep=", ")
 
 for i in range(1, 11):
     print(i, end=" ")
+
+
+# 리스트를 하나의 문자열로 합치는 방법
+eng = ["a", "b", "c", "d"]
+print("".join(eng))
