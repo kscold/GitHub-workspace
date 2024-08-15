@@ -50,3 +50,21 @@ num_list = [5, 2, 4, 3, 1]
 num_list.extend(subway)
 
 print(num_list)
+
+
+# 리스트의 길이나 문자열의 길이를 측정할 때
+some_list = ["안녕", 1, 2]
+#               0    1  2
+#              -3   -2 -1
+print(len(some_list))
+
+some_string = "안녕하세요"
+print(len(some_string))
+
+# 가장 마지막 요소(item)을 선택하고 싶을 때
+# len을 이용하는 방법
+print(some_list[len(some_list) - 1])
+
+# - 인덱스를 이용하는방법
+print(some_list[-1])
+print(some_list[-3])

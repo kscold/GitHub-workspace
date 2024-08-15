@@ -3,6 +3,7 @@
 
 # 제한사항
 # 1 ≤ n ≤ 1,000
+
 # 입출력 예
 # 입력 #1
 # 100
@@ -15,3 +16,9 @@
 
 # 출력 #2
 # 1 is odd
+n = int(input())
+
+if n % 2 == 0:
+    print(f"{n} is even")
+else:
+    print(f"{n} is odd")
